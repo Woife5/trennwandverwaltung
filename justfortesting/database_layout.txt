@@ -1,1 +1,1 @@
-ID|teachername|class|day|lesson|duration|trennwand1|trennwand2|trennwand3|trennwand4|
+ID[int]|teachername[char:100]|class[char:10]|day[char:10]|lesson[int]|duration[int]|trennwand1[int]|trennwand2[int]|trennwand3[int]|trennwand4[int]|
