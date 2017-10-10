@@ -1,0 +1,1 @@
+ID|teachername|class|day|lesson|duration|trennwand1|trennwand2|trennwand3|trennwand4|
