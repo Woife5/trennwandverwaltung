@@ -1,14 +1,18 @@
-var fs = require('fs');
 const express = require('express')
 const app = express()
+var router = express.Router()
+var path = __dirname + '/public/'
 
-app.get('/', function (req, res) {
-  fs.readFile('index.html', function(err, data) {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write(data);
-    res.end();
-  });
+router.use(function (req,res,next) {
+  console.log("/" + req.method);
+  next();
+});
+
+router.get("/",function(req,res){
+	app.use(express.static('public'))
 })
+
+app.use("/",router)
 
 app.listen(80, function () {
   console.log('Example app listening on port 80!')
