@@ -16,3 +16,4 @@ function getdate(){
 	Ütomorrow=Ütomorrow.substring(0,15);
  document.getElementById("Ütomorrow").innerHTML = Ütomorrow;
 }
+

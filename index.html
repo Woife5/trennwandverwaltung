@@ -8,9 +8,9 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.css">
   </head>
-  <body onload="getdate()">
+  <body onload="Dateneingabe()">
     <h1>Hello, world!</h1>
-
+	
 	<div class ="container">
 		<div class="row">
 			<div class="col-sm-3" >
@@ -23,11 +23,29 @@
 				<p id ="Ütomorrow"></p>
 			</div>
 		</div>
+		
 		<div class="row">
 			<div class="col-sm-3" >
-				<button class="btn btn-primary" id="btnPopover" title="popover Title"
-					data-content="Popover content. Popover content."
-					data-trigger="focus"
+				<button class="btn btn-primary" id="btnPopover" title="Trennwand-Reservierung"
+					data-content='
+					<form action="register.js" method="POST">
+						<a>Datum:</a><br>
+						<input type="date" name="date" ><br>
+						<a>Beginn E.:</a><br>
+						<input type="number" name="BeginnE" value="1"><br>
+						<a>Anzahl E.:</a><br>
+						<input type="number" name="AnzahlE" value="1"><br>
+						<a>Lehrer Kzl.:</a><br>
+						<input type="text" name="LehrerKzl"><br>
+						<a>Klasse:</a><br>
+						<input type="text" name="Klasse"><br>
+						<a>Anzahl Koffer:</a><br>
+						<input type="number" name="AnzahlKoffer" value="1"><br>
+						<input type="submit" value="submit">
+					</form>'
+					
+					data-html="true"
+					
 					data-toggle="popover"
 					>
 					1
@@ -74,7 +92,7 @@
 	<script type ="text/javascript">
 	
 $(document).ready(function(){
-	$('#btnPopover').popover();
+    $('[data-toggle="popover"]').popover(); 
 });
 </script>
 
