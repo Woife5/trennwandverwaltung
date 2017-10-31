@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.css">
   </head>
-  <body onload="Dateneingabe()">
+  <body onload="getdate()">
     <h1>Hello, world!</h1>
 	
 	<div class ="container">
@@ -22,17 +22,21 @@
 			<div class="col-sm-3">
 				<p id ="Ütomorrow"></p>
 			</div>
+			<div class="col-sm-3">
+				<p id ="Ü2tomorrow"></p>
+			</div>
+			
 		</div>
 		
 		<div class="row">
 			<div class="col-sm-3" >
-				<button class="btn btn-primary" id="btnPopover" title="Trennwand-Reservierung"
+				<button  class="btn btn-primary" id="btnPopover" title="Trennwand-Reservierung"
 					data-content='
-					<form action="/save" method="GET" target="_blank">
+					<form onfocus="myFu()" action="/save" method="POST" target="_blank">
 						<a>Datum:</a><br>
-						<input type="date" name="date" ><br>
+						<input  type="date" id="myDate"  ><br>
 						<a>Beginn E.:</a><br>
-						<input type="number" name="BeginnE" value="1"><br>
+						<input  type="number" name="BeginnE" value="1"><br>
 						<a>Anzahl E.:</a><br>
 						<input type="number" name="AnzahlE" value="1"><br>
 						<a>Lehrer Kzl.:</a><br>
@@ -52,12 +56,15 @@
 				</button>
 			</div>
 			<div class="col-sm-3" >
+			
 				1
 			</div>
 			<div class="col-sm-3">
+			
 				1
 			</div>
 			<div class="col-sm-3">
+			
 				1
 			</div>
 		</div>
@@ -103,8 +110,10 @@
 $(document).ready(function(){
     $('[data-toggle="popover"]').popover(); 
 });
-</script>
 
+
+
+</script>
 
 
   </body>
