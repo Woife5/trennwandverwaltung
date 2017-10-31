@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Woife5/trennwandverwaltung/issues"
   },
-  "homepage": "https://github.com/Woife5/trennwandverwaltung#readme"
+  "homepage": "https://github.com/Woife5/trennwandverwaltung#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2"
+  }
 }
