@@ -35,10 +35,10 @@
 				<button  class="btn btn-primary" id="btnPopover" title="Trennwand-Reservierung"
 					data-content='
 
-					<form action="/save" method="POST" target="_blank">
+					<form action="/save" method="POST" >
 
 						<a>Datum:</a><br>
-						<input  type="date" id="myDate"  ><br>
+						<input  type="date" name="Datum" id="myDate"  ><br>
 						<a>Beginn E.:</a><br>
 						<input  type="number" name="BeginnE" value="1"><br>
 						<a>Anzahl E.:</a><br>
@@ -53,7 +53,7 @@
 					</form>'
 					
 					data-html="true"
-					
+					data-trigger="click"
 					data-toggle="popover"
 					>
 					1
