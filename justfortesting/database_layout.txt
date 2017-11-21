@@ -1,8 +1,8 @@
-ID[int]|teachername[char:100]|class[char:10]|date[DATE]|lesson[int]|duration[int]|twfk[int]
+﻿ID[int]|teachername[char:100]|class[char:10]|date[DATE]|lesson[int]|duration[int]|twfk[int]
 ID[int]|twname[char:20]
 
 Trennwände:
-1 Blau
-2 Grün
-3 Rot
-4 Gelb
+0 Blau
+1 Grün
+2 Rot
+3 Gelb
