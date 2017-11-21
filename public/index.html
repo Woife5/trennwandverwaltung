@@ -1,129 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.css">
-  </head>
-  <body onload="getdate()">
-    <h1>Trennwand-Reservierung</h1>
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+
+<body onload="getdate()">
+  <h1>Trennwand-Reservierung</h1>
 
 
 
-	<div class ="container">
-		<div class="row">
-			<div class="col-sm-3" >
-				<p id ="today"></p>
-			</div>
-			<div class="col-sm-3" >
-				<p id ="tomorrow"></p>
-			</div>
-			<div class="col-sm-3">
-				<p id ="Ütomorrow"></p>
-			</div>
-			<div class="col-sm-3">
-				<p id ="Ü2tomorrow"></p>
-			</div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-2">
+        <p id="today"></p>
+      </div>
+      <div class="col-sm-2">
+        <p id="tomorrow"></p>
+      </div>
+      <div class="col-sm-2">
+        <p id="Ütomorrow"></p>
+      </div>
+      <div class="col-sm-2">
+        <p id="Ü2tomorrow"></p>
+      </div>
+      <div class="col-sm-2">
+        <p id="Ü3tomorrow"></p>
+      </div>
 
-		</div>
-
-		<div class="row">
-			<div class="col-sm-3" id="heute_1" >
-				<button  class="btn btn-primary"  title="Trennwand-Reservierung" id="heute-1">
+    </div>
+    //-----------------------------------------------------------------------------------------------
+    <div class="row">
+      <div class="col-sm-2" id="mypopup">
+        <button class="btn btn-primary" title="Trennwand-Reservierung" id="heuteS1">
 					1
 				</button>
-			</div>
-      <div class="col-sm-3" id="morgen_1" >
-				<button  class="btn btn-primary"  title="Trennwand-Reservierung" id="morgen-1">
+      </div>
+      <div class="col-sm-2" id="mypopup">
+        <button class="btn btn-primary" title="Trennwand-Reservierung" id="morgenS1">
 					1
 				</button>
-			</div>
-			<div class="col-sm-3">
+      </div>
+      <div class="col-sm-2" id="mypopup">
+        <button class="btn btn-primary" title="Trennwand-Reservierung" id="ümorgenS1">
 					1
+				</button>
+      </div>
+      <div class="col-sm-2" id="mypopup">
+        <button class="btn btn-primary" title="Trennwand-Reservierung" id="ü2morgenS1">
+					1
+				</button>
+      </div>
+      <div class="col-sm-2" id="mypopup">
+        <button class="btn btn-primary" title="Trennwand-Reservierung" id="ü3morgenS1">
+					1
+				</button>
+      </div>
+    </div>
+    //-----------------------------------------------------------------------------------------------
+    <div class="row">
+      <div class="col-sm-2" id="mypopup">
+        <button class="btn btn-primary" title="Trennwand-Reservierung" id="heuteS2">
+          2
+        </button>
+      </div>
+      <div class="col-sm-2" id="mypopup">
+        <button class="btn btn-primary" title="Trennwand-Reservierung" id="morgenS2">
+          2
+        </button>
+      </div>
+      <div class="col-sm-2" id="mypopup">
+        <button class="btn btn-primary" title="Trennwand-Reservierung" id="ümorgenS2">
+          2
+        </button>
+      </div>
+      <div class="col-sm-2" id="mypopup">
+        <button class="btn btn-primary" title="Trennwand-Reservierung" id="ü2morgenS2">
+          2
+        </button>
+      </div>
+      <div class="col-sm-2" id="mypopup">
+        <button class="btn btn-primary" title="Trennwand-Reservierung" id="ü3morgenS2">
+          2
+        </button>
+      </div>
+    </div>
+    //-----------------------------------------------------------------------------------------------
+    <div class="row">
+      <div class="col-sm-2">
+        3
+      </div>
+      <div class="col-sm-2">
+        3
+      </div>
+      <div class="col-sm-2">
+        3
+      </div>
+      <div class="col-sm-2">
+        3
+      </div>
+      <div class="col-sm-2">
+        3
+      </div>
+    </div>
+    //-----------------------------------------------------------------------------------------------
+  </div>
 
-			</div>
-			<div class="col-sm-3">
+  <!-- Optional JavaScript -->
+  <script src="meine_JS/meineJS.js"></script>
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+  <script src="js/bootstrap.js"></script>
 
-				1
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-3" >
-				2
-			</div>
-			<div class="col-sm-3" >
-				2
-			</div>
-			<div class="col-sm-3">
-				2
-			</div>
-			<div class="col-sm-3">
-				2
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-3" >
-				3
-			</div>
-			<div class="col-sm-3" >
-				3
-			</div>
-			<div class="col-sm-3">
-				3
-			</div>
-			<div class="col-sm-3">
-				3
-			</div>
-		</div>
-	</div>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var date = new Date();
 
-    <!-- Optional JavaScript -->
-	<script src="meine_JS/meineJS.js"></script>
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-    <script src="js/bootstrap.js"></script>
-
-	<script type ="text/javascript">
-
-$(document).ready(function(){
-  $('.btn').popover({title: "Header",
-          content:'<form action="/save" method="POST" ><a>Datum:</a><br><input  type="date" name="Datum" id="myDate"  ><br><a>Beginn E.:</a><br><input  type="number" name="BeginnE" value="1"><br><a>Anzahl E.:</a><br><input type="number" name="AnzahlE" value="1"><br><a>Anzahl Koffer:</a><br><input type="number" name="AnzahlKoffer" value="1"><br><a>Lehrer Kzl.:</a><br><input type="text" name="LehrerKzl"><br><a>Klasse:</a><br><input type="text" name="Klasse"><br><input type="submit" value="submit"></form>',
-					html:true,
-					trigger:"click",
-					toggle:'popover',
-          container: "#heute_1"});
-var date = new Date();
+      $('.btn').popover({
+        title: "Header",
+        content: '<form action="/save" method="POST" ><a>Datum:</a><br><input  type="date" name="Datum" id="myDate"  ><br><a>Beginn E.:</a><br><input  type="number" name="BeginnE" id="myBeginnE"><br><a>Anzahl E.:</a><br><input type="number" name="AnzahlE" value="1"><br><a>Anzahl Koffer:</a><br><input type="number" name="AnzahlKoffer" value="1"><br><a>Lehrer Kzl.:</a><br><input type="text" name="LehrerKzl"><br><a>Klasse:</a><br><input type="text" name="Klasse"><br><input type="submit" value="submit"></form>',
+        html: true,
+        trigger: "click",
+        toggle: 'popover',
+        container: "#mypopup"
+      });
 
 
-    $('[id="heute-1"]').on('shown.bs.popover', function(){
-      var today = new Date(date);
-      console.log(today);
-			document.getElementById("myDate").valueAsDate = today;
-		});
-    $('.btn').popover({title: "Header",
-            content:'<form action="/save" method="POST" ><a>Datum:</a><br><input  type="date" name="Datum" id="myDate"  ><br><a>Beginn E.:</a><br><input  type="number" name="BeginnE" value="1"><br><a>Anzahl E.:</a><br><input type="number" name="AnzahlE" value="1"><br><a>Anzahl Koffer:</a><br><input type="number" name="AnzahlKoffer" value="1"><br><a>Lehrer Kzl.:</a><br><input type="text" name="LehrerKzl"><br><a>Klasse:</a><br><input type="text" name="Klasse"><br><input type="submit" value="submit"></form>',
-  					html:true,
-  					trigger:"click",
-  					toggle:'popover',
-            container: "#morgen_1"});
 
-      $('[id="morgen-1"]').on('shown.bs.popover', function(){
-        var tomorrow = new Date(date.getTime()+24*3600*1000);
-        console.log(tomorrow);
-  			document.getElementById("myDate").valueAsDate = tomorrow;
-  		});
+      $('[id="heuteS1"]').on('shown.bs.popover', function() {
+        var today = new Date(date);
+        console.log(today);
+        document.getElementById("myBeginnE").value=1;
+        document.getElementById("myDate").valueAsDate = today;
+      });
+
+      $('[id="morgenS1"]').on('shown.bs.popover', function() {
+        var morgen = new Date(date.getTime() + 24 * 3600 * 1000);
+        console.log(morgen);
+        document.getElementById("myBeginnE").value=1;
+        document.getElementById("myDate").valueAsDate = morgen;
+      });
+
+      $('[id="ümorgenS1"]').on('shown.bs.popover', function() {
+        var ümorgen = new Date(date.getTime() + 2 * 24 * 3600 * 1000);
+        console.log(ümorgen);
+        document.getElementById("myBeginnE").value=1;
+        document.getElementById("myDate").valueAsDate = ümorgen;
+      });
+
+      $('[id="ü2morgenS1"]').on('shown.bs.popover', function() {
+        var ü2morgen = new Date(date.getTime() + 3 * 24 * 3600 * 1000);
+        console.log(ü2morgen);
+        document.getElementById("myBeginnE").value=1;
+        document.getElementById("myDate").valueAsDate = ü2morgen;
+      });
+
+      $('[id="ü3morgenS1"]').on('shown.bs.popover', function() {
+        var ü3morgen = new Date(date.getTime() + 4 * 24 * 3600 * 1000);
+        console.log(ü3morgen);
+        document.getElementById("myBeginnE").value=1;
+        document.getElementById("myDate").valueAsDate = ü3morgen;
+      });
+      $('[id="heuteS2"]').on('shown.bs.popover', function() {
+        var today = new Date(date);
+        console.log(today);
+        document.getElementById("myBeginnE").value=2;
+        document.getElementById("myDate").valueAsDate = today;
+      });
+
+      $('[id="morgenS2"]').on('shown.bs.popover', function() {
+        var morgen = new Date(date.getTime() + 24 * 3600 * 1000);
+        console.log(morgen);
+        document.getElementById("myBeginnE").value=2;
+        document.getElementById("myDate").valueAsDate = morgen;
+      });
+
+      $('[id="ümorgenS2"]').on('shown.bs.popover', function() {
+        var ümorgen = new Date(date.getTime() + 2 * 24 * 3600 * 1000);
+        console.log(ümorgen);
+        document.getElementById("myBeginnE").value=2;
+        document.getElementById("myDate").valueAsDate = ümorgen;
+      });
+
+      $('[id="ü2morgenS2"]').on('shown.bs.popover', function() {
+        var ü2morgen = new Date(date.getTime() + 3 * 24 * 3600 * 1000);
+        console.log(ü2morgen);
+        document.getElementById("myBeginnE").value=2;
+        document.getElementById("myDate").valueAsDate = ü2morgen;
+      });
+
+      $('[id="ü3morgenS2"]').on('shown.bs.popover', function() {
+        var ü3morgen = new Date(date.getTime() + 4 * 24 * 3600 * 1000);
+        console.log(ü3morgen);
+        document.getElementById("myBeginnE").value=2;
+        document.getElementById("myDate").valueAsDate = ü3morgen;
+      });
+    });
+  </script>
 
 
-	});
-
-</script>
-
-
-  </body>
+</body>
 
 
 </html>
