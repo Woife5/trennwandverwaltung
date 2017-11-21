@@ -15,8 +15,8 @@ con.connect(function(err) {
     if(err) throw err;
     console.log('Database created: entlehnt')
   })
-  con.query("CREATE table trennwaende", function(err, result){
+  con.query("CREATE table trennwaende(ID int unsigned not null auto_increment, primary key(ID), `name` varchar(30))", function(err, result){
     if(err) throw err;
-    console.log('Database created: trennwaende(ID int unsigned not null auto_increment, primary key(ID), `name` varchar(30))')
+    console.log('Database created: trennwaende')
   })
 });

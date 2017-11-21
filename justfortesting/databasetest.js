@@ -22,7 +22,7 @@ con.connect(function(err) {
     if(err) throw err;
     console.log('Trennwände angelegt')
   })
-	con.query('SELECT * FROM trennwand', function (err, result, fields) {
+	con.query('SELECT * FROM entlehnt JOIN trennwaende on entlehnt.twfk = trennwaende.ID', function (err, result, fields) {
 	    if (err) throw err;
 	    console.log(result);
 	});
