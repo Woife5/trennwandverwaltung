@@ -1,1 +1,8 @@
-ID[int]|teachername[char:100]|class[char:10]|date[DATE]|lesson[int]|duration[int]|trennwand1[boolean]|trennwand2[boolean]|trennwand3[boolean]|trennwand4[boolean]|
+ID[int]|teachername[char:100]|class[char:10]|date[DATE]|lesson[int]|duration[int]|twfk[int]
+ID[int]|twname[char:20]
+
+Trennwände:
+1 Blau
+2 Grün
+3 Rot
+4 Gelb
