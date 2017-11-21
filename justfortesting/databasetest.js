@@ -18,7 +18,7 @@ con.connect(function(err) {
 	    if (err) throw err;
 	    console.log("Values inserted");
 	});
-  con.query('insert into trennwaende values(1,"Blau"),(2,"Grün"),(3,"Rot"),(4,"Gelb")',function(err, result){
+  con.query('insert into trennwaende values(null,"Blau"),(null,"Grün"),(null,"Rot"),(null,"Gelb")',function(err, result){
     if(err) throw err;
     console.log('Trennwände angelegt')
   })
