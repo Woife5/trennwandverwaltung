@@ -13,6 +13,30 @@ const con = mysql.createConnection({
 
 app.use(express.static('public'))
 
+//For debugging-----------------------------------------------------------------
+var debugdate = '2017-11-21'
+var debuglesson = 2
+var debugduration = 1
+var debugcases = 1
+var debugteacher = 'Mate'
+var debugclass = '5AHELS'
+
+app.get('/debug', function(req, res){
+	res.send('Debugging Page...')
+	con.connect(function(err) {
+		if (err) throw err
+		console.log('DEBUG: Connected to SELECT')
+		con.query('SELECT count(*) as booked FROM entlehnt where `date`="'+debugdate+'" AND lesson='+debuglesson, function (err, result, fields) {
+	    if (err) throw err
+			var booked = result[0].booked
+			console.log('DEBUG: Booked: '+booked)
+			toMySql(debugdate, debuglesson, debugduration, debugcases, debugteacher, debugclass, booked)
+		})
+	})
+
+})
+//End of debugging function-----------------------------------------------------
+
 app.get('/',function(req,res){
 	res.sendFile('index.html')
 })
@@ -59,14 +83,37 @@ app.post('/save',urlencodedParser, function(req, res) {
 
 // Actual function that does all the calculating
 // Not finished; just for debugging
-function toMySql(date, lesson, duration, cases, teacher, schoolclass, result){
+function toMySql(date, lesson, duration, cases, teacher, schoolclass, booked){
 	var sqlStr = 'INSERT INTO entlehnt VALUES '
 	sqlStr += '(null,"'+teacher+'","'+schoolclass+'","'+date+'",'+lesson+','+duration+','
 
-	if(result == ''){
+	if(booked == 0){
 		sqlStr += '1)'
-		return sqlStr
+		insertIntoDatabase(sqlStr)
+	}else{
+		//toMySql function - not finished
+		var avalible
+		con.query('SELECT count(*) as Anz from trennwaende', function(err, result, fields){
+			if(err) throw err
+			cases = result[0].Anz
+			console.log('TOMYSQL: Number of cases: '+cases)
+			if (cases > booked) {
+				console.log('Es ist eine Trennwand frei, die Reserviert werden kann.')
+				sqlStr += booked + ')'
+				insertIntoDatabase(sqlStr)
+			}else {
+				console.log('Zu diesem Zeitpunkt ist leider nichts mehr frei.')
+			}
+		})
 	}
+	//End of toMySql
+}
+function insertIntoDatabase(sqlStr){
+	console.log('INSERT FUNCTION: '+sqlStr)
+	//----------------------------------------------------------------------------Inserting into SQL Database is curently disabled
+	/*con.query(sqlStr, function(err, result, fields){
+		if(err) throw error
+	})*/
 }
 
 app.listen(8000, function () {
