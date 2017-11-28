@@ -13,8 +13,8 @@ const con = mysql.createConnection({
 
 app.use(express.static('public'))
 
-//For debugging-----------------------------------------------------------------
-var debugdate = '2017-11-21'
+//------------------------------------------------------------------------------For debugging
+var debugdate = '2017-11-28'
 var debuglesson = 2
 var debugduration = 1
 var debugcases = 1
@@ -35,7 +35,7 @@ app.get('/debug', function(req, res){
 	})
 
 })
-//End of debugging function-----------------------------------------------------
+//------------------------------------------------------------------------------End of debugging
 
 app.get('/',function(req,res){
 	res.sendFile('index.html')
@@ -63,26 +63,19 @@ app.post('/save',urlencodedParser, function(req, res) {
 	console.log('Lehrer: '+teacher)
 	console.log('Klasse: '+schoolclass)
 
-	var sql
-
 	con.connect(function(err) {
 		if (err) throw err
 		console.log('Connected to GET')
-		con.query('SELECT twfk FROM entlehnt where `date`="'+date+'" AND lesson='+lesson, function (err, result, fields) {
+		con.query('SELECT count(*) as booked FROM entlehnt where `date`="'+date+'" AND lesson='+lesson, function (err, result, fields) {
 	    if (err) throw err
-			sql = toMySql(date, lesson, duration, cases, teacher, schoolclass, result)
-			console.log(sql)
-			con.query(sql, function(err, result){
-				if(err) throw err
-				console.log('New Values secessfully inserted')
-			})
+			var booked = result[0].booked
+			toMySql(date, lesson, duration, cases, teacher, schoolclass, booked)
 		})
 
 	})
 })
 
-// Actual function that does all the calculating
-// Not finished; just for debugging
+//------------------------------------------------------------------------------Actual function that does all the calculating
 function toMySql(date, lesson, duration, cases, teacher, schoolclass, booked){
 	var sqlStr = 'INSERT INTO entlehnt VALUES '
 	sqlStr += '(null,"'+teacher+'","'+schoolclass+'","'+date+'",'+lesson+','+duration+','
@@ -91,7 +84,7 @@ function toMySql(date, lesson, duration, cases, teacher, schoolclass, booked){
 		sqlStr += '1)'
 		insertIntoDatabase(sqlStr)
 	}else{
-		//toMySql function - not finished
+		//--------------------------------------------------------------------------toMySql function
 		var avalible
 		con.query('SELECT count(*) as Anz from trennwaende', function(err, result, fields){
 			if(err) throw err
@@ -106,7 +99,7 @@ function toMySql(date, lesson, duration, cases, teacher, schoolclass, booked){
 			}
 		})
 	}
-	//End of toMySql
+	//----------------------------------------------------------------------------End of toMySql
 }
 function insertIntoDatabase(sqlStr){
 	console.log('INSERT FUNCTION: '+sqlStr)
