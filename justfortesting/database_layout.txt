@@ -1,4 +1,4 @@
-﻿ID[int]|teachername[char:100]|class[char:10]|date[DATE]|lesson[int]|duration[int]|twfk[int]
+﻿ID[int]|teachername[char:100]|class[char:10]|date[DATE]|lesson[int]|twfk[int]
 ID[int]|twname[char:20]
 
 Trennwände:

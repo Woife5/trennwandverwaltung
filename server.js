@@ -16,7 +16,6 @@ app.use(express.static('public'))
 //------------------------------------------------------------------------------For debugging
 var debugdate = '2017-11-28'
 var debuglesson = 2
-var debugduration = 1
 var debugcases = 1
 var debugteacher = 'Mate'
 var debugclass = '5AHELS'
@@ -30,7 +29,7 @@ app.get('/debug', function(req, res){
 	    if (err) throw err
 			var booked = result[0].booked
 			console.log('DEBUG: Booked: '+booked)
-			toMySql(debugdate, debuglesson, debugduration, debugcases, debugteacher, debugclass, booked)
+			toMySql(debugdate, debuglesson, debugcases, debugteacher, debugclass, booked)
 		})
 	})
 
@@ -51,14 +50,12 @@ app.post('/save',urlencodedParser, function(req, res) {
 
 	var date = req.body.Datum
 	var lesson = req.body.BeginnE
-	var duration = req.body.AnzahlE
 	var cases = req.body.AnzahlKoffer
 	var teacher = req.body.LehrerKzl
 	var schoolclass = req.body.Klasse
 
 	console.log('Datum: '+date)
 	console.log('Beginn: '+lesson)
-	console.log('Dauer: '+duration)
 	console.log('Koffer: '+cases)
 	console.log('Lehrer: '+teacher)
 	console.log('Klasse: '+schoolclass)
@@ -69,16 +66,16 @@ app.post('/save',urlencodedParser, function(req, res) {
 		con.query('SELECT count(*) as booked FROM entlehnt where `date`="'+date+'" AND lesson='+lesson, function (err, result, fields) {
 	    if (err) throw err
 			var booked = result[0].booked
-			toMySql(date, lesson, duration, cases, teacher, schoolclass, booked)
+			toMySql(date, lesson, cases, teacher, schoolclass, booked)
 		})
 
 	})
 })
 
 //------------------------------------------------------------------------------Actual function that does all the calculating
-function toMySql(date, lesson, duration, cases, teacher, schoolclass, booked){
+function toMySql(date, lesson, cases, teacher, schoolclass, booked){
 	var sqlStr = 'INSERT INTO entlehnt VALUES '
-	sqlStr += '(null,"'+teacher+'","'+schoolclass+'","'+date+'",'+lesson+','+duration+','
+	sqlStr += '(null,"'+teacher+'","'+schoolclass+'","'+date+'",'+lesson+','
 
 	if(booked == 0){
 		sqlStr += '1)'

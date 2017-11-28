@@ -11,7 +11,7 @@ var con = mysql.createConnection({
 con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
-  con.query("CREATE table entlehnt(ID int unsigned not null auto_increment, primary key(ID), teachername varchar(100), `class` varchar(10), `date` DATE, lesson int, duration int, twfk int)", function(err, result){
+  con.query("CREATE table entlehnt(ID int unsigned not null auto_increment, primary key(ID), teachername varchar(100), `class` varchar(10), `date` DATE, lesson int, twfk int)", function(err, result){
     if(err) throw err;
     console.log('Database created: entlehnt')
   })
