@@ -72,27 +72,19 @@ app.post('/save',urlencodedParser, function(req, res) {
 function toMySql(date, lesson, cases, teacher, schoolclass, booked){
 	var sqlStr = 'INSERT INTO entlehnt VALUES '
 	sqlStr += '(null,"'+teacher+'","'+schoolclass+'","'+date+'",'+lesson+','
-
-	if(booked == 0){
-		sqlStr += '1)'
-		insertIntoDatabase(sqlStr)
-	}else{
-		//--------------------------------------------------------------------------toMySql function
-		var avalible
-		con.query('SELECT count(*) as Anz from trennwaende', function(err, result, fields){
-			if(err) throw err
-			cases = result[0].Anz
-			console.log('TOMYSQL: Number of cases: '+cases)
-			if (cases > booked) {
-				console.log('Es ist eine Trennwand frei, die Reserviert werden kann.')
-				sqlStr += booked + ')'
-				insertIntoDatabase(sqlStr)
-			}else {
-				console.log('Zu diesem Zeitpunkt ist leider nichts mehr frei.')
-			}
-		})
-
-	}
+	var avalible
+	con.query('SELECT count(*) as Anz from trennwaende', function(err, result, fields){
+		if(err) throw err
+		cases = result[0].Anz
+		console.log('TOMYSQL: Number of cases: '+cases)
+		if (cases > booked) {
+			console.log('Es ist eine Trennwand frei, die Reserviert werden kann.')
+			sqlStr += booked + ')'
+			insertIntoDatabase(sqlStr)
+		}else {
+			console.log('Zu diesem Zeitpunkt ist leider nichts mehr frei.')
+		}
+	})
 	//----------------------------------------------------------------------------End of toMySql
 }
 function insertIntoDatabase(sqlStr){
