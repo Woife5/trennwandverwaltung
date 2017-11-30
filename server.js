@@ -17,21 +17,15 @@ con.connect(function(err){
 app.use(express.static('public'))
 
 //------------------------------------------------------------------------------For debugging
-var debugdate = '2017-11-28'
+var debugdate = '2017-11-30'
 var debuglesson = 2
-var debugcases = 1
+var debugcases = 2
 var debugteacher = 'Mate'
 var debugclass = '5AHELS'
 
 app.get('/debug', function(req, res){
 	res.send('Debugging Page...'+bm)
-	console.log('DEBUG: Connected to SELECT')
-	con.query('SELECT count(*) as booked FROM entlehnt where `date`="'+debugdate+'" AND lesson='+debuglesson, function (err, result, fields) {
-    if (err) throw err
-		var booked = result[0].booked
-		console.log('DEBUG: Booked: '+booked)
-		toMySql(debugdate, debuglesson, debugcases, debugteacher, debugclass, booked)
-	})
+		toMySql(debugdate, debuglesson, debugcases, debugteacher, debugclass)
 
 })
 //------------------------------------------------------------------------------End of debugging
@@ -64,29 +58,39 @@ app.post('/save',urlencodedParser, function(req, res) {
 	con.query('SELECT count(*) as booked FROM entlehnt where `date`="'+date+'" AND lesson='+lesson, function (err, result, fields) {
     if (err) throw err
 		var booked = result[0].booked
-		toMySql(date, lesson, cases, teacher, schoolclass, booked)
+		toMySql(date, lesson, cases, teacher, schoolclass)
 	})
 })
 
 //------------------------------------------------------------------------------Actual function that does all the calculating
-function toMySql(date, lesson, cases, teacher, schoolclass, booked){
+function toMySql(date, lesson, cases, teacher, schoolclass){
 	var sqlStr = 'INSERT INTO entlehnt VALUES '
 	sqlStr += '(null,"'+teacher+'","'+schoolclass+'","'+date+'",'+lesson+','
 	var avalible
-	con.query('SELECT count(*) as Anz from trennwaende', function(err, result, fields){
-		if(err) throw err
-		cases = result[0].Anz
-		console.log('TOMYSQL: Number of cases: '+cases)
-		if (cases > booked) {
-			console.log('Es ist eine Trennwand frei, die Reserviert werden kann.')
-			sqlStr += booked + ')'
-			insertIntoDatabase(sqlStr)
-		}else {
-			console.log('Zu diesem Zeitpunkt ist leider nichts mehr frei.')
-		}
+	con.query('SELECT count(*) as booked FROM entlehnt where `date`="'+date+'" AND lesson='+lesson, function (err, result, fields) {
+    if (err) throw err
+		var booked = result[0].booked
+		console.log('TOMYSQL: Booked: '+booked)
+		con.query('SELECT count(*) as Anz from trennwaende', function(err, result, fields){
+			if(err) throw err
+			numberofcases = result[0].Anz
+			console.log('TOMYSQL: Number of cases: '+numberofcases)
+			if (numberofcases-booked >= cases) {
+				console.log('Es ist eine Trennwand frei, die Reserviert werden kann.')
+				console.log('TOMYSQL: Numberofcases: '+numberofcases+' Booked: '+booked+' Cases: '+cases+' Numberofcases-booked: '+(numberofcases-booked))
+				for(;booked<numberofcases;booked++){
+					var tempstr = sqlStr+booked+')'
+					insertIntoDatabase(tempstr)
+				}
+			}else {
+				console.log('Zu diesem Zeitpunkt ist leider nichts mehr frei.')
+				console.log('TOMYSQL: Numberofcases: '+numberofcases+' Booked: '+booked+' Cases: '+cases+' Numberofcases-booked: '+(numberofcases-booked))
+			}
+		})
 	})
 	//----------------------------------------------------------------------------End of toMySql
 }
+
 function insertIntoDatabase(sqlStr){
 	console.log('INSERT FUNCTION: '+sqlStr)
 	//----------------------------------------------------------------------------Inserting into SQL Database is curently disabled
