@@ -18,9 +18,18 @@
   </style>
 </head>
 <body>
-  <h1>Trennwand Verwaltung</h1>
-  <div class="container">
-    <script src = "meine_JS/createTable.js"></script>
+
+  <div class="un-app">
+    <nav class="un-app-header navbar navbar-default">
+      <div class="container-fluid">
+
+        </div>
+
+    </nav>
+
+    <div class="table">
+        <script src = "meine_JS/createTable.js"></script>
+    </div>
   </div>
 
   <script type="text/javascript">
@@ -29,7 +38,7 @@
         $('.btn').not(this).popover('hide');
         $(this).popover({
           title: "Header",
-          content: '<form action="/save" method="POST" ><a>Datum:</a><br><input  type="date" name="Datum" id="myDate"  ><br><a>Beginn E.:</a><br><input  type="number" name="BeginnE" id="myBeginnE"><br><a>Anzahl Koffer:</a><br><input type="number" name="AnzahlKoffer" value="1"><br><a>Lehrer Kzl.:</a><br><input type="text" name="LehrerKzl"><br><a>Klasse:</a><br><input type="text" name="Klasse"><br><input type="submit" value="Speichern"></form>',
+          content: '<form action="/" method="POST" class="form-horizontal" ><a>Datum:</a><br><input  type="date" name="Datum" id="myDate"  ><br><a>Beginn E.:</a><br><input  type="number" name="BeginnE" id="myBeginnE"><br><a>Anzahl Koffer:</a><br><input type="number" name="AnzahlKoffer" value="1"><br><a>Lehrer Kzl.:</a><br><input type="text" name="LehrerKzl"><br><a>Klasse:</a><br><input type="text" name="Klasse"><br><input type="submit" value="Speichern"></form>',
           html: true,
           trigger: "click",
           toggle: "popover",

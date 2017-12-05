@@ -21,11 +21,11 @@ var Button = "<button class='btn btn-primary' title='Trennwand-Reservierung' id=
 var Buttonv2 = "'>";
 var Buttonv3 ="</button>";
 
-document.write("<table border='0'>");
+document.write("<table>");
 
 document.write('<tr>');
 for(var i=0;i<5;i++){
-  document.write("<td style='width: 150px; text-align: center;'>"+day[i].toString().substring(0,15)+"</td>");
+  document.write("<th class=''>"+day[i].toString().substring(0,15)+"</th>");
 }
 document.write('</tr>');
 
