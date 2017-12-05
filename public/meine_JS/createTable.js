@@ -4,8 +4,7 @@ int SA = 10;
 var Button = '<button class="btn btn-primary" title="Trennwand-Reservierung" id="';
 var Buttonv2 = '">1</button>';
 
-document.write("<table border="
-  0 ">");
+document.write('<table border="0">');
 document.write("<tr><td style='width: 100px; color: red;'>Col Head 1</td>");
 document.write("<td style='width: 100px; color: red; text-align: right;'>Col Head 2</td>");
 document.write("<td style='width: 100px; color: red; text-align: right;'>Col Head 3</td></tr>");
