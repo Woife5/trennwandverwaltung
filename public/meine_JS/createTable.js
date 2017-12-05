@@ -18,20 +18,21 @@ for(var i = 0;i<5;i++){
 
 
 var Button = "<button class='btn btn-primary' title='Trennwand-Reservierung' id='";
-var Buttonv2 = "'>1</button>";
+var Buttonv2 = "'>";
+var Buttonv3 ="</button>";
 
 document.write("<table border='0'>");
 
 document.write('<tr>');
 for(var i=0;i<5;i++){
-  document.write("<td style='width: 100px; text-align: center;'>"+day[i].toString().substring(0,15)+"</td>");
+  document.write("<td style='width: 150px; text-align: center;'>"+day[i].toString().substring(0,15)+"</td>");
 }
 document.write('</tr>');
 
 for (var i = 0; i < 10; i++) {
   document.write('<tr>');
   for (var j = 0; j < 5; j++) {
-    document.write("<td style='width: 100px; text-align: right;'>" + Button + eval('i + SA * j') + Buttonv2 + "</td>");
+    document.write("<td style='width: 150px; text-align: right;'>" + Button + eval('i + SA * j') + Buttonv2 + eval('i % 10 +1') + Buttonv3 + "</td>");
 
   }
   document.write('</tr>');
