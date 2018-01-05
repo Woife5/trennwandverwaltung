@@ -17,7 +17,7 @@ con.connect(function(err){
 app.use(express.static('public'))
 
 //------------------------------------------------------------------------------For debugging
-var debugdate = '2017-12-01'
+var debugdate = '2017-12-12'
 var debuglesson = 2
 var debugcases = 2
 var debugteacher = 'Mate'
@@ -31,7 +31,7 @@ app.get('/debug', function(req, res){
 //------------------------------------------------------------------------------End of debugging
 
 app.get('/',function(req,res){
-	res.sendFile('index.html')
+	res.render('index.html')
 })
 
 var jsonParser = bodyParser.json()
@@ -40,7 +40,8 @@ app.use(urlencodedParser)
 
 app.post('/save',urlencodedParser, function(req, res) {
   if (!req.body) return res.sendStatus(400)
-	res.send(req.body)
+
+	res.render('saved.html')
 
 	var date = req.body.Datum
 	var lesson = req.body.BeginnE
@@ -78,10 +79,12 @@ function toMySql(date, lesson, cases, teacher, schoolclass){
 			if (numberofcases-booked >= cases) {
 				console.log('Es ist eine Trennwand frei, die Reserviert werden kann.')
 				console.log('TOMYSQL: Numberofcases: '+numberofcases+' Booked: '+booked+' Cases: '+cases+' Numberofcases-booked: '+(numberofcases-booked))
-				for(;booked<numberofcases;booked++){
-					var tempstr = sqlStr+booked+')'
+
+				for(var inserted = booked;inserted-booked<cases;inserted++){
+					var tempstr = sqlStr+inserted+')'
 					insertIntoDatabase(tempstr)
 				}
+
 			}else {
 				console.log('Zu diesem Zeitpunkt ist leider nichts mehr frei.')
 				console.log('TOMYSQL: Numberofcases: '+numberofcases+' Booked: '+booked+' Cases: '+cases+' Numberofcases-booked: '+(numberofcases-booked))
