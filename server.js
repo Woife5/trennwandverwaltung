@@ -17,9 +17,9 @@ con.connect(function(err){
 app.use(express.static('public'))
 
 //------------------------------------------------------------------------------For debugging
-var debugdate = '2017-12-12'
-var debuglesson = 2
-var debugcases = 2
+var debugdate = '2018-01-09'
+var debuglesson = 1
+var debugcases = 1
 var debugteacher = 'Mate'
 var debugclass = '5AHELS'
 
