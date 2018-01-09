@@ -17,7 +17,7 @@ for(var i = 0;i<5;i++){
 }
 
 
-var Button = "<button class='Popup btn btn-primary' title='Trennwand-Reservierung' id='";
+var Button = "<button class='getInfo btn btn-primary' title='Trennwand-Reservierung' id='";
 var Buttonv2 = "'>";
 var Buttonv3 ="</button>";
 
@@ -26,7 +26,7 @@ document.write('<tr>');
 
 
 document.write("<th class=''><button type='button' name='neuerTermin' class='Popup btn btn-primary' title='Trennwand-Reservierung'>Neuer Termin</button></th>");
-document.write("<th class=''><button type='button' name='getInfo' onclick='getInfo()' class='btn btn-primary'>Info</button></th>");
+document.write("<th class=''><button type='button' name='getKalender' class='Info btn btn-primary'>Kalender</button></th>");
 document.write("<th class=''></th>");
 document.write("<th class=''></th>");
 document.write("<th class=''></th>");

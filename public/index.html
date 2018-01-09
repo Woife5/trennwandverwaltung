@@ -27,7 +27,7 @@
 
 <body>
 
-  <div>
+  <div class="toClear">
     <div class="container">
       <script src="meine_JS/createTable.js"></script>
     </div>
@@ -65,6 +65,9 @@
         document.getElementById("myDate").valueAsDate = day[Math.floor(this.id / 10)]
         document.getElementById("myBeginnE").value = this.id % 10 + 1
       })
+      function getInfo(){
+        document.getElementById("toClear")
+      }
     })
   </script>
 </body>
