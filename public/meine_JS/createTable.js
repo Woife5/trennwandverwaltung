@@ -17,15 +17,23 @@ for(var i = 0;i<5;i++){
 }
 
 
-var Button = "<button class='btn btn-primary' title='Trennwand-Reservierung' id='";
+var Button = "<button class='Popup btn btn-primary' title='Trennwand-Reservierung' id='";
 var Buttonv2 = "'>";
 var Buttonv3 ="</button>";
 
 document.write("<table>");
+document.write('<tr>');
 
+
+document.write("<th class=''><button type='button' name='neuerTermin' class='Popup btn btn-primary' title='Trennwand-Reservierung'>Neuer Termin</button></th>");
+document.write("<th class=''><button type='button' name='Info' class='Info btn btn-primary'>Info</button></th>");
+document.write("<th class=''></th>");
+document.write("<th class=''></th>");
+document.write("<th class=''></th>");
+document.write('</tr>');
 document.write('<tr>');
 for(var i=0;i<5;i++){
-  document.write("<th class=''>"+day[i].toString().substring(0,15)+"</th>");
+  document.write("<th style='height:45px' class=''>"+day[i].toString().substring(0,15)+"</th>");
 }
 document.write('</tr>');
 
