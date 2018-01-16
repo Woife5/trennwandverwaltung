@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/Woife5/trennwandverwaltung#readme",
   "dependencies": {
-    "body-parser": "^1.18.2"
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "html": "^1.0.0",
+    "mysql": "^2.15.0"
   }
 }
