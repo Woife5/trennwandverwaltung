@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const mysql = require('mysql')
+const path = require('path')
 
 const con = mysql.createConnection({
 	host: 'twv.energyfussl.at',
@@ -31,17 +32,17 @@ app.get('/debug', function(req, res){
 //------------------------------------------------------------------------------End of debugging
 
 app.get('/',function(req,res){
-	res.render('index.html')
+	res.sendFile(path.join(__dirname, 'public/index.html'));
 })
 
 var jsonParser = bodyParser.json()
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 app.use(urlencodedParser)
 
-app.post('/save',urlencodedParser, function(req, res) {
+app.post('/',urlencodedParser, function(req, res) {
   if (!req.body) return res.sendStatus(400)
 
-	res.render('saved.html')
+	res.sendFile(path.join(__dirname, 'public/saved.html'))
 
 	var date = req.body.Datum
 	var lesson = req.body.BeginnE
