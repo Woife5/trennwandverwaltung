@@ -17,7 +17,7 @@ function getKalender() {
   }
   var generator;
 
-  var Button = "<button class='Popup btn btn-primary' title='Trennwand-Reservierung' id='";
+  var Button = "<button class='Popup waves-effect waves-light btn' title='Trennwand-Reservierung' id='";
   var Buttonv2 = "'>";
   var Buttonv3 = "</button>";
 
@@ -25,8 +25,8 @@ function getKalender() {
     "<div class='container toClear'>" +
     "<table>" +
     "<tr>" +
-    "<th class=''><button type='button' name='neuerTermin' class='Popup btn btn-primary' title='Trennwand-Reservierung'>Neuer Termin</button></th>" +
-    "<th class=''><button type='button' name='getInfo' onClick='getInfo()' class='btn btn-primary getInfo'>Info</button></th>" +
+    "<th class=''><button type='button' name='neuerTermin' class='Popup waves-effect waves-light btn' title='Trennwand-Reservierung'>Neuer Termin</button></th>" +
+    "<th class=''><button type='button' name='getInfo' onClick='getInfo()' class='Popup waves-effect waves-light btn'>Info</button></th>" +
     "<th class=''></th>" +
     "<th class=''></th>" +
     "<th class=''></th>" +

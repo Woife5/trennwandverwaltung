@@ -4,6 +4,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.3/css/materialize.min.css">
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.3/js/materialize.min.js"></script>
 <script src="meine_JS/createInfo.js"></script>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -38,7 +42,7 @@
         $('.Popup').not(this).popover('hide');
         $(this).popover({
           title: "Header",
-          content: '<form onsubmit="formsubmit(this);return false" class="form-horizontal" ><a>Datum:</a><br><input  type="date" name="Datum" id="myDate"  ><br><a>Beginn E.:</a><br><input  type="number" name="BeginnE" id="myBeginnE"><br><a>Anzahl Koffer:</a><br><input type="number" name="AnzahlKoffer" value="1"><br><a>Lehrer Kzl.:</a><br><input type="text" name="LehrerKzl"><br><a>Klasse:</a><br><input type="text" name="Klasse"><br><input type="submit" value="Speichern"></form>',
+          content: '<form onsubmit="formsubmit(this);return false" class="form-horizontal" ><a>Datum:</a><br><input  type="date" name="Datum" id="myDate"  ><br><a>Beginn E.:</a><br><input  type="number" name="BeginnE" id="myBeginnE"><br><a>Anzahl Koffer:</a><br><input type="number" name="AnzahlKoffer" value="1"><br><a>Lehrer Kzl.:</a><br><input type="text" name="LehrerKzl"><br><a>Klasse:</a><br><input type="text" name="Klasse"><br><input class="btn waves-effect waves-light" type="submit" value="Speichern"></form>',
           html: true,
           trigger: "click",
           toggle: "popover",
