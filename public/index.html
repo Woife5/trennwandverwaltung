@@ -16,7 +16,7 @@
     width: 100% !important;
   }
 </style>
-
+<!-- head start ____________________________________________________________________________________________________________________________ -->
 <head class="un-app">
   <nav class="un-app-header navbar navbar-default">
     <div>
@@ -24,16 +24,21 @@
     </div>
   </nav>
 </head>
-
+<!-- body start ____________________________________________________________________________________________________________________________ -->
 <body class="main">
 
   <div id="master">
       <script src="meine_JS/createTable.js"></script>
   </div>
-
+<!-- script start __________________________________________________________________________________________________________________________ -->
   <script type="text/javascript">
     $(document).ready(function() {
       getKalender();
+    });
+    $(createTable.js).on("createTableloaded",function(event){
+      $( ".Popup" ).on( "click", function() {
+        console.log( $( this ).text() );
+      });
       $('.Popup').click(function() {
         $('.Popup').not(this).popover('hide');
         $(this).popover({

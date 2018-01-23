@@ -26,7 +26,7 @@ function getKalender() {
     "<table>" +
     "<tr>" +
     "<th class=''><button type='button' name='neuerTermin' class='Popup btn btn-primary' title='Trennwand-Reservierung'>Neuer Termin</button></th>" +
-    "<th class=''><button type='button' name='getInfo' onClick='getInfo()' class='btn btn-primary getInfo'>Info</button></th>" +
+    "<th class=''><button type='button' name='getInfo' onClick='getInfo()' class='btn btn-primary getInfo'>Zur Info</button></th>" +
     "<th class=''></th>" +
     "<th class=''></th>" +
     "<th class=''></th>" +
