@@ -32,9 +32,9 @@ function formsubmit(formEl){
       console.log(resData)
       let userText
       if(resData['data'].length > 1){
-        userText = ''+resData['data'] + ' wurden Ihnen zugewiesen.'
+        userText = 'Die Trennwände '+resData['data'] + ' wurden Ihnen zugewiesen.'
       }else {
-        userText = ''+resData['data'] + ' wurde Ihnen zugewiesen.'
+        userText = 'Die Trennwand '+resData['data'] + ' wurde Ihnen zugewiesen.'
       }
       let options = {
         body: userText,
