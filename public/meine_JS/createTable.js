@@ -1,4 +1,3 @@
-
 var SA = 10;
 var day = []
 var date = new Date()
@@ -26,7 +25,7 @@ document.write('<tr>');
 
 
 document.write("<th class=''><button type='button' name='neuerTermin' class='Popup btn btn-primary' title='Trennwand-Reservierung'>Neuer Termin</button></th>");
-document.write("<th class=''><button type='button' name='getInfo' onclick='getInfo()' class='btn btn-primary'>Info</button></th>");
+document.write("<th class=''><button type='button' name='getInfo' onClick='getInfo()' class='btn btn-primary getInfo'>Info</button></th>");
 document.write("<th class=''></th>");
 document.write("<th class=''></th>");
 document.write("<th class=''></th>");
