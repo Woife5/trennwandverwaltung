@@ -31,7 +31,7 @@ function getInfo() {
   "<table>"+
   "<tr>"+
   "<th class=''><button type='button' name='neuerTermin' class='Popup btn btn-primary' title='Trennwand-Reservierung'>Neuer Termin</button></th>"+
-  "<th class=''><button type='button' name='getKalender' onClick='getKalender()' class='Info btn btn-primary'>Zum Kalender</button></th>"+
+  "<th class=''><button type='button' name='getKalender' onClick='getKalender()'  class='Info btn btn-primary'>Zum Kalender</button></th>"+
   "<th class=''></th>"+
   "<th class=''></th>"+
   "<th class=''></th>"+
