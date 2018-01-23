@@ -59,8 +59,8 @@ function loadPopUp() {
   $('.Popup').click(function() {
     $('.Popup').not(this).popover('hide');
     $(this).popover({
-      title: "Header",
-      content: '<form onsubmit="formsubmit(this);return false" class="form-horizontal" ><a>Datum:</a><br><input  type="date" name="Datum" id="myDate"  ><br><a>Beginn E.:</a><br><input  type="number" name="BeginnE" id="myBeginnE"><br><a>Anzahl Koffer:</a><br><input type="number" name="AnzahlKoffer" value="1"><br><a>Lehrer Kzl.:</a><br><input type="text" name="LehrerKzl"><br><a>Klasse:</a><br><input type="text" name="Klasse"><br><input class="btn waves-effect waves-light" type="submit" value="Speichern"></form>',
+      title: "Das ist ein Header",
+      content: '<form onsubmit="formsubmit(this);return false"><div class="input-field col s6"><input id="myDate" type="date" class="validate"><label class="active" for="myDate">Datum</label></div><div class="input-field col s6"><input id="myBeginnE" type="number" name="BeginnE" class="validate"><label class="active" for="myBeginnE">Einheit</label></div><div class="input-field col s6"><input id="myAnzahlKoffer" type="number" name="AnzahlKoffer" class="validate"><label for="myAnzahlKoffer">Anzahl Koffer</label></div><div class="input-field col s6"><input id="myTeacher" type="text" class="validate" name="LehrerKzl"><label for="myTeacher">Lehrer</label></div><div class="input-field col s6"><input id="myClass" type="text" class="validate" name="Klasse"><label for="myClass">Klasse</label></div><button class="btn waves-effect waves-light" type="submit" name="action">Submit<i class="material-icons right">send</i></button></form>',
       html: true,
       trigger: "click",
       toggle: "popover",
