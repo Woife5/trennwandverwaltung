@@ -4,7 +4,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<script src="meine_JS/createInfo.js"></script>
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -25,16 +25,15 @@
   </nav>
 </head>
 
-<body>
+<body class="main">
 
-  <div class="toClear">
-    <div class="container">
+  <div id="master">
       <script src="meine_JS/createTable.js"></script>
-    </div>
   </div>
 
   <script type="text/javascript">
     $(document).ready(function() {
+      getKalender();
       $('.Popup').click(function() {
         $('.Popup').not(this).popover('hide');
         $(this).popover({
@@ -65,9 +64,7 @@
         document.getElementById("myDate").valueAsDate = day[Math.floor(this.id / 10)]
         document.getElementById("myBeginnE").value = this.id % 10 + 1
       })
-      function getInfo(){
-        document.getElementById("toClear")
-      }
+
     })
   </script>
   <script src="meine_JS\index.js"></script>
