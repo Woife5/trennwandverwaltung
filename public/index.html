@@ -43,7 +43,7 @@
         $('.Popup').not(this).popover('hide');
         $(this).popover({
           title: "Header",
-          content: '<form action="/save" method="POST" class="form-horizontal"><a>Datum:</a><br><input  type="date" name="Datum" id="myDate"  ><br><a>Beginn E.:</a><br><input  type="number" name="BeginnE" id="myBeginnE"><br><a>Anzahl Koffer:</a><br><input type="number" name="AnzahlKoffer" value="1"><br><a>Lehrer Kzl.:</a><br><input type="text" name="LehrerKzl"><br><a>Klasse:</a><br><input type="text" name="Klasse"><br><input type="submit" value="Speichern"></form>',
+          content: '<form onsubmit="formsubmit(this);return false" class="form-horizontal" ><a>Datum:</a><br><input  type="date" name="Datum" id="myDate"  ><br><a>Beginn E.:</a><br><input  type="number" name="BeginnE" id="myBeginnE"><br><a>Anzahl Koffer:</a><br><input type="number" name="AnzahlKoffer" value="1"><br><a>Lehrer Kzl.:</a><br><input type="text" name="LehrerKzl"><br><a>Klasse:</a><br><input type="text" name="Klasse"><br><input type="submit" value="Speichern"></form>',
           html: true,
           trigger: "click",
           toggle: "popover",
@@ -72,6 +72,7 @@
 
     })
   </script>
+  <script src="meine_JS\index.js"></script>
 </body>
 
 </html>
