@@ -27,14 +27,13 @@
 
 <body class="main">
 
-  <div class="toClear">
-    <div class="container">
+  <div id="master">
       <script src="meine_JS/createTable.js"></script>
-    </div>
   </div>
 
   <script type="text/javascript">
     $(document).ready(function() {
+      getKalender();
       $('.Popup').click(function() {
         $('.Popup').not(this).popover('hide');
         $(this).popover({

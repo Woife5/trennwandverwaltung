@@ -26,34 +26,31 @@ function getInfo() {
   var Buttonv2 = "'>";
   var Buttonv3 = "</button>";
 
-  document.write("<div class='toClear'>");
-  document.write("<div class='container'>");
-return;
-  document.write("<table>");
-  document.write('<tr>');
-
-
-  document.write("<th class=''><button type='button' name='neuerTermin' class='Popup btn btn-primary' title='Trennwand-Reservierung'>Neuer Termin</button></th>");
-  document.write("<th class=''><button type='button' name='getKalender' class='Info btn btn-primary'>Kalender</button></th>");
-  document.write("<th class=''></th>");
-  document.write("<th class=''></th>");
-  document.write("<th class=''></th>");
-  document.write('</tr>');
-  document.write('<tr>');
+  var generator=
+  "<div class='container toClear'>"+
+  "<table>"+
+  "<tr>"+
+  "<th class=''><button type='button' name='neuerTermin' class='Popup btn btn-primary' title='Trennwand-Reservierung'>Neuer Termin</button></th>"+
+  "<th class=''><button type='button' name='getKalender' onClick='getKalender()' class='Info btn btn-primary'>Kalender</button></th>"+
+  "<th class=''></th>"+
+  "<th class=''></th>"+
+  "<th class=''></th>"+
+  "</tr>"+
+  "<tr>";
   for (var i = 0; i < 5; i++) {
-    document.write("<th style='height:45px' class=''>" + day[i].toString().substring(0, 15) + "</th>");
+    generator+="<th style='height:45px' class=''>" + day[i].toString().substring(0, 15) + "</th>"
   }
-  document.write('</tr>');
+  generator+="</tr>"
 
   for (var i = 0; i < 10; i++) {
-    document.write('<tr>');
+    generator+="<tr>";
     for (var j = 0; j < 5; j++) {
-      document.write("<td style='width: 150px; text-align: right;'>" + Button + eval('i + SA * j') + Buttonv2 + eval('i % 10 +1') + Buttonv3 + "</td>");
+      generator+="<td style='width: 150px; text-align: right;'>" + Button + eval('i + SA * j') + Buttonv2 + eval('i % 10 +1') + Buttonv3 + "</td>";
 
     }
-    document.write('</tr>');
+    generator+="</tr>";
   }
-  document.write("</table>");
-  document.write("</div>");
-  document.write("</div>");
+  generator+="</table>";
+  generator+="</div>";
+  document.getElementById("master").innerHTML=generator;
 }
