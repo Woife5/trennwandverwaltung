@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.3/css/materialize.css">
+    <title>Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+     <div class="container">
+       <h1>Buttons</h1>
+       <a href="#modal1" class="btn waves-effect waves-light">Modal 1</a>
+     </div>
+
+     <div id="modal1" class="modal">
+       <div class="modal-content">
+         <h4>Eingabe</h4>
+         <form onsubmit="formsubmit(this);return false"><div class="input-field col s6"><input id="myDate" type="date" class="validate"><label class="active" for="myDate">Datum</label></div><div class="input-field col s6"><input id="myBeginnE" type="number" name="BeginnE" class="validate"><label class="active" for="myBeginnE">Einheit</label></div><div class="input-field col s6"><input id="myAnzahlKoffer" type="number" name="AnzahlKoffer" class="validate"><label for="myAnzahlKoffer">Anzahl Koffer</label></div><div class="input-field col s6"><input id="myTeacher" type="text" class="validate" name="LehrerKzl"><label for="myTeacher">Lehrer</label></div><div class="input-field col s6"><input id="myClass" type="text" class="validate" name="Klasse"><label for="myClass">Klasse</label></div><button class="btn waves-effect waves-light" type="submit" name="action">Submit<i class="material-icons right">send</i></button></form>
+       </div>
+     </div>
+     </div>
+
+
+     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('.modal').modal();
+      });
+    </script>
+  </body>
+</html>

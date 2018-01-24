@@ -30,8 +30,8 @@ function getInfo() {
   "<div class='container toClear'>"+
   "<table>"+
   "<tr>"+
-  "<th class=''><button type='button' name='neuerTermin' class='Popup btn waves-effect waves-light light-blue darken-4' title='Trennwand-Reservierung'>Neuer Termin</button></th>"+
-  "<th class=''><button type='button' name='getKalender' onClick='getKalender()' class='Info btn waves-effect waves-light light-blue darken-4'>Zum Kalender</button></th>"+
+  "<th class=''><button type='button' name='neuerTermin' class='Popup btn btn-primary' title='Trennwand-Reservierung'>Neuer Termin</button></th>"+
+  "<th class=''><button type='button' name='getKalender' onClick='getKalender()'  class='Info btn btn-primary'>Zum Kalender</button></th>"+
   "<th class=''></th>"+
   "<th class=''></th>"+
   "<th class=''></th>"+
