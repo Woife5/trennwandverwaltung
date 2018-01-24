@@ -17,7 +17,7 @@ function getKalender() {
   }
   var generator;
 
-  var Button = "<button class='Popup waves-effect waves-light btn' title='Trennwand-Reservierung' id='";
+  var Button = "<button class='Popup waves-effect waves-light btn' title='' id='";
   var Buttonv2 = "'>";
   var Buttonv3 = "</button>";
 
@@ -25,7 +25,7 @@ function getKalender() {
     "<div class='container toClear'>" +
     "<table>" +
     "<tr>" +
-    "<th class=''><button type='button' name='neuerTermin' class='Popup waves-effect waves-light btn' title='Trennwand-Reservierung'>Neuer Termin</button></th>" +
+    "<th class=''><button type='button' name='neuerTermin' class='Popup waves-effect waves-light btn' title=''>Neuer Termin</button></th>" +
     "<th class=''><button type='button' name='getInfo' id='getInfo' onClick='getInfo()' class='Popup waves-effect waves-light btn'>Zur Information</button></th>" +
     "<th class=''></th>" +
     "<th class=''></th>" +
@@ -59,8 +59,8 @@ function loadPopUp() {
   $('.Popup').click(function() {
     $('.Popup').not(this).popover('hide');
     $(this).popover({
-      title: "Das ist ein Header",
-      content: '<form onsubmit="formsubmit(this);return false"><div class="input-field col s6"><input id="myDate" type="date" class="validate"><label class="active" for="myDate">Datum</label></div><div class="input-field col s6"><input id="myBeginnE" type="number" name="BeginnE" class="validate"><label class="active" for="myBeginnE">Einheit</label></div><div class="input-field col s6"><input id="myAnzahlKoffer" type="number" name="AnzahlKoffer" class="validate"><label for="myAnzahlKoffer">Anzahl Koffer</label></div><div class="input-field col s6"><input id="myTeacher" type="text" class="validate" name="LehrerKzl"><label for="myTeacher">Lehrer</label></div><div class="input-field col s6"><input id="myClass" type="text" class="validate" name="Klasse"><label for="myClass">Klasse</label></div><button class="btn waves-effect waves-light" type="submit" name="action">Submit<i class="material-icons right">send</i></button></form>',
+      title: "",
+      content: '<form onsubmit="formsubmit(this); return false"><div class="input-field col s6"><input id="myDate" name="Datum" type="date" class="validate"><label class="active" for="myDate">Datum</label></div><div class="input-field col s6"><input id="myBeginnE" type="number" name="BeginnE" class="validate"><label class="active" for="myBeginnE">Einheit</label></div><div class="input-field col s6"><input id="myAnzahlKoffer" type="number" name="AnzahlKoffer" class="validate"><label for="myAnzahlKoffer">Anzahl Koffer</label></div><div class="input-field col s6"><input id="myTeacher" type="text" class="validate" name="LehrerKzl"><label for="myTeacher">Lehrer</label></div><div class="input-field col s6"><input id="myClass" type="text" class="validate" name="Klasse"><label for="myClass">Klasse</label></div><button class="btn waves-effect waves-light" type="submit">Submit<i class="material-icons right">send</i></button></form>',
       html: true,
       trigger: "click",
       toggle: "popover",
