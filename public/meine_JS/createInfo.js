@@ -22,7 +22,7 @@ function getInfo() {
   }
 
 
-  var Button = "<button class='getInfo btn btn-primary' title='Trennwand-Reservierung' id='";
+  var Button = "<button class='getInfo btn waves-effect waves-light light-blue darken-4' title='Trennwand-Reservierung' id='";
   var Buttonv2 = "'>";
   var Buttonv3 = "</button>";
 
