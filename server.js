@@ -18,6 +18,14 @@ con.connect(function(err){
 app.use(express.static('public'))
 app.use(bodyParser.json())
 
+app.get('/new',function(req, res){
+	res.sendFile(path.join(__dirname,'justfortesting' ,'test.html'))
+})
+
+app.get('/',function(req, res){
+	res.sendFile(path.join(__dirname ,'index.html'))
+})
+
 //------------------------------------------------------------------------------POST /api/save, this is where every save request lands
 app.post('/api/save', function(req, res) {
   if (!req.body) return res.sendStatus(400)
@@ -88,7 +96,7 @@ function toMySql(date, lesson, cases, teacher, schoolclass, callback){
 				//----------------------------------------------------------------------There are not enough cases to reserve
 				console.log('Zu diesem Zeitpunkt ist leider nichts mehr frei.')
 				console.log('TOMYSQL: Numberofcases: '+numberofcases+' Booked: '+booked+' Cases: '+cases+' Numberofcases-booked: '+(numberofcases-booked))
-				let err = {error:5, errortxt:'nothing to reserve',errordesc:'The user requested more cases than avalible.',userdesc:'Zu diesem Zeitpunkt sind nicht mehr genug Trennwände frei.'}
+				let err = {error:5, errortxt:'nothing to reserve',errordesc:'The user requested more cases than avalible.',userdesc:'Zu diesem Zeitpunkt sind nicht mehr genug Trennwandboxen frei.'}
 				callback(err, null)
 			}
 		})
