@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.3/css/materialize.css">
+    <title>Trennwand Reservierung</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style media="screen">
+      .btn {
+        width: 100% !important;
+      }
+      .brand-logo img {
+        height: 64px;
+      }
+    </style>
+  </head>
+  <body>
+     <div class="container">
+       <nav class="blue darken-3">
+        <div class="nav-wrapper">
+          <a href="#" class="brand-logo right"><img src="/Images/HTL-Logo-weiss-transparent.png"></a>
+          <ul id="nav-mobile" class="left">
+            <li><a href="calendar.html">Eintragen</a></li>
+            <li class="active"><a href="#">Information</a></li>
+          </ul>
+        </div>
+      </nav>
+       <div id="myDiv">
+       </div>
+     </div><!-- Container DIV -->
+
+     <div id="modal" class="modal">
+       <div class="modal-content">
+         <h4>Information über diese Stunde</h4>
+         <p>Work in progress...</p>
+     </div>
+     </div>
+
+
+     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        generateTable()
+        $('.modal').modal({
+          ready: function(modal, trigger){
+            //Do stuff: GET values for a particular lesson
+          }
+        });
+      });
+    </script>
+    <script src="/meine_JS/index.js"></script>
+    <script type="text/javascript">
+      var id
+
+      function klick(number){
+        id = number;
+        console.log('Setze id auf: '+number)
+        return false
+      }
+      var day = []
+      var date = new Date()
+
+      var j = 0;
+      for (var i = 0; i < 6; i++) {
+        day[i] = new Date(date.getTime() + j * 24 * 3600 * 1000 + i * 24 * 3600 * 1000)
+        if (day[i].toString().substring(0, 3) == "Sat") {
+          j += 2;
+          day[i] = new Date(date.getTime() + j * 24 * 3600 * 1000 + i * 24 * 3600 * 1000)
+        }
+        if (day[i].toString().substring(0, 3) == "Sun") {
+          j++;
+          day[i] = new Date(date.getTime() + j * 24 * 3600 * 1000 + i * 24 * 3600 * 1000)
+        }
+      }
+    </script>
+    <script type="text/javascript">
+      function generateTable(){
+        let Button = '<a href="#modal" onclick="return klick('
+        let Buttonv2 = ')" class="blue btn waves-effect waves-light">'
+        let Buttonv3 = '</a>'
+        let SA = 10
+        let generator = ''
+        generator += '<div class="row"></div>'
+
+        for (let i = 0; i < 10; i++) {
+          generator += '<div class="row">';
+          for (let j = 0; j < 6; j++) {
+            generator += '<div class="col s2">' + Button + eval('i + SA * j') + Buttonv2 + eval('i % 10 +1') + Buttonv3 + '</div>'
+
+          }
+          generator += '</div>'
+        }
+        document.getElementById('myDiv').innerHTML = generator;
+      }
+    </script>
+  </body>
+</html>
