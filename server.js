@@ -19,7 +19,7 @@ app.use(express.static('public'))
 app.use(bodyParser.json())
 
 app.get('/new',function(req, res){
-	res.sendFile(path.join(__dirname,'justfortesting' ,'test.html'))
+	res.sendFile(path.join(__dirname ,'public','calendar.html'))
 })
 
 app.get('/',function(req, res){
@@ -64,7 +64,10 @@ function toMySql(date, lesson, cases, teacher, schoolclass, callback){
 			if(err) throw err
 			numberofcases = result[0].Anz
 			console.log('TOMYSQL: Number of cases: '+numberofcases)
-			if (numberofcases-booked >= cases) {
+			if(cases > numberofcases){
+				let err = {error:42, errortxt:'not that many',errordesc:'The user requested more cases than avalible.',userdesc:'Es sind maximal '+numberofcases+' Trennwandboxen vorhanden.'}
+				callback(err, null)
+			}else if (numberofcases-booked >= cases) {
 				//----------------------------------------------------------------------There are enough cases to reserve
 				console.log('Es ist eine Trennwand frei, die Reserviert werden kann.')
 				console.log('TOMYSQL: Numberofcases: '+numberofcases+' Booked: '+booked+' Cases: '+cases+' Numberofcases-booked: '+(numberofcases-booked))
@@ -91,12 +94,14 @@ function toMySql(date, lesson, cases, teacher, schoolclass, callback){
 							callback(null, {data:ret})
 						})
 				  })
-
-			}else {
+			}else if(cases > 1){
 				//----------------------------------------------------------------------There are not enough cases to reserve
 				console.log('Zu diesem Zeitpunkt ist leider nichts mehr frei.')
 				console.log('TOMYSQL: Numberofcases: '+numberofcases+' Booked: '+booked+' Cases: '+cases+' Numberofcases-booked: '+(numberofcases-booked))
-				let err = {error:5, errortxt:'nothing to reserve',errordesc:'The user requested more cases than avalible.',userdesc:'Zu diesem Zeitpunkt sind nicht mehr genug Trennwandboxen frei.'}
+				let err = {error:5, errortxt:'nothing to reserve',errordesc:'The user requested more cases than free.',userdesc:'Zu diesem Zeitpunkt sind nicht mehr genug Trennwandboxen frei. Maximal '+eval(numberofcases-booked)+' frei.'}
+				callback(err, null)
+			}else{
+				let err = {error:0, errortxt:'no free',errordesc:'No cases free.',userdesc:'Zu diesem Zeitpunkt sind keine Trennwandboxen mehr frei.'}
 				callback(err, null)
 			}
 		})
