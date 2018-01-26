@@ -12,6 +12,11 @@ function formsubmit(formEl){
   json[teacherEl.name] = teacherEl.value
   json[classEl.name] = classEl.value
 
+  if(parseInt(casesEl.value) < 1){
+    alert('Bitte eine Anzahl größer 0 eingeben!')
+    return
+  }
+
   let httpReq = new XMLHttpRequest()
   httpReq.open("POST", "/api/save")
   httpReq.setRequestHeader('Content-Type', 'application/json')

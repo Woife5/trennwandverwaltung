@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.3/css/materialize.css">
-    <title>New style page</title>
+    <title>Trennwand Reservierung</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style media="screen">
       .btn {
@@ -17,12 +17,12 @@
   </head>
   <body>
      <div class="container">
-       <nav class="teal darken-1">
+       <nav class="blue darken-3">
         <div class="nav-wrapper">
-          <a href="#" class="brand-logo right"><img src="/Images/HTL-Logo.png"></a>
+          <a href="#" class="brand-logo right"><img src="/Images/HTL-Logo-weiss-transparent.png"></a>
           <ul id="nav-mobile" class="left">
-            <li><a href="">Kalender</a></li>
-            <li><a href="">Information</a></li>
+            <li><a href="calendar.html">Eintragen</a></li>
+            <li class="active"><a href="#">Information</a></li>
           </ul>
         </div>
       </nav>
@@ -32,15 +32,8 @@
 
      <div id="modal" class="modal">
        <div class="modal-content">
-         <h4>Daten eingeben</h4>
-         <form onsubmit="formsubmit(this); return false">
-           <div class="input-field col s6"><input id="myDate" name="Datum" type="date" class="validate"><label class="active" for="myDate">Datum</label></div>
-           <div class="input-field col s6"><input id="myBeginnE" type="number" name="BeginnE" value="1" class="validate"><label class="active" for="myBeginnE">Einheit</label></div>
-           <div class="input-field col s6"><input id="myAnzahlKoffer" type="number" name="AnzahlKoffer" class="validate"><label for="myAnzahlKoffer">Anzahl Koffer</label></div>
-           <div class="input-field col s6"><input id="myTeacher" type="text" class="validate" name="LehrerKzl"><label for="myTeacher">Lehrer</label></div>
-           <div class="input-field col s6"><input id="myClass" type="text" class="validate" name="Klasse"><label for="myClass">Klasse</label></div>
-           <button class="btn waves-effect waves-light" type="submit">Submit<i class="material-icons right">send</i></button>
-         </form>
+         <h4>Information über diese Stunde</h4>
+         <p>Work in progress...</p>
      </div>
      </div>
 
@@ -52,7 +45,7 @@
         generateTable()
         $('.modal').modal({
           ready: function(modal, trigger){
-            setValues()
+            //Do stuff: GET values for a particular lesson
           }
         });
       });
@@ -81,15 +74,11 @@
           day[i] = new Date(date.getTime() + j * 24 * 3600 * 1000 + i * 24 * 3600 * 1000)
         }
       }
-      function setValues(){
-        document.getElementById("myDate").valueAsDate = day[Math.floor(id / 10)]
-        document.getElementById("myBeginnE").value = id % 10 + 1
-      }
     </script>
     <script type="text/javascript">
       function generateTable(){
         let Button = '<a href="#modal" onclick="return klick('
-        let Buttonv2 = ')" class="btn waves-effect waves-light">'
+        let Buttonv2 = ')" class="blue btn waves-effect waves-light">'
         let Buttonv3 = '</a>'
         let SA = 10
         let generator = ''

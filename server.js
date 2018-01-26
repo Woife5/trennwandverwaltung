@@ -18,6 +18,14 @@ con.connect(function(err){
 app.use(express.static('public'))
 app.use(bodyParser.json())
 
+app.get('/new',function(req, res){
+	res.sendFile(path.join(__dirname ,'public','calendar.html'))
+})
+
+app.get('/',function(req, res){
+	res.sendFile(path.join(__dirname ,'index.html'))
+})
+
 //------------------------------------------------------------------------------POST /api/save, this is where every save request lands
 app.post('/api/save', function(req, res) {
   if (!req.body) return res.sendStatus(400)
@@ -28,13 +36,6 @@ app.post('/api/save', function(req, res) {
 	let teacher = req.body.LehrerKzl
 	let schoolclass = req.body.Klasse
 
-	console.log('Datum: '+date)
-	console.log('Beginn: '+lesson)
-	console.log('Koffer: '+cases)
-	console.log('Lehrer: '+teacher)
-	console.log('Klasse: '+schoolclass)
-
-	console.log('Connected to GET')
 	con.query('SELECT count(*) as booked FROM entlehnt where `date`="'+date+'" AND lesson='+lesson, function (err, result, fields) {
     if (err) throw err
 		let booked = result[0].booked
@@ -51,16 +52,23 @@ function toMySql(date, lesson, cases, teacher, schoolclass, callback){
 	con.query('SELECT count(*) as booked FROM entlehnt where `date`="'+date+'" AND lesson='+lesson, function (err, result, fields) {
     if (err) throw err
 		let booked = result[0].booked
-		console.log('TOMYSQL: Booked: '+booked)
 		con.query('SELECT count(*) as Anz from trennwaende', function(err, result, fields){
 			if(err) throw err
 			numberofcases = result[0].Anz
-			console.log('TOMYSQL: Number of cases: '+numberofcases)
-			if (numberofcases-booked >= cases) {
+			avalible = numberofcases-booked
+			if(cases > numberofcases){
+				//----------------------------------------------------------------------Someone tried to reserve more cases than avalible
+				let err
+				if(avalible == 0){
+					err = {error:42, errortxt:'not that many!',errordesc:'The user requested more cases than avalible.',userdesc:'Es sind maximal '+numberofcases+' Trennwandboxen vorhanden, wovon keine mehr frei ist zu diesem Termin.'}
+				}else if(avalible == 1){
+					err = {error:42, errortxt:'not that many!',errordesc:'The user requested more cases than avalible.',userdesc:'Es sind maximal '+numberofcases+' Trennwandboxen vorhanden, wovon eine noch frei ist zu diesem Termin.'}
+				}else{
+					err = {error:42, errortxt:'not that many!',errordesc:'The user requested more cases than avalible.',userdesc:'Es sind maximal '+numberofcases+' Trennwandboxen vorhanden, wovon '+avalible+' noch frei sind zu diesem Termin.'}
+				}
+				callback(err, null)
+			}else if (avalible >= cases) {
 				//----------------------------------------------------------------------There are enough cases to reserve
-				console.log('Es ist eine Trennwand frei, die Reserviert werden kann.')
-				console.log('TOMYSQL: Numberofcases: '+numberofcases+' Booked: '+booked+' Cases: '+cases+' Numberofcases-booked: '+(numberofcases-booked))
-
 				var sql = 'INSERT INTO entlehnt (ID, teachername, class, date, lesson, twfk) VALUES ?'
 			  var values = []
 				let i = 0
@@ -68,7 +76,6 @@ function toMySql(date, lesson, cases, teacher, schoolclass, callback){
 					values[i] = ['null', teacher, schoolclass, date, lesson, inserted]
 					i++
 				}
-
 				//----------------------------------------------------------------------Inserting into SQL Database
 				con.query(sql, [values], function (err, result) {
 				    if (err) throw err;
@@ -83,12 +90,13 @@ function toMySql(date, lesson, cases, teacher, schoolclass, callback){
 							callback(null, {data:ret})
 						})
 				  })
-
-			}else {
-				//----------------------------------------------------------------------There are not enough cases to reserve
-				console.log('Zu diesem Zeitpunkt ist leider nichts mehr frei.')
-				console.log('TOMYSQL: Numberofcases: '+numberofcases+' Booked: '+booked+' Cases: '+cases+' Numberofcases-booked: '+(numberofcases-booked))
-				let err = {error:5, errortxt:'nothing to reserve',errordesc:'The user requested more cases than avalible.',userdesc:'Zu diesem Zeitpunkt sind nicht mehr genug Trennwände frei.'}
+			}else if(avalible == 0){
+				//----------------------------------------------------------------------None are free
+				let err = {error:0, errortxt:'no free',errordesc:'No cases free.',userdesc:'Zu diesem Zeitpunkt sind keine Trennwandboxen mehr frei.'}
+				callback(err, null)
+			}else{
+				//----------------------------------------------------------------------Not that many are free anymore
+				let err = {error:5, errortxt:'nothing to reserve',errordesc:'The user requested more cases than free.',userdesc:'Zu diesem Zeitpunkt sind nurmehr '+avalible+' Trennwandboxen frei.'}
 				callback(err, null)
 			}
 		})

@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.3/css/materialize.css">
-    <title>New style page</title>
+    <title>Trennwand Reservierung</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style media="screen">
       .btn {
@@ -17,12 +17,12 @@
   </head>
   <body>
      <div class="container">
-       <nav class="teal darken-1">
+       <nav class="teal darken-3">
         <div class="nav-wrapper">
-          <a href="#" class="brand-logo right"><img src="/Images/HTL-Logo.png"></a>
+          <a href="#" class="brand-logo right"><img src="/Images/HTL-Logo-weiss-transparent.png"></a>
           <ul id="nav-mobile" class="left">
-            <li><a href="">Kalender</a></li>
-            <li><a href="">Information</a></li>
+            <li class="active"><a href="#">Eintragen</a></li>
+            <li><a href="information.html">Information</a></li>
           </ul>
         </div>
       </nav>
@@ -32,11 +32,11 @@
 
      <div id="modal" class="modal">
        <div class="modal-content">
-         <h4>Daten eingeben</h4>
+         <h4>Trennwandbox reservieren</h4>
          <form onsubmit="formsubmit(this); return false">
            <div class="input-field col s6"><input id="myDate" name="Datum" type="date" class="validate"><label class="active" for="myDate">Datum</label></div>
            <div class="input-field col s6"><input id="myBeginnE" type="number" name="BeginnE" value="1" class="validate"><label class="active" for="myBeginnE">Einheit</label></div>
-           <div class="input-field col s6"><input id="myAnzahlKoffer" type="number" name="AnzahlKoffer" class="validate"><label for="myAnzahlKoffer">Anzahl Koffer</label></div>
+           <div class="input-field col s6"><input id="myAnzahlKoffer" type="number" name="AnzahlKoffer" value="1" class="validate"><label class="active" for="myAnzahlKoffer">Anzahl Koffer</label></div>
            <div class="input-field col s6"><input id="myTeacher" type="text" class="validate" name="LehrerKzl"><label for="myTeacher">Lehrer</label></div>
            <div class="input-field col s6"><input id="myClass" type="text" class="validate" name="Klasse"><label for="myClass">Klasse</label></div>
            <button class="btn waves-effect waves-light" type="submit">Submit<i class="material-icons right">send</i></button>
