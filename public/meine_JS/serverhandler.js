@@ -71,3 +71,16 @@ function formsubmit(formEl){
   }
   httpReq.send(JSON.stringify(json))
 }
+
+function getCases(){
+  let httpReq = new XMLHttpRequest()
+  httpReq.open("GET", "/api/cases")
+  httpReq.setRequestHeader('Content-Type', 'application/json')
+  httpReq.onload = function() {
+    if(this.status != 200){
+      alert('Something went wrong!')
+    }else{
+      return JSON.parse(this.responseText)
+    }
+  }
+}

@@ -26,6 +26,22 @@ app.get('/',function(req, res){
 	res.sendFile(path.join(__dirname ,'index.html'))
 })
 
+app.get('/api/cases',function(req, res){
+	let cases
+	con.query('SELECT count(*) as Anz from trennwaende', function(err, result, fields){
+		if(err) throw err
+		cases = result[0].Anz
+		con.query('SELECT name from trennwaende',function(err, result, fields){
+			if(err) throw err
+			let ret = {numberofcases:cases}
+			for (let i = 0; i < cases; i++) {
+				ret[i] = result[i].name
+			}
+			res.json(ret)
+		})
+	})
+})
+
 //------------------------------------------------------------------------------POST /api/save, this is where every save request lands
 app.post('/api/save', function(req, res) {
   if (!req.body) return res.sendStatus(400)
@@ -82,7 +98,6 @@ function toMySql(date, lesson, cases, teacher, schoolclass, callback){
 						//------------------------------------------------------------------Checking which colors have been reserved
 						con.query('SELECT trennwaende.name as twname FROM entlehnt JOIN trennwaende ON entlehnt.twfk = trennwaende.ID where `date`="'+date+'" AND lesson='+lesson+' AND teachername = "'+teacher+'"', function (err, result, fields) {
 					    if (err) throw err
-							console.log(result)
 							let ret = []
 							for(let i = 0;i<result.length;i++){
 								ret[i] = result[i].twname
