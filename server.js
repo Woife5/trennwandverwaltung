@@ -19,20 +19,34 @@ app.use(express.static('public'))
 app.use(bodyParser.json())
 
 app.get('/new',function(req, res){
-	res.sendFile(path.join(__dirname ,'public','calendar.html'))
+	res.redirect('/calendar')
 })
 
 app.get('/',function(req, res){
-	res.sendFile(path.join(__dirname ,'index.html'))
+	res.redirect('/calendar')
 })
 
-app.get('/api/cases',function(req, res){
+app.get('/calendar',function(req, res){
+	res.sendFile(path.join(__dirname ,'public','calendar.html'))
+})
+
+app.get('/info',function(req, res){
+	res.sendFile(path.join(__dirname ,'public','information.html'))
+})
+
+app.get('/api/cases', function(req, res) {
 	let cases
 	con.query('SELECT count(*) as Anz from trennwaende', function(err, result, fields){
-		if(err) throw err
+		if(err){
+			let error = {error:3,errordata:err, userdesc:'Eine SQL Abfrage schlug fehl.'}
+			res.status(400).json(error)
+		}
 		cases = result[0].Anz
-		con.query('SELECT name from trennwaende',function(err, result, fields){
-			if(err) throw err
+		con.query('SELECT * from trennwaende',function(err, result, fields){
+			if(err){
+				let error = {error:3,errordata:err,userdesc:'Eine SQL Abfrage schlug fehl.'}
+				res.status(400).json(error)
+			}
 			let ret = {numberofcases:cases}
 			for (let i = 0; i < cases; i++) {
 				ret[i] = result[i].name
