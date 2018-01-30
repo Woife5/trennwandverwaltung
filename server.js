@@ -37,7 +37,7 @@ app.get('/info',function(req, res){
 app.get('/api/:year/:month/:day/:lesson', function(req, res){
 	let date = ''+req.params.year+'-'+req.params.month+'-'+req.params.day
 	let lesson = req.params.lesson
-	con.query('SELECT teachername, twfk as trennwand from entlehnt where date="'+date+'" and lesson='+lesson,function(err, result, fields){
+	con.query('SELECT teachername, class as klasse, twfk as trennwand from entlehnt where date="'+date+'" and lesson='+lesson,function(err, result, fields){
 		if(err) throw err
 		res.json(result)
 	})

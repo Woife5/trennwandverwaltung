@@ -4,6 +4,7 @@ let dayNames = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag',
 function klick(number){
   id = number;
   console.log('Setze id auf: '+number)
+  setValues()
   return false
 }
 

@@ -1,17 +1,13 @@
 $(document).ready(function() {
   generateTable()
-  $('.modal').modal({
-    ready: function(modal, trigger) {
-      buildInfoPopUp()
-    }
-  })
+  $('.modal').modal()
 })
 
 function getColor() {
   return 'blue'
 }
 
-function buildInfoPopUp() {
+function setValues() {
   let day = getDays()
   let dayNames = getDayNames()
   let tag = day[Math.floor(getId() / 10)]
@@ -23,7 +19,7 @@ function buildInfoPopUp() {
   document.getElementById("myBeginnE").innerHTML = stunde
   let generator
   getCases(function(cases) {
-    getReserved(2018, 1, 28, 3, function(reserviert) {
+    getReserved(2018, 1, 30, 1, function(reserviert) {
       console.log(cases['numberofcases'])
       console.log(reserviert);
 
