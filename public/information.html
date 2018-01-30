@@ -96,8 +96,8 @@
         day[i] = new Date(date.getTime() + j * 24 * 3600 * 1000 + i * 24 * 3600 * 1000)
       }
     }
-
-
+  </script>
+  <script type="text/javascript">
     //Generate Table----------------------------------------------------------------
 
     function getDayRow(){
@@ -156,10 +156,12 @@
       document.getElementById("myBeginnE").innerHTML = stunde
 
       var cases = getCases();
+      console.log(cases)
       var generator
 
+
       generator = "<ol>"
-      for (var i=0;i<4;i++) {
+      for (var i = 0; i < 4; i++) {
         generator += "<li>" + "" + "</li>";
       }
       generator += "</ol>"
