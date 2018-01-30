@@ -72,7 +72,7 @@ function formsubmit(formEl){
   httpReq.send(JSON.stringify(json))
 }
 
-function getCases(){
+function getCases(callback){
   let httpReq = new XMLHttpRequest()
   httpReq.open("GET", "/api/cases")
   httpReq.send(null)
@@ -82,7 +82,7 @@ function getCases(){
       let errData = JSON.parse(this.responseText)
       alert('Error: '+errData['userdesc'] + ' Errormessage: '+errData['errordata'])
     }else{
-      return JSON.parse(this.responseText)
+      callback(JSON.parse(this.responseText))
     }
   }
 }

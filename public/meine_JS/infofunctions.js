@@ -7,7 +7,7 @@ $(document).ready(function() {
   })
 })
 
-function getColor(){
+function getColor() {
   return 'blue'
 }
 
@@ -21,16 +21,19 @@ function buildInfoPopUp() {
   let stunde = getId() % 10 + 1
   document.getElementById("myDate").innerHTML = tagoutput
   document.getElementById("myBeginnE").innerHTML = stunde
-
-  let cases = getCases();
-  console.log(cases)
   let generator
+  getCases(function(cases) {
+    getReserved(2018, 1, 28, 3, function(reserviert) {
+      console.log(cases['numberofcases'])
+      console.log(reserviert);
 
-  generator = "<ol>"
-  for (let i = 0; i < 4; i++) {
-    generator += "<li>" + "" + "</li>";
-  }
-  generator += "</ol>"
-
-  document.getElementById('info').innerHTML = generator;
+      generator = "<ol>"
+      for (let i = 0; i < cases['numberofcases']; i++) {
+        generator += "<li>" + cases[i] + ": "
+        "</li>";
+      }
+      generator += "</ol>"
+      document.getElementById('info').innerHTML = generator;
+    })
+  });
 }
