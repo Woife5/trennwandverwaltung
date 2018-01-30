@@ -38,137 +38,16 @@
     <div class="modal-content">
       <h4>Information über die <span id="myBeginnE"></span>. Stunde am <span id="myDate"></span></h4>
       <div id="info">
-
-
       </div>
-
-
-
     </div>
   </div>
 
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
-  <script type="text/javascript">
-    //Modaler ButtonTrigger---------------------------------------------------------
-    $(document).ready(function() {
-      generateTable()
-      $('.modal').modal({
-        ready: function(modal, trigger) {
-          buildInfoPopUp()
-        }
-      })
-    })
-    </script>
-    <script src="/meine_JS/serverhandler.js"></script>
-    <script type="text/javascript">
-      var id
-      var dayNames = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag']
-
-      function klick(number){
-        id = number;
-        console.log('Setze id auf: '+number)
-        return false
-      }
-      var day = []
-      var date = new Date()
-
-    var id
-
-    function klick(number) {
-      id = number;
-      console.log('Setze id auf: ' + number)
-      return false
-    }
-    var day = []
-    var date = new Date()
-
-    var j = 0;
-    for (var i = 0; i < 6; i++) {
-      day[i] = new Date(date.getTime() + j * 24 * 3600 * 1000 + i * 24 * 3600 * 1000)
-      if (day[i].toString().substring(0, 3) == "Sat") {
-        j += 2;
-        day[i] = new Date(date.getTime() + j * 24 * 3600 * 1000 + i * 24 * 3600 * 1000)
-      }
-      if (day[i].toString().substring(0, 3) == "Sun") {
-        j++;
-        day[i] = new Date(date.getTime() + j * 24 * 3600 * 1000 + i * 24 * 3600 * 1000)
-      }
-    }
-  </script>
-  <script type="text/javascript">
-    //Generate Table----------------------------------------------------------------
-
-    function getDayRow(){
-      let dayList = ''
-      let dayv1 = '<div class="col s2 card-panel blue center-align white-text"><font size="5">'
-      let dayv2 = '</font></div>'
-      dayList += '<div class="row" style="margin: 0px">'
-
-      for (var i = 0; i < day.length; i++) {
-        dayList += dayv1 + dayNames[day[i].getDay()] + dayv2
-      }
-
-      dayList += '</div>'
-      return dayList
-    }
-
-    function generateTable() {
-      let Button = '<a href="#modal" onclick="return klick('
-      let Buttonv2 = ')" class="blue btn waves-effect waves-light">'
-      let Buttonv3 = '</a>'
-      let SA = 10
-      let generator = ''
-      generator += getDayRow()
-      generator += '<div class="row" style="margin: 0px"></div>'
-
-      for (let i = 0; i < 10; i++) {
-        generator += '<div class="row">';
-        for (let j = 0; j < 6; j++) {
-          generator += '<div class="col s2">' + Button + eval('i + SA * j') + Buttonv2 + eval('i % 10 +1') + Buttonv3 + '</div>'
-
-        }
-        generator += '</div>'
-      }
-      document.getElementById('myDiv').innerHTML = generator;
-    }
-
-
-    //buildInfoPopUp----------------------------------------------------------------
-
-
-    function buildInfoPopUp() {
-      var tag = day[Math.floor(id / 10)]
-      var weekday = new Array(7);
-      weekday[0] = "Sontag";
-      weekday[1] = "Montag";
-      weekday[2] = "Dienstag";
-      weekday[3] = "Mittwoch";
-      weekday[4] = "Donnerstag";
-      weekday[5] = "Freitag";
-      weekday[6] = "Samstag";
-      var n = weekday[tag.getDay()];
-      var tagoutput
-      tagoutput = n + " dem " + tag.toLocaleDateString()
-      var stunde = id % 10 + 1
-      document.getElementById("myDate").innerHTML = tagoutput;
-      document.getElementById("myBeginnE").innerHTML = stunde
-
-      var cases = getCases();
-      console.log(cases)
-      var generator
-
-
-      generator = "<ol>"
-      for (var i = 0; i < 4; i++) {
-        generator += "<li>" + "" + "</li>";
-      }
-      generator += "</ol>"
-
-      document.getElementById('info').innerHTML = generator;
-    }
-  </script>
+  <script src="/meine_JS/infofunctions.js"></script>
+  <script src="/meine_JS/serverhandler.js"></script>
+  <script src="/meine_JS/globalfunctions.js"></script>
 </body>
 
 </html>
