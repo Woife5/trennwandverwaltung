@@ -67,7 +67,7 @@ function formsubmit(formEl){
     }
   }
   httpReq.onerror = function() {
-    console.log('WTF?')
+    alert('Unknown network error occured')
   }
   httpReq.send(JSON.stringify(json))
 }
@@ -77,8 +77,10 @@ function getCases(){
   httpReq.open("GET", "/api/cases")
   httpReq.send(null)
   httpReq.onload = function() {
+    console.log('http request sucessful')
     if(this.status != 200){
-      alert('Something went wrong!')
+      let errData = JSON.parse(this.responseText)
+      alert('Error: '+errData['userdesc'] + ' Errormessage: '+errData['errordata'])
     }else{
       return JSON.parse(this.responseText)
     }

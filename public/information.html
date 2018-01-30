@@ -13,7 +13,7 @@
     }
 
     .brand-logo img {
-      height: 64px;
+      height: 60px;
     }
   </style>
 </head>
@@ -24,7 +24,7 @@
       <div class="nav-wrapper">
         <a href="#" class="brand-logo right"><img src="/Images/HTL-Logo-weiss-transparent.png"></a>
         <ul id="nav-mobile" class="left">
-          <li><a href="calendar.html">Eintragen</a></li>
+          <li><a href="/calendar">Eintragen</a></li>
           <li class="active"><a href="#">Information</a></li>
         </ul>
       </div>
@@ -50,31 +50,29 @@
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
-
   <script type="text/javascript">
     //Modaler ButtonTrigger---------------------------------------------------------
-
-
     $(document).ready(function() {
-          generateTable()
-          $('.modal').modal({
-            ready: function(modal, trigger) {
-              buildInfoPopUp()
-            }
-          });
-        });
-  </script>
-  <script src="/meine_JS/serverhandler.js"></script>
-  <script type="text/javascript">
-    var id
+      generateTable()
+      $('.modal').modal({
+        ready: function(modal, trigger) {
+          buildInfoPopUp()
+        }
+      })
+    })
+    </script>
+    <script src="/meine_JS/serverhandler.js"></script>
+    <script type="text/javascript">
+      var id
+      var dayNames = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag']
 
-    function klick(number) {
-      id = number;
-      console.log('Setze id auf: ' + number)
-      return false
-    }
-    var day = []
-    var date = new Date()
+      function klick(number){
+        id = number;
+        console.log('Setze id auf: '+number)
+        return false
+      }
+      var day = []
+      var date = new Date()
 
     var id
 
@@ -102,6 +100,19 @@
   <script type="text/javascript">
     //Generate Table----------------------------------------------------------------
 
+    function getDayRow(){
+      let dayList = ''
+      let dayv1 = '<div class="col s2 card-panel blue center-align white-text"><font size="5">'
+      let dayv2 = '</font></div>'
+      dayList += '<div class="row" style="margin: 0px">'
+
+      for (var i = 0; i < day.length; i++) {
+        dayList += dayv1 + dayNames[day[i].getDay()] + dayv2
+      }
+
+      dayList += '</div>'
+      return dayList
+    }
 
     function generateTable() {
       let Button = '<a href="#modal" onclick="return klick('
@@ -109,7 +120,8 @@
       let Buttonv3 = '</a>'
       let SA = 10
       let generator = ''
-      generator += '<div class="row"></div>'
+      generator += getDayRow()
+      generator += '<div class="row" style="margin: 0px"></div>'
 
       for (let i = 0; i < 10; i++) {
         generator += '<div class="row">';
