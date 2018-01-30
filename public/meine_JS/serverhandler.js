@@ -75,7 +75,7 @@ function formsubmit(formEl){
 function getCases(){
   let httpReq = new XMLHttpRequest()
   httpReq.open("GET", "/api/cases")
-  httpReq.setRequestHeader('Content-Type', 'application/json')
+  httpReq.send(null)
   httpReq.onload = function() {
     if(this.status != 200){
       alert('Something went wrong!')

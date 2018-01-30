@@ -50,31 +50,31 @@
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
-  <script src="/meine_JS/index.js"></script>
-  <script type="text/javascript">
 
+  <script type="text/javascript">
     //Modaler ButtonTrigger---------------------------------------------------------
 
 
     $(document).ready(function() {
-      generateTable()
-      $('.modal').modal({
-        ready: function(modal, trigger) {
-          buildInfoPopUp()
-        }
-      });
-    </script>
-    <script src="/meine_JS/serverhandler.js"></script>
-    <script type="text/javascript">
-      var id
+          generateTable()
+          $('.modal').modal({
+            ready: function(modal, trigger) {
+              buildInfoPopUp()
+            }
+          });
+        });
+  </script>
+  <script src="/meine_JS/serverhandler.js"></script>
+  <script type="text/javascript">
+    var id
 
-      function klick(number){
-        id = number;
-        console.log('Setze id auf: '+number)
-        return false
-      }
-      var day = []
-      var date = new Date()
+    function klick(number) {
+      id = number;
+      console.log('Setze id auf: ' + number)
+      return false
+    }
+    var day = []
+    var date = new Date()
 
     var id
 
@@ -98,8 +98,8 @@
         day[i] = new Date(date.getTime() + j * 24 * 3600 * 1000 + i * 24 * 3600 * 1000)
       }
     }
-
-
+  </script>
+  <script type="text/javascript">
     //Generate Table----------------------------------------------------------------
 
 
@@ -144,10 +144,12 @@
       document.getElementById("myBeginnE").innerHTML = stunde
 
       var cases = getCases();
+      console.log(cases)
       var generator
 
+
       generator = "<ol>"
-      for (var i=0;i<4;i++) {
+      for (var i = 0; i < 4; i++) {
         generator += "<li>" + "" + "</li>";
       }
       generator += "</ol>"
