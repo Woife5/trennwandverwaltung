@@ -72,17 +72,36 @@ function formsubmit(formEl){
   httpReq.send(JSON.stringify(json))
 }
 
-function getCases(){
+function getCases(callback){
   let httpReq = new XMLHttpRequest()
   httpReq.open("GET", "/api/cases")
   httpReq.send(null)
   httpReq.onload = function() {
-    console.log('http request sucessful')
     if(this.status != 200){
       let errData = JSON.parse(this.responseText)
       alert('Error: '+errData['userdesc'] + ' Errormessage: '+errData['errordata'])
     }else{
-      return JSON.parse(this.responseText)
+      callback(JSON.parse(this.responseText))
     }
+  }
+  httpReq.onerror = function() {
+    alert('Unknown network error occured')
+  }
+}
+
+function getReserved(year, month, day, lesson, callback){
+  let httpReq = new XMLHttpRequest()
+  httpReq.open("GET", '/api/'+year+'/'+month+'/'+day+'/'+lesson)
+  httpReq.send(null)
+  httpReq.onload = function() {
+    if(this.status != 200){
+      let errData = JSON.parse(this.responseText)
+      alert('Error: '+errData['userdesc'] + ' Errormessage: '+errData['errordata'])
+    }else{
+      callback(JSON.parse(this.responseText))
+    }
+  }
+  httpReq.onerror = function() {
+    alert('Unknown network error occured')
   }
 }

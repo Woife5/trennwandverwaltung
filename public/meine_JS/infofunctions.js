@@ -22,8 +22,10 @@ function buildInfoPopUp() {
   document.getElementById("myDate").innerHTML = tagoutput
   document.getElementById("myBeginnE").innerHTML = stunde
 
-  let cases = getCases();
-  console.log(cases)
+  getCases(function(cases){
+    console.log(cases['numberofcases'])
+  });
+
   let generator
 
   generator = "<ol>"

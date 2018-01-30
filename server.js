@@ -34,6 +34,15 @@ app.get('/info',function(req, res){
 	res.sendFile(path.join(__dirname ,'public','information.html'))
 })
 
+app.get('/api/:year/:month/:day/:lesson', function(req, res){
+	let date = ''+req.params.year+'-'+req.params.month+'-'+req.params.day
+	let lesson = req.params.lesson
+	con.query('SELECT teachername, twfk as trennwand from entlehnt where date="'+date+'" and lesson='+lesson,function(err, result, fields){
+		if(err) throw err
+		res.json(result)
+	})
+})
+
 app.get('/api/cases', function(req, res) {
 	let cases
 	con.query('SELECT count(*) as Anz from trennwaende', function(err, result, fields){
