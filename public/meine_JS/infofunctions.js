@@ -1,17 +1,13 @@
 $(document).ready(function() {
   generateTable()
-  $('.modal').modal({
-    ready: function(modal, trigger) {
-      buildInfoPopUp()
-    }
-  })
+  $('.modal').modal()
 })
 
 function getColor() {
   return 'blue'
 }
 
-function buildInfoPopUp() {
+function setValues() {
   let day = getDays()
   let dayNames = getDayNames()
   let tag = day[Math.floor(getId() / 10)]

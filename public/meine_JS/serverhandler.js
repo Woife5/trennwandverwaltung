@@ -98,6 +98,7 @@ function getReserved(year, month, day, lesson, callback){
       let errData = JSON.parse(this.responseText)
       alert('Error: '+errData['userdesc'] + ' Errormessage: '+errData['errordata'])
     }else{
+      console.log(JSON.parse(this.responseText))
       callback(JSON.parse(this.responseText))
     }
   }
