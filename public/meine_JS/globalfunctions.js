@@ -50,7 +50,7 @@ function getDayRow(){
   dayList += '<div class="row" style="margin: 0px">'
 
   for (let i = 0; i < day.length; i++) {
-    dayList += dayv1 + dayNames[day[i].getDay()] + dayv2
+    dayList += dayv1+"<font size='3'>"+day[i].toLocaleDateString()+"</font>" +"<br>"+ dayNames[day[i].getDay()] + dayv2
   }
 
   dayList += '</div>'

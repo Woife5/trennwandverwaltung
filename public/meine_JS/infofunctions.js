@@ -19,16 +19,24 @@ function setValues() {
   document.getElementById("myBeginnE").innerHTML = stunde
   let generator
   getCases(function(cases) {
-    getReserved(2018, 1, 30, 1, function(reserviert) {
+    getReserved(tag.getFullYear(), tag.getMonth() + 1, tag.getDate(), stunde, function(reserviert) {
       console.log(cases['numberofcases'])
-      console.log(reserviert);
 
-      generator = "<ol>"
-      for (let i = 0; i < cases['numberofcases']; i++) {
-        generator += "<li>" + cases[i] + ": "
-        "</li>";
+
+      generator = "<table class='responsive-table'>"
+      generator += "<thead> <tr>  <th>Farbe</th> <th>Lehrer</th> </tr> </thead>"
+      generator += "<tbody>"
+      let i=0;
+      for (; i < reserviert.length; i++) {
+        generator += "<tr>" + "<td>" + cases[i] + "</td>" +  "<td>" + reserviert[i].teachername + "</td>" + "</tr>";
       }
-      generator += "</ol>"
+
+
+      for (let j=0; j < cases['numberofcases']-reserviert.length; j++,i++) {
+        generator += "<tr>" + "<td>" + cases[i] + "</td>" +  "<td>" +  + "</td>" + "</tr>";
+      }
+      generator += "</tbody>"
+      generator += "</table>"
       document.getElementById('info').innerHTML = generator;
     })
   });
