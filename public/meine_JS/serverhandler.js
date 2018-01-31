@@ -103,7 +103,6 @@ function deleteSearch(formEl){
     }else{
       let data = JSON.parse(this.responseText)
       if(data != []){
-        console.log(data);
         searchresult(data)
       }
     }

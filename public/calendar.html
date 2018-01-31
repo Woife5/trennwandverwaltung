@@ -53,7 +53,7 @@
         <nav>
           <div class="nav-wrapper">
             <form onsubmit="deleteSearch(this); return false">
-              <div class="input-field teal">
+              <div id="searchbar" class="input-field">
                 <input id="search" type="search" required>
                 <label class="label-icon" for="search"><i class="material-icons">search</i></label>
                 <i class="material-icons">close</i>
@@ -61,34 +61,7 @@
             </form>
           </div>
         </nav>
-        <div id="deletecontent">
-
-          <ul class="collapsible" data-collapsible="accordion">
-            <li>
-              <div class="collapsible-header"><i class="material-icons">account_box</i>Erste Klasse</div>
-              <div class="collapsible-body">
-                <table class='responsive-table'>
-                  <thead>
-                    <tr>
-                      <th>Datum</th>
-                      <th>Einheit</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>20.1.2018</td>
-                      <td>5</td>
-                    </tr>
-                    <tr>
-                      <td>23.2.2018</td>
-                      <td>3</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </li>
-          </ul>
-
+        <div id="sercontent">
         </div>
       </div>
      </div>

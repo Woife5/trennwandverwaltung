@@ -1,10 +1,13 @@
-$(document).ready(function() {
-  generateTable()
-  $('.modal').modal()
-})
+function onload(){
+  console.log('Onload infofunctions')
+}
 
 function getColor() {
   return 'blue'
+}
+
+function deleteHeader(){
+  return ''
 }
 
 function setValues() {

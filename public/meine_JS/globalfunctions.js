@@ -1,9 +1,17 @@
+$(document).ready(function() {
+  generateTable()
+  $('.modal').modal()
+  $('.collapsible').collapsible()
+  let element = document.getElementById('searchbar');
+  element.classList.add(getColor());
+  onload()
+})
+
 let id
 let dayNames = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag']
 
 function klick(number){
   id = number;
-  console.log('Setze id auf: '+number)
   setValues()
   return false
 }
@@ -67,4 +75,45 @@ function getDayNames(){
 
 function getDays(){
   return day
+}
+
+function searchresult(data){
+  let classes = {}
+  let klassen = {}
+  for (var i = 0; i < data.length; i++) {
+    if(klassen[data[i].klasse]){
+      classes[data[i].klasse].push({'date':new Date(data[i].date.substring(0,10)), 'lesson':data[i].lesson,'twname':data[i].twname})
+    }else{
+      classes[data[i].klasse] = [{'date':new Date(data[i].date.substring(0,10)), 'lesson':data[i].lesson,'twname':data[i].twname}]
+      klassen[data[i].klasse] = true
+    }
+  }
+  if(Object.keys(klassen).length == 0){
+    document.getElementById('sercontent').innerHTML = '<h1 class="'+getColor()+'-text">Keine Einträge gefunden!</h1>'
+    return
+  }
+  let searchcontent = '<br>'
+  searchcontent += '<ul class="collapsible" data-collapsible="accordion">'
+
+  let klassev1 = '<div class="collapsible-header"><i class="material-icons">account_box</i>'
+  let tablehead = '<table class="responsive-table"><thead><tr><th>Datum</th><th>Einheit</th><th>Trennwand</th>'+deleteHeader()+'</tr></thead>'
+
+  for (let i = 0; i < Object.keys(klassen).length; i++) {
+    searchcontent += '<li>'
+    searchcontent += ''+klassev1 + Object.keys(klassen)[i] + '</div>' + '<div class="collapsible-body">'
+    searchcontent += ''+tablehead + '<tbody>'
+    for (let j = 0; j < classes[Object.keys(klassen)[i]].length; j++) {
+      searchcontent += '<tr>'
+      searchcontent += '<td>' + classes[Object.keys(klassen)[i]][j].date.toLocaleDateString() + '</td>'
+      searchcontent += '<td>' + classes[Object.keys(klassen)[i]][j].lesson + '</td>'
+      searchcontent += '<td>' + classes[Object.keys(klassen)[i]][j].twname + '</td>'
+      searchcontent += '</tr>'
+    }
+    searchcontent += '</tbody>'
+    searchcontent += '</li>'
+    searchcontent += '</table>' + '</div>'
+  }
+  searchcontent += '</ul>'
+  document.getElementById('sercontent').innerHTML = searchcontent
+  $('.collapsible').collapsible()
 }

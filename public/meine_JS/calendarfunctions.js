@@ -1,51 +1,14 @@
-$(document).ready(function() {
-  generateTable()
-  $('.modal').modal()
-  $('.collapsible').collapsible()
+function onload(){
   let button = document.getElementById("submitbutton")
   button.classList.add("disabled")
-})
-
-function searchresult(data){
-  let classes = {}
-  for (var i = 0; i < data.length; i++) {
-    console.log('Klasse: '+data[i].klasse+' Datum: '+data[i].date+' Stunde: '+data[i].lesson+' TWFK: '+data[i].twfk)
-    //Continue Here!
-  }
-  console.log(classes);
-  let deletecontent = ''
-  deletecontent += '<ul class="collapsible" data-collapsible="accordion">'
-  	/*
-    <li>
-      <div class="collapsible-header"><i class="material-icons">account_box</i>Erste Klasse</div>
-      <div class="collapsible-body">
-        <table class='responsive-table'>
-          <thead>
-            <tr>
-              <th>Datum</th>
-              <th>Einheit</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>20.1.2018</td>
-              <td>5</td>
-            </tr>
-            <tr>
-              <td>23.2.2018</td>
-              <td>3</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </li>
-    */
-  deletecontent += '</ul>'
-  //document.getElementById('deletecontent').innerHTML = deletecontent
 }
 
 function getColor(){
   return 'teal'
+}
+
+function deleteHeader(){
+  return '<th>Löschen</th>'
 }
 
 function setValues(){
