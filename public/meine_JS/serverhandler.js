@@ -1,4 +1,7 @@
 function formsubmit(formEl){
+  if(!checkform()){
+    return
+  }
   let dateEl = formEl.elements['Datum']
   let beginEl = formEl.elements['BeginnE']
   let casesEl = formEl.elements['AnzahlKoffer']
@@ -6,7 +9,7 @@ function formsubmit(formEl){
   let classEl = formEl.elements['Klasse']
 
   if(parseInt(casesEl.value) < 1){
-    alert('Bitte eine Anzahl größer 0 eingeben!')
+    alert('Bitte eine Anzahl an Trennwandboxen größer 0 eingeben!')
     return
   }
   if((parseInt(beginEl.value) < 1) || (parseInt(beginEl.value) > 10)){
@@ -22,7 +25,7 @@ function formsubmit(formEl){
     return
   }
   let datum = new Date(dateEl.value)
-  let nulldate = new Date("wrgwr")
+  let nulldate = new Date("wagdw")
   if(datum.getTime() === nulldate.getTime()){
     alert('Kein gültiges Datum! Format: yyyy-mm-dd')
     return

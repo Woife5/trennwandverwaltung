@@ -2,8 +2,10 @@ $(document).ready(function() {
   generateTable()
   $('.modal').modal()
   $('.collapsible').collapsible()
-  let element = document.getElementById('searchbar');
-  element.classList.add(getColor());
+  let searchbar = document.getElementById('searchbar')
+  searchbar.classList.add(getColor())
+  let navbar = document.getElementById('navcolor')
+  navbar.classList.add(getColor())
   onload()
 })
 
