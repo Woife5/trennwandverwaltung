@@ -33,6 +33,9 @@
     </div>
   </div>
   <!-- Container DIV -->
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+   <a href="#infomodal" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">search</i></a>
+ </div>
 
   <div id="modal" class="modal">
     <div class="modal-content">
@@ -40,6 +43,24 @@
       <div id="info">
       </div>
     </div>
+  </div>
+
+  <div id ="infomodal" class="modal">
+    <div class="modal-content">
+     <nav>
+       <div class="nav-wrapper">
+         <form onsubmit="deleteSearch(this); return false">
+           <div id="searchbar" class="input-field">
+             <input id="search" type="search" required>
+             <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+             <i class="material-icons">close</i>
+           </div>
+         </form>
+       </div>
+     </nav>
+     <div id="sercontent">
+     </div>
+   </div>
   </div>
 
 

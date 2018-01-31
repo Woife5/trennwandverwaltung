@@ -1,12 +1,14 @@
-$(document).ready(function() {
-  generateTable()
-  $('.modal').modal()
+function onload(){
   let button = document.getElementById("submitbutton")
   button.classList.add("disabled")
-})
+}
 
 function getColor(){
   return 'teal'
+}
+
+function deleteHeader(){
+  return '<th>Löschen</th>'
 }
 
 function setValues(){
@@ -14,14 +16,38 @@ function setValues(){
   document.getElementById("myBeginnE").value = getId() % 10 + 1
 }
 
-function checkform(){
-  var f = document.forms['reserveform'].elements
-  var cansubmit = true
+let teacherAlert = true
+let classAlert = true
 
-  for (var i = 0; i < f.length; i++) {
+function checkform(){
+  let f = document.forms['reserveform'].elements
+  let cansubmit = true
+
+  for (let i = 0; i < f.length; i++) {
     if (f[i].value.length == 0)
       cansubmit = false
   }
+
+  if(document.getElementById("myTeacher").value.length > 25){
+    cansubmit = false
+    if(teacherAlert){
+      Materialize.toast('Lehrername kann nicht länger als 25 Zeichen sein.', 5000)
+      teacherAlert = false
+    }
+  }else{
+    teacherAlert = true
+  }
+
+  if(document.getElementById("myClass").value.length > 10){
+    cansubmit = false
+    if(classAlert){
+      Materialize.toast('Klassenname kann nicht länger als 10 Zeichen sein.', 5000)
+      classAlert = false
+    }
+  }else{
+    classAlert = true
+  }
+
 
   let button = document.getElementById("submitbutton")
   if(cansubmit){

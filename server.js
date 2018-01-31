@@ -43,6 +43,17 @@ app.get('/api/:year/:month/:day/:lesson', function(req, res){
 	})
 })
 
+app.get('/api/teacher/:teacher',function(req, res){
+	let name = ''+req.params.teacher
+	con.query('SELECT date, lesson, class as klasse, name as twname from entlehnt JOIN trennwaende ON entlehnt.twfk=trennwaende.ID where teachername ="'+name+'"', function(err, result, fields){
+		if(err){
+			let error = {error:3,errordata:err,userdesc:'Eine SQL Abfrage schlug fehl.'}
+			res.status(400).json(error)
+		}
+		res.json(result)
+	})
+})
+
 app.get('/api/cases', function(req, res) {
 	let cases
 	con.query('SELECT count(*) as Anz from trennwaende', function(err, result, fields){
