@@ -55,4 +55,5 @@ function checkform(){
   }else{
     button.classList.add("disabled")
   }
+  return cansubmit
 }

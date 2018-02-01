@@ -66,12 +66,14 @@ app.get('/api/cases', function(req, res) {
 			if(err){
 				let error = {error:3,errordata:err,userdesc:'Eine SQL Abfrage schlug fehl.'}
 				res.status(400).json(error)
+				return
 			}
 			let ret = {numberofcases:cases}
 			for (let i = 0; i < cases; i++) {
 				ret[i] = result[i].name
 			}
 			res.json(ret)
+			return
 		})
 	})
 })
@@ -86,12 +88,21 @@ app.post('/api/save', function(req, res) {
 	let teacher = req.body.LehrerKzl
 	let schoolclass = req.body.Klasse
 
-	con.query('SELECT count(*) as booked FROM entlehnt where `date`="'+date+'" AND lesson='+lesson, function (err, result, fields) {
-    if (err) throw err
-		let booked = result[0].booked
-		toMySql(date, lesson, cases, teacher, schoolclass, function(error, data) {
-			if(error) return res.status(400).json(error)
-			res.json(data)
+	con.query('SELECT DATEDIFF("'+date+'",CURDATE()) as tocheck',function(err, result, fields){
+		if(err) throw err
+		if(result[0].tocheck < 0){
+			let notallowed = {error:-1, errortxt:'bad date',errordesc:'The user requested a date beore today.',userdesc:'Bitte geben sie ein gültiges Datum ein. Daten vor dem heutigen sind nicht gültig.'}
+			res.status(400).json(notallowed)
+			return
+		}
+		con.query('SELECT count(*) as booked FROM entlehnt where `date`="'+date+'" AND lesson='+lesson, function (err, result, fields) {
+	    if (err) throw err
+			let booked = result[0].booked
+			toMySql(date, lesson, cases, teacher, schoolclass, function(error, data) {
+				if(error) return res.status(400).json(error)
+				res.json(data)
+				return
+			})
 		})
 	})
 })
