@@ -45,7 +45,7 @@ app.get('/api/:year/:month/:day/:lesson', function(req, res){
 
 app.get('/api/teacher/:teacher',function(req, res){
 	let name = ''+req.params.teacher
-	con.query('SELECT date, lesson, class as klasse, name as twname from entlehnt JOIN trennwaende ON entlehnt.twfk=trennwaende.ID where teachername ="'+name+'"', function(err, result, fields){
+	con.query('SELECT date, lesson, class as klasse, name as twname from entlehnt JOIN trennwaende ON entlehnt.twfk=trennwaende.ID where teachername ="'+name+'" order by date ASC, lesson ASC', function(err, result, fields){
 		if(err){
 			let error = {error:3,errordata:err,userdesc:'Eine SQL Abfrage schlug fehl.'}
 			res.status(400).json(error)
@@ -89,14 +89,22 @@ app.post('/api/save', function(req, res) {
 	let schoolclass = req.body.Klasse
 
 	con.query('SELECT DATEDIFF("'+date+'",CURDATE()) as tocheck',function(err, result, fields){
-		if(err) throw err
+		if(err){
+			let error = {error:3,errordata:err,userdesc:'Eine SQL Abfrage schlug fehl.'}
+			res.status(400).json(error)
+			return
+		}
 		if(result[0].tocheck < 0){
 			let notallowed = {error:-1, errortxt:'bad date',errordesc:'The user requested a date beore today.',userdesc:'Bitte geben sie ein gültiges Datum ein. Daten vor dem heutigen sind nicht gültig.'}
 			res.status(400).json(notallowed)
 			return
 		}
 		con.query('SELECT count(*) as booked FROM entlehnt where `date`="'+date+'" AND lesson='+lesson, function (err, result, fields) {
-	    if (err) throw err
+	    if (err){
+				let error = {error:3,errordata:err,userdesc:'Eine SQL Abfrage schlug fehl.'}
+				res.status(400).json(error)
+				return
+			}
 			let booked = result[0].booked
 			toMySql(date, lesson, cases, teacher, schoolclass, function(error, data) {
 				if(error) return res.status(400).json(error)

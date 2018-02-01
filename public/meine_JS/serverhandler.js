@@ -49,7 +49,7 @@ function formsubmit(formEl){
       console.log('Error status: '+this.status)
       let errData = JSON.parse(this.responseText)
       console.log(errData)
-      let errText = errData['userdesc']
+      let errText = ''+errData['userdesc']
       //------------------------------------------------------------------------Alert
       alert(errText) //Alert, damit sichergestellt ist, dass der Benutzer mitbekommt, dass es schief gegangen ist.
       //------------------------------------------------------------------------End of Alert
@@ -93,7 +93,7 @@ function formsubmit(formEl){
   httpReq.send(JSON.stringify(json))
 }
 
-function deleteSearch(formEl){
+function teacherSearch(formEl){
   let teacherEl = formEl.elements['search']
 
   let httpReq = new XMLHttpRequest()
@@ -102,7 +102,7 @@ function deleteSearch(formEl){
   httpReq.onload = function() {
     if(this.status != 200){
       let errData = JSON.parse(this.responseText)
-      alert('Error: '+errData['userdesc'] + ' Errormessage: '+errData['errordata'])
+      alert(errData['userdesc'])
     }else{
       let data = JSON.parse(this.responseText)
       if(data != []){
@@ -122,7 +122,7 @@ function getCases(callback){
   httpReq.onload = function() {
     if(this.status != 200){
       let errData = JSON.parse(this.responseText)
-      alert('Error: '+errData['userdesc'] + ' Errormessage: '+errData['errordata'])
+      alert(errData['userdesc'])
     }else{
       callback(JSON.parse(this.responseText))
     }
@@ -139,7 +139,7 @@ function getReserved(year, month, day, lesson, callback){
   httpReq.onload = function() {
     if(this.status != 200){
       let errData = JSON.parse(this.responseText)
-      alert('Error: '+errData['userdesc'] + ' Errormessage: '+errData['errordata'])
+      alert(errData['userdesc'])
     }else{
       console.log(JSON.parse(this.responseText))
       callback(JSON.parse(this.responseText))
