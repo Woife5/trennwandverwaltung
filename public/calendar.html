@@ -27,7 +27,7 @@
 
 <body>
   <div class="container">
-    <nav class="navbar-material teal darken-3">
+    <nav id="navcolor" class="navbar-material darken-3">
       <div class="nav-wrapper">
         <a href="#!" class="brand-logo right">
             <img class="responsive-img" src="/Images/HTL-Logo-weiss-transparent.png">
@@ -48,24 +48,24 @@
   </div>
 
   <div id="modal" class="modal">
-    <div class="modal-content">
-      <h4>Trennwandbox reservieren</h4>
-      <form onsubmit="formsubmit(this); return false" id="reserveform">
-        <div class="input-field col s6"><input id="myDate" name="Datum" type="date"><label class="active" for="myDate">Datum</label></div>
-        <div class="input-field col s6"><input id="myBeginnE" type="number" oninput="checkform()" name="BeginnE" value="1"><label class="active" for="myBeginnE">Einheit</label></div>
-        <div class="input-field col s6"><input id="myAnzahlKoffer" type="number" oninput="checkform()" name="AnzahlKoffer" value="1"><label class="active" for="myAnzahlKoffer">Anzahl Koffer</label></div>
-        <div class="input-field col s6"><input id="myTeacher" type="text" oninput="checkform()" name="LehrerKzl"><label for="myTeacher">Lehrer</label></div>
-        <div class="input-field col s6"><input id="myClass" type="text" oninput="checkform()" name="Klasse"><label for="myClass">Klasse</label></div>
-        <button class="btn waves-effect waves-light" id="submitbutton" type="submit" value="Value">Submit<i class="material-icons right">send</i></button>
-      </form>
-    </div>
-  </div>
+     <div class="modal-content">
+       <h4>Trennwandbox reservieren</h4>
+       <form onsubmit="formsubmit(this); return false" id="reserveform">
+         <div class="input-field col s6"><input id="myDate" name="Datum" type="date"><label class="active" for="myDate">Datum</label></div>
+         <div class="input-field col s6"><input id="myBeginnE" type="number" oninput="checkform()" name="BeginnE" value="1" ><label class="active" for="myBeginnE">Einheit</label></div>
+         <div class="input-field col s6"><input id="myAnzahlKoffer" type="number" oninput="checkform()" name="AnzahlKoffer" value="1"><label class="active" for="myAnzahlKoffer">Anzahl Koffer</label></div>
+         <div class="input-field col s6"><input id="myTeacher" type="text" oninput="checkform()" name="LehrerKzl"><label for="myTeacher">Lehrer</label></div>
+         <div class="input-field col s6"><input id="myClass" type="text" oninput="checkform()" name="Klasse"><label for="myClass">Klasse</label></div>
+         <button class="btn waves-effect waves-light" id="submitbutton" type="submit" value="Value">Submit<i class="material-icons right">send</i></button>
+       </form>
+     </div>
+   </div>
 
   <div id="deletemodal" class="modal">
     <div class="modal-content">
       <nav>
         <div class="nav-wrapper">
-          <form onsubmit="deleteSearch(this); return false">
+          <form onsubmit="teacherSearch(this); return false">
             <div id="searchbar" class="input-field">
               <input id="search" type="search" required>
               <label class="label-icon" for="search"><i class="material-icons">search</i></label>
@@ -78,6 +78,7 @@
       </div>
     </div>
   </div>
+    
   <div id="deleteBut" class="modal modal-fixed-footer">
     <div class="modal-content">
       <h4>Wollen sie diesen Eintrag löschen?</h4>
@@ -85,8 +86,6 @@
     <div class="modal-footer" id="deleteconf">
     </div>
   </div>
-
-
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>

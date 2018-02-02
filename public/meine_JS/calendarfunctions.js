@@ -1,6 +1,11 @@
 function onload(){
   let button = document.getElementById("submitbutton")
   button.classList.add("disabled")
+  document.getElementById("myDate").valueAsDate = new Date()
+}
+
+function onSaved(){
+  $('#modal').modal('close')
 }
 
 function getColor(){
@@ -60,4 +65,5 @@ function checkform(){
   }else{
     button.classList.add("disabled")
   }
+  return cansubmit
 }

@@ -2,8 +2,10 @@ $(document).ready(function() {
   generateTable()
   $('.modal').modal()
   $('.collapsible').collapsible()
-  let element = document.getElementById('searchbar');
-  element.classList.add(getColor());
+  let searchbar = document.getElementById('searchbar')
+  searchbar.classList.add(getColor())
+  let navbar = document.getElementById('navcolor')
+  navbar.classList.add(getColor())
   onload()
 })
 
@@ -43,8 +45,7 @@ function generateTable(){
   for (let i = 0; i < 10; i++) {
     generator += '<div class="row">';
     for (let j = 0; j < 6; j++) {
-      generator += '<div class="col s2">' + Button + eval('i + 10 * j') + Buttonv2 + eval('i % 10 +1') + Buttonv3 + '</div>'
-
+      generator += '<div class="col s2">' + Button + eval('i + 10 * j') + Buttonv2 + eval('i + 1') + Buttonv3 + '</div>'
     }
     generator += '</div>'
   }
@@ -84,14 +85,17 @@ function getDays(){
   return day
 }
 
+let classes = {}
+let klassen = {}
+
 function searchresult(data){
-  let classes = {}
-  let klassen = {}
+  classes = {}
+  klassen = {}
   for (var i = 0; i < data.length; i++) {
     if(klassen[data[i].klasse]){
-      classes[data[i].klasse].push({'date':new Date(data[i].date.substring(0,10)), 'lesson':data[i].lesson,'twname':data[i].twname})
+      classes[data[i].klasse].push({'date':new Date(data[i].date.substring(0,10)), 'lesson':data[i].lesson,'twname':data[i].twname,'twfk':data[i].twfk,'teachername':data[i].teachername})
     }else{
-      classes[data[i].klasse] = [{'date':new Date(data[i].date.substring(0,10)), 'lesson':data[i].lesson,'twname':data[i].twname}]
+      classes[data[i].klasse] = [{'date':new Date(data[i].date.substring(0,10)), 'lesson':data[i].lesson,'twname':data[i].twname,'twfk':data[i].twfk,'teachername':data[i].teachername}]
       klassen[data[i].klasse] = true
     }
   }
@@ -127,4 +131,10 @@ function searchresult(data){
 }
 function ondeleteconfirm(i,j){
   document.getElementById('deleteconf').innerHTML='<a href="#!"onclick="deleteEintrag('+i+','+j+')"  class="modal-action modal-close waves-effect waves-green btn-flat ">Ja</a>  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Nein</a>'
+}
+function getClasses(){
+  return classes
+}
+function getKey(){
+  return klassen
 }

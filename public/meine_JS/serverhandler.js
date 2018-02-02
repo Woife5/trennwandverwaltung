@@ -1,4 +1,16 @@
+let active = true
 function formsubmit(formEl){
+  if(!checkform()){
+    return
+  }else if(!active){
+    return
+  }
+  active = false
+
+  setTimeout(function(){
+    active = true
+  }, 2000)
+
   let dateEl = formEl.elements['Datum']
   let beginEl = formEl.elements['BeginnE']
   let casesEl = formEl.elements['AnzahlKoffer']
@@ -6,7 +18,7 @@ function formsubmit(formEl){
   let classEl = formEl.elements['Klasse']
 
   if(parseInt(casesEl.value) < 1){
-    alert('Bitte eine Anzahl größer 0 eingeben!')
+    alert('Bitte eine Anzahl an Trennwandboxen größer 0 eingeben!')
     return
   }
   if((parseInt(beginEl.value) < 1) || (parseInt(beginEl.value) > 10)){
@@ -22,7 +34,7 @@ function formsubmit(formEl){
     return
   }
   let datum = new Date(dateEl.value)
-  let nulldate = new Date("wrgwr")
+  let nulldate = new Date("wagdw")
   if(datum.getTime() === nulldate.getTime()){
     alert('Kein gültiges Datum! Format: yyyy-mm-dd')
     return
@@ -46,7 +58,7 @@ function formsubmit(formEl){
       console.log('Error status: '+this.status)
       let errData = JSON.parse(this.responseText)
       console.log(errData)
-      let errText = errData['userdesc']
+      let errText = ''+errData['userdesc']
       //------------------------------------------------------------------------Alert
       alert(errText) //Alert, damit sichergestellt ist, dass der Benutzer mitbekommt, dass es schief gegangen ist.
       //------------------------------------------------------------------------End of Alert
@@ -71,6 +83,7 @@ function formsubmit(formEl){
         else if (Notification.permission === "granted") {
           // If it's okay let's create a notification
           var notification = new Notification('Gespeichert',options);
+          onSaved()
         }
         // Otherwise, we need to ask the user for permission
         else if (Notification.permission !== "denied") {
@@ -78,6 +91,9 @@ function formsubmit(formEl){
             // If the user accepts, let's create a notification
             if (permission === "granted") {
               var notification = new Notification('Gespeichert',options);
+              onSaved()
+            }else{
+              alert(userText)
             }
           })
         }
@@ -90,7 +106,7 @@ function formsubmit(formEl){
   httpReq.send(JSON.stringify(json))
 }
 
-function deleteSearch(formEl){
+function teacherSearch(formEl){
   let teacherEl = formEl.elements['search']
 
   let httpReq = new XMLHttpRequest()
@@ -99,7 +115,7 @@ function deleteSearch(formEl){
   httpReq.onload = function() {
     if(this.status != 200){
       let errData = JSON.parse(this.responseText)
-      alert('Error: '+errData['userdesc'] + ' Errormessage: '+errData['errordata'])
+      alert(errData['userdesc'])
     }else{
       let data = JSON.parse(this.responseText)
       if(data != []){
@@ -119,7 +135,7 @@ function getCases(callback){
   httpReq.onload = function() {
     if(this.status != 200){
       let errData = JSON.parse(this.responseText)
-      alert('Error: '+errData['userdesc'] + ' Errormessage: '+errData['errordata'])
+      alert(errData['userdesc'])
     }else{
       callback(JSON.parse(this.responseText))
     }
@@ -136,7 +152,7 @@ function getReserved(year, month, day, lesson, callback){
   httpReq.onload = function() {
     if(this.status != 200){
       let errData = JSON.parse(this.responseText)
-      alert('Error: '+errData['userdesc'] + ' Errormessage: '+errData['errordata'])
+      alert(errData['userdesc'])
     }else{
       console.log(JSON.parse(this.responseText))
       callback(JSON.parse(this.responseText))
@@ -147,8 +163,26 @@ function getReserved(year, month, day, lesson, callback){
   }
 }
 
-function deleteEintrag(i,j){
-  console.log("im DeleteEintrag  "+i+j);
-// viel spaß Woife
+function deleteEintrag(i, j){
+  let classes = getClasses()
+  let klassen = getKey()
 
+  let json = {}
+  json[date] = classes[Object.keys(klassen)[i]][j].date
+  json[lesson] = classes[Object.keys(klassen)[i]][j].lesson
+  json[teachername] = classes[Object.keys(klassen)[i]][j].teachername
+
+  httpReq.open("DELETE", "/api/delete")
+  httpReq.send(json)
+  httpReq.onload = function() {
+    if(this.status != 200){
+      let errData = JSON.parse(this.responseText)
+      alert(errData['userdesc'])
+    }else{
+      //Success
+    }
+  }
+  httpReq.onerror = function() {
+    alert('Unknown network error occured')
+  }
 }
