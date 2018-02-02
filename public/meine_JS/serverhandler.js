@@ -1,7 +1,16 @@
+let active = true
 function formsubmit(formEl){
   if(!checkform()){
     return
+  }else if(!active){
+    return
   }
+  active = false
+
+  setTimeout(function(){
+    active = true
+  }, 2000)
+
   let dateEl = formEl.elements['Datum']
   let beginEl = formEl.elements['BeginnE']
   let casesEl = formEl.elements['AnzahlKoffer']
@@ -74,6 +83,7 @@ function formsubmit(formEl){
         else if (Notification.permission === "granted") {
           // If it's okay let's create a notification
           var notification = new Notification('Gespeichert',options);
+          onSaved()
         }
         // Otherwise, we need to ask the user for permission
         else if (Notification.permission !== "denied") {
@@ -81,6 +91,9 @@ function formsubmit(formEl){
             // If the user accepts, let's create a notification
             if (permission === "granted") {
               var notification = new Notification('Gespeichert',options);
+              onSaved()
+            }else{
+              alert(userText)
             }
           })
         }
@@ -143,6 +156,30 @@ function getReserved(year, month, day, lesson, callback){
     }else{
       console.log(JSON.parse(this.responseText))
       callback(JSON.parse(this.responseText))
+    }
+  }
+  httpReq.onerror = function() {
+    alert('Unknown network error occured')
+  }
+}
+
+function deleteEintrag(i, j){
+  let classes = getClasses()
+  let klassen = getKey()
+
+  let json = {}
+  json[date] = classes[Object.keys(klassen)[i]][j].date
+  json[lesson] = classes[Object.keys(klassen)[i]][j].lesson
+  json[teachername] = classes[Object.keys(klassen)[i]][j].teachername
+
+  httpReq.open("DELETE", "/api/delete")
+  httpReq.send(json)
+  httpReq.onload = function() {
+    if(this.status != 200){
+      let errData = JSON.parse(this.responseText)
+      alert(errData['userdesc'])
+    }else{
+      //Success
     }
   }
   httpReq.onerror = function() {

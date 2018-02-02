@@ -45,7 +45,7 @@ app.get('/api/:year/:month/:day/:lesson', function(req, res){
 
 app.get('/api/teacher/:teacher',function(req, res){
 	let name = ''+req.params.teacher
-	con.query('SELECT date, lesson, class as klasse, name as twname from entlehnt JOIN trennwaende ON entlehnt.twfk=trennwaende.ID where teachername ="'+name+'" order by date ASC, lesson ASC', function(err, result, fields){
+	con.query('SELECT teachername, DATE_ADD(date, INTERVAL 1 HOUR) as date, lesson, class as klasse, name as twname, twfk from entlehnt JOIN trennwaende ON entlehnt.twfk=trennwaende.ID where teachername ="'+name+'" order by date ASC, lesson ASC', function(err, result, fields){
 		if(err){
 			let error = {error:3,errordata:err,userdesc:'Eine SQL Abfrage schlug fehl.'}
 			res.status(400).json(error)
@@ -75,6 +75,55 @@ app.get('/api/cases', function(req, res) {
 			res.json(ret)
 			return
 		})
+	})
+})
+
+app.delete('/api/delete',function(req, res){
+	if(!req.body){
+		let error = {error:7, userdesc:'Keine Daten erhalten.'}
+		res.status(400).json(error)
+		return
+	}
+	let date = req.body.date
+	let lesson = req.body.lesson
+	let teacher = req.body.teachername
+
+	let found = false
+	let affected = 0
+
+	con.query('SELECT * from entlehnt where `date`="'+date+'" AND lesson='+lesson+' order by twfk ASC', function(err, result, fields){
+		if (err){
+					let error = {error:3,errordata:err,userdesc:'Eine SQL Abfrage schlug fehl.'}
+					res.status(400).json(error)
+					return
+		}
+		for (var i = result.length; i >= 0; i--) {
+			if(found){
+				con.query('UPDATE customers SET twfk='+result[i].twfk-1+'WHERE ID='+result[i].ID, function(err, updateresult){
+					if (err){
+								let error = {error:3,errordata:err,userdesc:'Eine SQL Abfrage schlug fehl.'}
+								res.status(400).json(error)
+								return
+					}
+					console.log('Affected Rows on UPDATE: '+updateresult.affectedRows)
+					affected += updateresult.affectedRows
+				})
+			}
+			if(result[i].teachername.equals(teacher)){
+				con.query('DELETE FROM entlehnt where ID='+result[i].ID, function(err, delresult){
+					if (err){
+								let error = {error:3,errordata:err,userdesc:'Eine SQL Abfrage schlug fehl.'}
+								res.status(400).json(error)
+								return
+					}
+					console.log('Affected Rows on DELETE: '+delresult.affectedRows)
+					affected += updateresult.affectedRows
+				})
+				found = true
+			}
+		}
+		let data = {'affected':affected}
+		res.status(400).json(data)
 	})
 })
 
