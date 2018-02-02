@@ -9,6 +9,9 @@ function getColor() {
 function deleteHeader(){
   return ''
 }
+function deleteButton(){
+  return ''
+}
 
 function setValues() {
   let day = getDays()

@@ -11,7 +11,7 @@ $(document).ready(function() {
 
 let id
 let dayNames = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag']
-
+let dayNamesShort = ['So','Mo','Di','Mi','Do','Fr','Sa']
 function klick(number){
   id = number;
   setValues()
@@ -53,17 +53,24 @@ function generateTable(){
 }
 
 function getDayRow(){
+
   let dayList = ''
   let dayv1 = '<div class="col s2 card-panel '+getColor()+' center-align white-text"><font size="5">'
   let dayv2 = '</font></div>'
   dayList += '<div class="row" style="margin: 0px">'
-
   for (let i = 0; i < day.length; i++) {
-    dayList += dayv1+"<font size='3'>"+day[i].toLocaleDateString()+"</font>" +"<br>"+ dayNames[day[i].getDay()] + dayv2
+    dayList += '<div class="hide-on-med-and-down show-on-large ">'+dayv1+"<font size='3'>"+day[i].toLocaleDateString()+"</font>" +"<br>"+ dayNames[day[i].getDay()] + dayv2+'</div>'
   }
 
   dayList += '</div>'
+    dayList += '<div class="row" style="margin: 0px">'
+    for (let i = 0; i < day.length; i++) {
+      dayList += '<div class="show-on-med-and-down hide-on-large-only">'+ dayv1+"<font size='3'>"+day[i].toLocaleDateString().substring(0,day[i].toLocaleDateString().length-4)+"</font>" +"<br>"+ dayNamesShort[day[i].getDay()] + dayv2+'</div>'
+    }
+
+  dayList += '</div>'
   return dayList
+
 }
 
 function getId(){
@@ -111,6 +118,7 @@ function searchresult(data){
       searchcontent += '<td>' + classes[Object.keys(klassen)[i]][j].date.toLocaleDateString() + '</td>'
       searchcontent += '<td>' + classes[Object.keys(klassen)[i]][j].lesson + '</td>'
       searchcontent += '<td>' + classes[Object.keys(klassen)[i]][j].twname + '</td>'
+      searchcontent += '<td>' + deleteButton(i,j) + '</td>'
       searchcontent += '</tr>'
     }
     searchcontent += '</tbody>'
@@ -121,7 +129,9 @@ function searchresult(data){
   document.getElementById('sercontent').innerHTML = searchcontent
   $('.collapsible').collapsible()
 }
-
+function ondeleteconfirm(i,j){
+  document.getElementById('deleteconf').innerHTML='<a href="#!"onclick="deleteEintrag('+i+','+j+')"  class="modal-action modal-close waves-effect waves-green btn-flat ">Ja</a>  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Nein</a>'
+}
 function getClasses(){
   return classes
 }
