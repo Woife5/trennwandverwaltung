@@ -1,76 +1,98 @@
 <!DOCTYPE html>
 <html lang="de">
-  <head>
-    <meta charset="utf-8" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.3/css/materialize.css">
-    <title>Trennwand Reservierung</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style media="screen">
-      .btn {
-        width: 100% !important;
+
+<head>
+  <meta charset="utf-8" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.3/css/materialize.css">
+  <title>Trennwand Reservierung</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style media="screen">
+    .btn {
+      width: 100% !important;
+    }
+
+    .navbar-material .nav-wrapper .brand-logo img {
+      height: 62px;
+    }
+
+    @media (max-width: 600px) {
+      .navbar-material .nav-wrapper .brand-logo img {
+        height: 52px;
       }
-      .brand-logo img {
-        height: 60px;
-      }
-    </style>
-  </head>
-  <body>
-     <div class="container">
-       <nav class="teal darken-3">
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <nav class="navbar-material teal darken-3">
+      <div class="nav-wrapper">
+        <a href="#!" class="brand-logo right">
+            <img class="responsive-img" src="/Images/HTL-Logo-weiss-transparent.png">
+          </a>
+        <ul id="nav-mobile" class="left">
+          <li class="active"><a href="#">Eintragen</a></li>
+          <li><a href="/info">Information</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div id="myDiv">
+    </div>
+  </div>
+  <!-- Container DIV -->
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a href="#modal" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+    <a href="#deletemodal" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">delete</i></a>
+  </div>
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <h4>Trennwandbox reservieren</h4>
+      <form onsubmit="formsubmit(this); return false" id="reserveform">
+        <div class="input-field col s6"><input id="myDate" name="Datum" type="date"><label class="active" for="myDate">Datum</label></div>
+        <div class="input-field col s6"><input id="myBeginnE" type="number" oninput="checkform()" name="BeginnE" value="1"><label class="active" for="myBeginnE">Einheit</label></div>
+        <div class="input-field col s6"><input id="myAnzahlKoffer" type="number" oninput="checkform()" name="AnzahlKoffer" value="1"><label class="active" for="myAnzahlKoffer">Anzahl Koffer</label></div>
+        <div class="input-field col s6"><input id="myTeacher" type="text" oninput="checkform()" name="LehrerKzl"><label for="myTeacher">Lehrer</label></div>
+        <div class="input-field col s6"><input id="myClass" type="text" oninput="checkform()" name="Klasse"><label for="myClass">Klasse</label></div>
+        <button class="btn waves-effect waves-light" id="submitbutton" type="submit" value="Value">Submit<i class="material-icons right">send</i></button>
+      </form>
+    </div>
+  </div>
+
+  <div id="deletemodal" class="modal">
+    <div class="modal-content">
+      <nav>
         <div class="nav-wrapper">
-          <a href="#" class="brand-logo right"><img src="/Images/HTL-Logo-weiss-transparent.png"></a>
-          <ul id="nav-mobile" class="left">
-            <li class="active"><a href="#">Eintragen</a></li>
-            <li><a href="/info">Information</a></li>
-          </ul>
+          <form onsubmit="deleteSearch(this); return false">
+            <div id="searchbar" class="input-field">
+              <input id="search" type="search" required>
+              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+              <i class="material-icons">close</i>
+            </div>
+          </form>
         </div>
       </nav>
-       <div id="myDiv">
-       </div>
-     </div><!-- Container DIV -->
-     <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-      <a href="#modal" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
-      <a href="#deletemodal" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">delete</i></a>
-    </div>
-
-     <div id="modal" class="modal">
-       <div class="modal-content">
-         <h4>Trennwandbox reservieren</h4>
-         <form onsubmit="formsubmit(this); return false" id="reserveform">
-           <div class="input-field col s6"><input id="myDate" name="Datum" type="date" ><label class="active" for="myDate">Datum</label></div>
-           <div class="input-field col s6"><input id="myBeginnE" type="number" oninput="checkform()" name="BeginnE" value="1" ><label class="active" for="myBeginnE">Einheit</label></div>
-           <div class="input-field col s6"><input id="myAnzahlKoffer" type="number" oninput="checkform()" name="AnzahlKoffer" value="1"><label class="active" for="myAnzahlKoffer">Anzahl Koffer</label></div>
-           <div class="input-field col s6"><input id="myTeacher" type="text" oninput="checkform()" name="LehrerKzl"><label for="myTeacher">Lehrer</label></div>
-           <div class="input-field col s6"><input id="myClass" type="text" oninput="checkform()" name="Klasse"><label for="myClass">Klasse</label></div>
-           <button class="btn waves-effect waves-light" id="submitbutton" type="submit" value="Value">Submit<i class="material-icons right">send</i></button>
-         </form>
-       </div>
-     </div>
-
-     <div id ="deletemodal" class="modal">
-       <div class="modal-content">
-        <nav>
-          <div class="nav-wrapper">
-            <form onsubmit="deleteSearch(this); return false">
-              <div id="searchbar" class="input-field">
-                <input id="search" type="search" required>
-                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                <i class="material-icons">close</i>
-              </div>
-            </form>
-          </div>
-        </nav>
-        <div id="sercontent">
-        </div>
+      <div id="sercontent">
       </div>
-     </div>
+    </div>
+  </div>
+  <div id="deleteBut" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4>Wollen sie diesen Eintrag löschen?</h4>
+    </div>
+    <div class="modal-footer" id="deleteconf">
+    </div>
+  </div>
 
 
-     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
-    <script src="/meine_JS/serverhandler.js"></script>
-    <script src="/meine_JS/calendarfunctions.js"></script>
-    <script src="/meine_JS/globalfunctions.js"></script>
-  </body>
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+  <script src="/meine_JS/serverhandler.js"></script>
+  <script src="/meine_JS/calendarfunctions.js"></script>
+  <script src="/meine_JS/globalfunctions.js"></script>
+</body>
+
 </html>

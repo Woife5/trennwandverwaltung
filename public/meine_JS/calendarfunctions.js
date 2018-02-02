@@ -10,6 +10,11 @@ function getColor(){
 function deleteHeader(){
   return '<th>Löschen</th>'
 }
+function deleteButton(i,j){
+  let s=''
+  s+='<a href="#deleteBut" onclick="ondeleteconfirm('+i+','+j+')" class="waves-effect waves-light"><i class="material-icons red-text">delete</i></a>'
+  return s
+}
 
 function setValues(){
   document.getElementById("myDate").valueAsDate = day[Math.floor(getId() / 10)]

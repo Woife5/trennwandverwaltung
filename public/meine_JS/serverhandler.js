@@ -146,3 +146,9 @@ function getReserved(year, month, day, lesson, callback){
     alert('Unknown network error occured')
   }
 }
+
+function deleteEintrag(i,j){
+  console.log("im DeleteEintrag  "+i+j);
+// viel spaß Woife
+
+}
