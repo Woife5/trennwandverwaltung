@@ -12,6 +12,9 @@ function deleteHeader(){
 function deleteButton(){
   return ''
 }
+function getVergebenAufruf(){
+  return ''
+}
 
 function setValues() {
   let day = getDays()

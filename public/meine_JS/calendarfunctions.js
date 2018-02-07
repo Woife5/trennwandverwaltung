@@ -1,27 +1,69 @@
-function onload(){
+function onload() {
   let button = document.getElementById("submitbutton")
   button.classList.add("disabled")
   document.getElementById("myDate").valueAsDate = new Date()
 }
 
-function onSaved(){
+function onSaved() {
   $('#modal').modal('close')
 }
 
-function getColor(){
+function getColor() {
   return 'teal'
 }
 
-function deleteHeader(){
+function deleteHeader() {
   return '<th>Löschen</th>'
 }
-function deleteButton(i,j){
-  let s=''
-  s+='<a href="#deleteBut" onclick="ondeleteconfirm('+i+','+j+')" class="waves-effect waves-light"><i class="material-icons red-text">delete</i></a>'
+
+function deleteButton(i, j) {
+  let s = ''
+  s += '<a href="#deleteBut" onclick="ondeleteconfirm(' + i + ',' + j + ')" class="waves-effect waves-light"><i class="material-icons red-text">delete</i></a>'
   return s
 }
 
-function setValues(){
+function getVergebenAufruf() {
+  let id
+  for (let i = 0; i < 10; i++) {
+    for (let j = 0; j < 6; j++) {
+      id = i + 10 * j
+      getVergeben(id)
+    }
+  }
+}
+
+function getVergeben(id) {
+  let elem
+  let day = getDays()
+  let aktday = day[Math.floor(id / 10)]
+  let year = aktday.getFullYear()
+  let month = aktday.getMonth() + 1
+  let tag = aktday.getDate()
+  let lesson = id % 10 + 1
+  getCases(function(resp) {
+    getReserved(year, month, tag, lesson, function(response) {
+      let anzahl
+      let reserv
+      anzahl = resp.numberofcases
+      reserv = anzahl - response.length
+      let toolTipText = reserv + '/' + anzahl + ' frei'
+      elem=document.getElementById(id)
+      elem.className+= " tooltipped"
+      if (id%10==9) {
+        elem.setAttribute("data-position","top")
+      }
+      else {
+        elem.setAttribute("data-position","bottom")
+      }
+      elem.setAttribute("data-delay","40")
+      elem.setAttribute("data-tooltip",toolTipText)
+      $('.tooltipped').tooltip({delay: 40})
+    })
+  })
+}
+
+
+function setValues() {
   document.getElementById("myDate").valueAsDate = day[Math.floor(getId() / 10)]
   document.getElementById("myBeginnE").value = getId() % 10 + 1
 }
@@ -29,7 +71,7 @@ function setValues(){
 let teacherAlert = true
 let classAlert = true
 
-function checkform(){
+function checkform() {
   let f = document.forms['reserveform'].elements
   let cansubmit = true
 
@@ -38,31 +80,31 @@ function checkform(){
       cansubmit = false
   }
 
-  if(document.getElementById("myTeacher").value.length > 25){
+  if (document.getElementById("myTeacher").value.length > 25) {
     cansubmit = false
-    if(teacherAlert){
+    if (teacherAlert) {
       Materialize.toast('Lehrername kann nicht länger als 25 Zeichen sein.', 5000)
       teacherAlert = false
     }
-  }else{
+  } else {
     teacherAlert = true
   }
 
-  if(document.getElementById("myClass").value.length > 10){
+  if (document.getElementById("myClass").value.length > 10) {
     cansubmit = false
-    if(classAlert){
+    if (classAlert) {
       Materialize.toast('Klassenname kann nicht länger als 10 Zeichen sein.', 5000)
       classAlert = false
     }
-  }else{
+  } else {
     classAlert = true
   }
 
 
   let button = document.getElementById("submitbutton")
-  if(cansubmit){
+  if (cansubmit) {
     button.classList.remove("disabled")
-  }else{
+  } else {
     button.classList.add("disabled")
   }
   return cansubmit
