@@ -13,6 +13,9 @@ function deleteHeader(){
 function deleteButton(){
   return ''
 }
+function getVergebenAufruf(){
+  return ''
+}
 
 function activeTab(){
   return '<li><a href="/calendar">Eintragen</a></li><li class="active"><a href="#">Information</a></li>'

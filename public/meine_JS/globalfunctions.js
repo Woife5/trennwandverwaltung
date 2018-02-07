@@ -19,6 +19,8 @@ $(document).ready(function() {
   generateTable()
   $('.modal').modal()
   $('.collapsible').collapsible()
+  getVergebenAufruf()
+
   let searchbar = document.getElementById('searchbar')
   searchbar.classList.add(getColor())
   onload()
@@ -63,16 +65,18 @@ function navBar(){
 
 function generateTable(){
   let Button = '<a href="#modal" onclick="return klick('
-  let Buttonv2 = ')" class="btn '+getColor()+' waves-effect waves-light">'
   let Buttonv3 = '</a>'
   let generator = ''
+  let id
+  console.log();
   generator += getDayRow()
   //generator += '<div class="row"></div>'
 
   for (let i = 0; i < 10; i++) {
     generator += '<div class="row">';
     for (let j = 0; j < 6; j++) {
-      generator += '<div class="col s2">' + Button + eval('i + 10 * j') + Buttonv2 + eval('i + 1') + Buttonv3 + '</div>'
+      id=i+10*j
+      generator += '<div class="col s2">' + Button + id + ')"'+ 'id="' + id + '"' + '  class="'+getColor()+' waves-effect waves-light btn"'  + '>'+ eval('i + 1') + Buttonv3 + '</div>'
     }
     generator += '</div>'
   }
