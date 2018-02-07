@@ -40,17 +40,20 @@ app.get('/api/:year/:month/:day/:lesson', function(req, res){
 	con.query('SELECT teachername, class as klasse, twfk as trennwand from entlehnt where date="'+date+'" and lesson='+lesson,function(err, result, fields){
 		if(err) throw err
 		res.json(result)
+		return
 	})
 })
 
 app.get('/api/teacher/:teacher',function(req, res){
 	let name = ''+req.params.teacher
-	con.query('SELECT teachername, DATE_ADD(date, INTERVAL 1 HOUR) as date, lesson, class as klasse, name as twname, twfk from entlehnt JOIN trennwaende ON entlehnt.twfk=trennwaende.ID where teachername ="'+name+'" order by date ASC, lesson ASC', function(err, result, fields){
+	con.query('SELECT teachername, DATE_ADD(date, INTERVAL 1 HOUR) as date, lesson, class as klasse, name as twname, twfk from entlehnt JOIN trennwaende ON entlehnt.twfk=trennwaende.ID where DATE_ADD(date, INTERVAL 1 HOUR) > CURDATE() AND teachername ="'+name+'" order by date ASC, lesson ASC', function(err, result, fields){
 		if(err){
 			let error = {error:3,errordata:err,userdesc:'Eine SQL Abfrage schlug fehl.'}
 			res.status(400).json(error)
+			return
 		}
 		res.json(result)
+		return
 	})
 })
 
@@ -60,6 +63,7 @@ app.get('/api/cases', function(req, res) {
 		if(err){
 			let error = {error:3,errordata:err, userdesc:'Eine SQL Abfrage schlug fehl.'}
 			res.status(400).json(error)
+			return
 		}
 		cases = result[0].Anz
 		con.query('SELECT * from trennwaende',function(err, result, fields){
@@ -78,15 +82,11 @@ app.get('/api/cases', function(req, res) {
 	})
 })
 
-app.delete('/api/delete',function(req, res){
-	if(!req.body){
-		let error = {error:7, userdesc:'Keine Daten erhalten.'}
-		res.status(400).json(error)
-		return
-	}
-	let date = req.body.date
-	let lesson = req.body.lesson
-	let teacher = req.body.teachername
+app.delete('/api/delete/:teacher/:year/:month/:day/:lesson',function(req, res){
+	let date = ''+req.params.year+'-'+req.params.month+'-'+req.params.day
+	let teacher = req.params.teacher
+	let lesson = req.params.lesson
+	console.log('Delete: '+date+' + '+lesson+' + '+teacher)
 
 	let found = false
 	let affected = 0
@@ -97,33 +97,14 @@ app.delete('/api/delete',function(req, res){
 					res.status(400).json(error)
 					return
 		}
-		for (var i = result.length; i >= 0; i--) {
-			if(found){
-				con.query('UPDATE customers SET twfk='+result[i].twfk-1+'WHERE ID='+result[i].ID, function(err, updateresult){
-					if (err){
-								let error = {error:3,errordata:err,userdesc:'Eine SQL Abfrage schlug fehl.'}
-								res.status(400).json(error)
-								return
-					}
-					console.log('Affected Rows on UPDATE: '+updateresult.affectedRows)
-					affected += updateresult.affectedRows
-				})
-			}
-			if(result[i].teachername.equals(teacher)){
-				con.query('DELETE FROM entlehnt where ID='+result[i].ID, function(err, delresult){
-					if (err){
-								let error = {error:3,errordata:err,userdesc:'Eine SQL Abfrage schlug fehl.'}
-								res.status(400).json(error)
-								return
-					}
-					console.log('Affected Rows on DELETE: '+delresult.affectedRows)
-					affected += updateresult.affectedRows
-				})
-				found = true
+		for (let i = 0; i < result.length; i++) {
+			console.log(result[i].teachername + ' == '+teacher)
+			if(result[i].teachername == teacher){
+				delFunction(i, result)
+				res.send(null)
+				return
 			}
 		}
-		let data = {'affected':affected}
-		res.status(400).json(data)
 	})
 })
 
@@ -219,6 +200,23 @@ function toMySql(date, lesson, cases, teacher, schoolclass, callback){
 		})
 	})
 	//----------------------------------------------------------------------------End of toMySql
+}
+
+//------------------------------------------------------------------------------Sort database adter deleting one entry
+function sort(i, result){
+	for (let j = i+1; j < result.length; j++) {
+		let newtwfk = j-1
+		con.query('UPDATE entlehnt SET twfk='+newtwfk+' WHERE ID='+result[j].ID, function(err, updateresult){
+			if (err){throw err}
+		})
+	}
+}
+
+function delFunction(i, result){
+	con.query('DELETE FROM entlehnt where ID='+result[i].ID, function(err, delresult){
+		if (err){throw err}
+		sort(i, result)
+	})
 }
 
 //------------------------------------------------------------------------------Server listening on Port 8000

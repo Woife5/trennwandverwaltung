@@ -33,19 +33,13 @@ function formsubmit(formEl){
     alert('Klassenname kann nicht länger als 10 Zeichen sein.')
     return
   }
-  let datum = new Date(dateEl.value)
-  let nulldate = new Date("wagdw")
-  if(datum.getTime() === nulldate.getTime()){
-    alert('Kein gültiges Datum! Format: yyyy-mm-dd')
-    return
-  }
 
   let json = {}
   json[dateEl.name] = dateEl.value
   json[beginEl.name] = parseInt(beginEl.value)
   json[casesEl.name] = parseInt(casesEl.value)
   json[teacherEl.name] = teacherEl.value
-  json[classEl.name] = classEl.value
+  json[classEl.name] = classEl.value.toUpperCase()
 
   let httpReq = new XMLHttpRequest()
   httpReq.open("POST", "/api/save")
@@ -71,33 +65,8 @@ function formsubmit(formEl){
       }else {
         userText = 'Die Trennwand '+resData['data'] + ' wurde Ihnen zugewiesen.'
       }
-      let options = {
-        body: userText,
-        icon: '/Images/HTL-Logo.png'
-      };
-      //------------------------------------------------------------------------Notification
-        if (!("Notification" in window)) {
-          alert(userText);
-        }
-        // Let's check whether notification permissions have already been granted
-        else if (Notification.permission === "granted") {
-          // If it's okay let's create a notification
-          var notification = new Notification('Gespeichert',options);
-          onSaved()
-        }
-        // Otherwise, we need to ask the user for permission
-        else if (Notification.permission !== "denied") {
-          Notification.requestPermission(function (permission) {
-            // If the user accepts, let's create a notification
-            if (permission === "granted") {
-              var notification = new Notification('Gespeichert',options);
-              onSaved()
-            }else{
-              alert(userText)
-            }
-          })
-        }
-        //----------------------------------------------------------------------End of Notification
+      Materialize.toast(userText,10000,'rounded')
+      onSaved()
     }
   }
   httpReq.onerror = function() {
@@ -111,7 +80,6 @@ function teacherSearch(formEl){
 
   let httpReq = new XMLHttpRequest()
   httpReq.open("GET", '/api/teacher/'+teacherEl.value)
-  httpReq.send(null)
   httpReq.onload = function() {
     if(this.status != 200){
       let errData = JSON.parse(this.responseText)
@@ -126,12 +94,12 @@ function teacherSearch(formEl){
   httpReq.onerror = function() {
     alert('Unknown network error occured')
   }
+  httpReq.send(null)
 }
 
 function getCases(callback){
   let httpReq = new XMLHttpRequest()
   httpReq.open("GET", "/api/cases")
-  httpReq.send(null)
   httpReq.onload = function() {
     if(this.status != 200){
       let errData = JSON.parse(this.responseText)
@@ -143,12 +111,12 @@ function getCases(callback){
   httpReq.onerror = function() {
     alert('Unknown network error occured')
   }
+  httpReq.send(null)
 }
 
 function getReserved(year, month, day, lesson, callback){
   let httpReq = new XMLHttpRequest()
   httpReq.open("GET", '/api/'+year+'/'+month+'/'+day+'/'+lesson)
-  httpReq.send(null)
   httpReq.onload = function() {
     if(this.status != 200){
       let errData = JSON.parse(this.responseText)
@@ -161,19 +129,23 @@ function getReserved(year, month, day, lesson, callback){
   httpReq.onerror = function() {
     alert('Unknown network error occured')
   }
+  httpReq.send(null)
 }
 
 function deleteEintrag(i, j){
   let classes = getClasses()
   let klassen = getKey()
 
-  let json = {}
-  json[date] = classes[Object.keys(klassen)[i]][j].date
-  json[lesson] = classes[Object.keys(klassen)[i]][j].lesson
-  json[teachername] = classes[Object.keys(klassen)[i]][j].teachername
+  let teacher = classes[Object.keys(klassen)[i]][j].teachername
+  let year = classes[Object.keys(klassen)[i]][j].date.getFullYear()
+  let month = classes[Object.keys(klassen)[i]][j].date.getMonth()+1
+  let day = classes[Object.keys(klassen)[i]][j].date.getDate()
+  let lesson = classes[Object.keys(klassen)[i]][j].lesson
 
-  httpReq.open("DELETE", "/api/delete")
-  httpReq.send(json)
+  console.log(teacher+', '+year+', '+month+', '+day+', '+lesson)
+
+  let httpReq = new XMLHttpRequest()
+  httpReq.open("DELETE", '/api/delete/'+teacher+'/'+year+'/'+month+'/'+day+'/'+lesson)
   httpReq.onload = function() {
     if(this.status != 200){
       let errData = JSON.parse(this.responseText)
@@ -185,4 +157,5 @@ function deleteEintrag(i, j){
   httpReq.onerror = function() {
     alert('Unknown network error occured')
   }
+  httpReq.send(null)
 }
