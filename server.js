@@ -46,7 +46,7 @@ app.get('/api/:year/:month/:day/:lesson', function(req, res){
 
 app.get('/api/teacher/:teacher',function(req, res){
 	let name = ''+req.params.teacher
-	con.query('SELECT teachername, DATE_ADD(date, INTERVAL 1 HOUR) as date, lesson, class as klasse, name as twname, twfk from entlehnt JOIN trennwaende ON entlehnt.twfk=trennwaende.ID where DATE_ADD(date, INTERVAL 1 HOUR) > CURDATE() AND teachername ="'+name+'" order by date ASC, lesson ASC', function(err, result, fields){
+	con.query('SELECT entlehnt.ID,teachername, DATE_ADD(date, INTERVAL 1 HOUR) as date, lesson, class as klasse, name as twname, twfk from entlehnt JOIN trennwaende ON entlehnt.twfk=trennwaende.ID where DATE_ADD(date, INTERVAL 1 HOUR) > CURDATE() AND teachername ="'+name+'" order by date ASC, lesson ASC', function(err, result, fields){
 		if(err){
 			let error = {error:3,errordata:err,userdesc:'Eine SQL Abfrage schlug fehl.'}
 			res.status(400).json(error)
@@ -82,28 +82,27 @@ app.get('/api/cases', function(req, res) {
 	})
 })
 
-app.delete('/api/delete/:teacher/:year/:month/:day/:lesson',function(req, res){
-	let date = ''+req.params.year+'-'+req.params.month+'-'+req.params.day
-	let teacher = req.params.teacher
-	let lesson = req.params.lesson
-	console.log('Delete: '+date+' + '+lesson+' + '+teacher)
-
-	let found = false
-	let affected = 0
-
-	con.query('SELECT * from entlehnt where `date`="'+date+'" AND lesson='+lesson+' order by twfk ASC', function(err, result, fields){
+app.delete('/api/delete/:id',function(req, res){
+	let id = req.params.id
+	con.query('SELECT ID, teachername, class, DATE_ADD(date, INTERVAL 1 HOUR) as date, lesson, twfk from entlehnt where ID='+id, function(err, result, fields){
 		if (err){
-					let error = {error:3,errordata:err,userdesc:'Eine SQL Abfrage schlug fehl.'}
+			let error = {error:3,errordata:err,userdesc:'Eine SQL Abfrage schlug fehl.'}
+			res.status(400).json(error)
+			return
+		}else if(!result){
+			let error = {error:0,errordata:err,userdesc:'Dieser Eintrag wurde nicht gefunden.'}
+			res.status(400).json(error)
+			return
+		}else{
+			con.query('DELETE FROM entlehnt where `ID`='+id, function(err, delresult){
+				if (err){
+					let error = {error:3,errordata:err,userdesc:'Löschen fehlgeschlagen.'}
 					res.status(400).json(error)
 					return
-		}
-		for (let i = 0; i < result.length; i++) {
-			console.log(result[i].teachername + ' == '+teacher)
-			if(result[i].teachername == teacher){
-				delFunction(i, result)
-				res.send(null)
-				return
-			}
+				}else{
+					res.status(200).json(result)
+				}
+			})
 		}
 	})
 })
@@ -129,18 +128,13 @@ app.post('/api/save', function(req, res) {
 			res.status(400).json(notallowed)
 			return
 		}
-		con.query('SELECT count(*) as booked FROM entlehnt where `date`="'+date+'" AND lesson='+lesson, function (err, result, fields) {
-	    if (err){
-				let error = {error:3,errordata:err,userdesc:'Eine SQL Abfrage schlug fehl.'}
+		toMySql(date, lesson, cases, teacher, schoolclass, function(error, data) {
+			if(error){
 				res.status(400).json(error)
 				return
 			}
-			let booked = result[0].booked
-			toMySql(date, lesson, cases, teacher, schoolclass, function(error, data) {
-				if(error) return res.status(400).json(error)
-				res.json(data)
-				return
-			})
+			res.json(data)
+			return
 		})
 	})
 })
@@ -149,10 +143,16 @@ app.post('/api/save', function(req, res) {
 function toMySql(date, lesson, cases, teacher, schoolclass, callback){
 	let avalible
 	con.query('SELECT count(*) as booked FROM entlehnt where `date`="'+date+'" AND lesson='+lesson, function (err, result, fields) {
-    if (err) throw err
+    if (err) {
+			let error = {error:3,errordata:err,userdesc:'Eine SQL Abfrage schlug fehl.'}
+			callback(error, null)
+		}
 		let booked = result[0].booked
 		con.query('SELECT count(*) as Anz from trennwaende', function(err, result, fields){
-			if(err) throw err
+			if (err) {
+				let error = {error:3,errordata:err,userdesc:'Eine SQL Abfrage schlug fehl.'}
+				callback(error, null)
+			}
 			numberofcases = result[0].Anz
 			avalible = numberofcases-booked
 			if(cases > numberofcases){
@@ -168,26 +168,48 @@ function toMySql(date, lesson, cases, teacher, schoolclass, callback){
 				callback(err, null)
 			}else if (avalible >= cases) {
 				//----------------------------------------------------------------------There are enough cases to reserve
-				var sql = 'INSERT INTO entlehnt (ID, teachername, class, date, lesson, twfk) VALUES ?'
-			  var values = []
-				let i = 0
-				for(let inserted = booked;inserted-booked<cases;inserted++){
-					values[i] = ['null', teacher, schoolclass, date, lesson, inserted]
-					i++
-				}
-				//----------------------------------------------------------------------Inserting into SQL Database
-				con.query(sql, [values], function (err, result) {
-				    if (err) throw err;
-						//------------------------------------------------------------------Checking which colors have been reserved
-						con.query('SELECT trennwaende.name as twname FROM entlehnt JOIN trennwaende ON entlehnt.twfk = trennwaende.ID where `date`="'+date+'" AND lesson='+lesson+' AND teachername = "'+teacher+'"', function (err, result, fields) {
-					    if (err) throw err
-							let ret = []
-							for(let i = 0;i<result.length;i++){
-								ret[i] = result[i].twname
-							}
-							callback(null, {data:ret})
-						})
-				  })
+				con.query('SELECT twfk from entlehnt where `date`="'+date+'" AND lesson='+lesson,function(err, result, fields){
+					if(err){
+						let error = {error:3,errordata:err,userdesc:'Eine SQL Abfrage schlug fehl.'}
+						callback(error, null)
+					}
+					let taken = []
+					for (let i = 0; i < numberofcases; i++) {
+						taken[i] = false
+					}
+					for (let i = 0; i < result.length; i++) {
+						taken[result[i].twfk] = true
+					}
+
+					let sql = 'INSERT INTO entlehnt (ID, teachername, class, date, lesson, twfk) VALUES ?'
+				  let values = []
+
+					let j = 0
+					let reserved = 0
+					for (let i = 0; i < numberofcases; i++) {
+						if(!taken[i]){
+							values[j] = ['null', teacher, schoolclass, date, lesson, i]
+							reserved++
+							j++
+						}
+						if(reserved >= cases){
+							break
+						}
+					}
+					//----------------------------------------------------------------------Inserting into SQL Database
+					con.query(sql, [values], function (err, result) {
+					    if (err) throw err;
+							//------------------------------------------------------------------Checking which colors have been reserved
+							con.query('SELECT trennwaende.name as twname FROM entlehnt JOIN trennwaende ON entlehnt.twfk = trennwaende.ID where `date`="'+date+'" AND lesson='+lesson+' AND teachername = "'+teacher+'"', function (err, result, fields) {
+						    if (err) throw err
+								let ret = []
+								for(let i = 0;i<result.length;i++){
+									ret[i] = result[i].twname
+								}
+								callback(null, {data:ret})
+							})
+					  })
+					})
 			}else if(avalible == 0){
 				//----------------------------------------------------------------------None are free
 				let err = {error:0, errortxt:'no free',errordesc:'No cases free.',userdesc:'Zu diesem Zeitpunkt sind keine Trennwandboxen mehr frei.'}
@@ -200,23 +222,6 @@ function toMySql(date, lesson, cases, teacher, schoolclass, callback){
 		})
 	})
 	//----------------------------------------------------------------------------End of toMySql
-}
-
-//------------------------------------------------------------------------------Sort database adter deleting one entry
-function sort(i, result){
-	for (let j = i+1; j < result.length; j++) {
-		let newtwfk = j-1
-		con.query('UPDATE entlehnt SET twfk='+newtwfk+' WHERE ID='+result[j].ID, function(err, updateresult){
-			if (err){throw err}
-		})
-	}
-}
-
-function delFunction(i, result){
-	con.query('DELETE FROM entlehnt where ID='+result[i].ID, function(err, delresult){
-		if (err){throw err}
-		sort(i, result)
-	})
 }
 
 //------------------------------------------------------------------------------Server listening on Port 8000

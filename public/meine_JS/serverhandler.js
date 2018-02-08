@@ -1,3 +1,8 @@
+let reload
+function setReloadId(id){
+  reload = id
+}
+
 let active = true
 function formsubmit(formEl){
   if(!checkform()){
@@ -65,7 +70,7 @@ function formsubmit(formEl){
       }else {
         userText = 'Die Trennwand '+resData['data'] + ' wurde Ihnen zugewiesen.'
       }
-      Materialize.toast(userText,10000,'rounded')
+      Materialize.toast(userText,10000)
       onSaved()
     }
   }
@@ -75,8 +80,8 @@ function formsubmit(formEl){
   httpReq.send(JSON.stringify(json))
 }
 
-function teacherSearch(formEl){
-  let teacherEl = formEl.elements['search']
+function teacherSearch(){
+  let teacherEl = document.getElementById('search')
 
   let httpReq = new XMLHttpRequest()
   httpReq.open("GET", '/api/teacher/'+teacherEl.value)
@@ -122,7 +127,6 @@ function getReserved(year, month, day, lesson, callback){
       let errData = JSON.parse(this.responseText)
       alert(errData['userdesc'])
     }else{
-      console.log(JSON.parse(this.responseText))
       callback(JSON.parse(this.responseText))
     }
   }
@@ -132,30 +136,78 @@ function getReserved(year, month, day, lesson, callback){
   httpReq.send(null)
 }
 
+let undo = {}
+
 function deleteEintrag(id){
-  let classes = getClasses()
-  let klassen = getKey()
-
-  let teacher = classes[Object.keys(klassen)[i]][j].teachername
-  let year = classes[Object.keys(klassen)[i]][j].date.getFullYear()
-  let month = classes[Object.keys(klassen)[i]][j].date.getMonth()+1
-  let day = classes[Object.keys(klassen)[i]][j].date.getDate()
-  let lesson = classes[Object.keys(klassen)[i]][j].lesson
-
-  console.log(teacher+', '+year+', '+month+', '+day+', '+lesson)
-
   let httpReq = new XMLHttpRequest()
-  httpReq.open("DELETE", '/api/delete/'+teacher+'/'+year+'/'+month+'/'+day+'/'+lesson)
+  httpReq.open("DELETE", '/api/delete/'+id)
   httpReq.onload = function() {
     if(this.status != 200){
       let errData = JSON.parse(this.responseText)
       alert(errData['userdesc'])
     }else{
-      $('#deleteBut').modal('close')
+      undo[id] = JSON.parse(this.responseText)[0]
+      let toastContent = '<span>Eintrag gelöscht</span> <button onClick="undoDelete('+id+')" class="btn-flat toast-action">Undo</button>'
+      Materialize.toast(toastContent, 10000)
+      teacherSearch()
     }
   }
   httpReq.onerror = function() {
     alert('Unknown network error occured')
   }
   httpReq.send(null)
+}
+
+function undoDelete(id){
+  console.log('UNDO: '+id)
+  console.log(undo[id])
+
+  if(!undo[id]){
+    console.log('NOPE');
+    return
+  }
+
+  Date.prototype.addHours= function(h){
+    this.setHours(this.getHours()+h);
+    return this;
+  }
+
+  let json = {}
+  json['Datum'] = undo[id].date
+  json['BeginnE'] = undo[id].lesson
+  json['AnzahlKoffer'] = 1
+  json['LehrerKzl'] = undo[id].teachername
+  json['Klasse'] = undo[id].class
+
+  undo[id] = false
+
+  let httpReq = new XMLHttpRequest()
+  httpReq.open("POST", "/api/save")
+  httpReq.setRequestHeader('Content-Type', 'application/json')
+  httpReq.onload = function() {
+    if (this.status!=200) {
+      console.log('Error status: '+this.status)
+      let errData = JSON.parse(this.responseText)
+      console.log(errData)
+      let errText = ''+errData['userdesc']
+      //------------------------------------------------------------------------Alert
+      alert(errText) //Alert, damit sichergestellt ist, dass der Benutzer mitbekommt, dass es schief gegangen ist.
+      //------------------------------------------------------------------------End of Alert
+    } else {
+      let resData = JSON.parse(this.responseText)
+      console.log(resData)
+      let userText
+      if(resData['data'].length > 1){
+        userText = 'Die Trennwände '+resData['data'] + ' wurden Ihnen zugewiesen.'
+      }else {
+        userText = 'Die Trennwand '+resData['data'] + ' wurde Ihnen zugewiesen.'
+      }
+      Materialize.toast(userText,10000)
+      teacherSearch()
+    }
+  }
+  httpReq.onerror = function() {
+    alert('Unknown network error occured')
+  }
+  httpReq.send(JSON.stringify(json))
 }

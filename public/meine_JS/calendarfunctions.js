@@ -6,6 +6,7 @@ function onload() {
 
 function onSaved() {
   $('#modal').modal('close')
+  getVergeben(getId(),60)
 }
 
 function getColor() {
@@ -17,7 +18,7 @@ function deleteHeader() {
 }
 
 function deleteButton(id){
-  return '<a href="#deleteBut" onclick="deleteEintrag('+id+')" class="waves-effect waves-light"><i class="material-icons red-text">delete</i></a>'
+  return '<a onclick="deleteEintrag('+id+')" class="waves-effect waves-light"><i class="material-icons red-text">delete</i></a>'
 }
 
 function activeTab(){
@@ -26,15 +27,26 @@ function activeTab(){
 
 function getVergebenAufruf() {
   let id
+  let cnt = 1
   for (let i = 0; i < 10; i++) {
     for (let j = 0; j < 6; j++) {
       id = i + 10 * j
-      getVergeben(id)
+      getVergeben(id, cnt)
+      cnt++
     }
   }
 }
 
-function getVergeben(id) {
+function updateProgress(cnt){
+  let percent = (cnt/60)*100
+  document.getElementById('loadingTooltips').style.width = ''+percent+'%'
+  if(percent == 100){
+    document.getElementById('loadingCard').classList.add('hide')
+    $('.tooltipped').tooltip({delay: 40})
+  }
+}
+
+function getVergeben(id, cnt) {
   let elem
   let day = getDays()
   let aktday = day[Math.floor(id / 10)]
@@ -51,15 +63,10 @@ function getVergeben(id) {
       let toolTipText = reserv + '/' + anzahl + ' frei'
       elem=document.getElementById(id)
       elem.className+= " tooltipped"
-      if (id%10==9) {
-        elem.setAttribute("data-position","top")
-      }
-      else {
-        elem.setAttribute("data-position","bottom")
-      }
+      elem.setAttribute("data-position","bottom")
       elem.setAttribute("data-delay","40")
       elem.setAttribute("data-tooltip",toolTipText)
-      $('.tooltipped').tooltip({delay: 40})
+      updateProgress(cnt)
     })
   })
 }
