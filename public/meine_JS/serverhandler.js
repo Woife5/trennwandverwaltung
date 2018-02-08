@@ -132,7 +132,7 @@ function getReserved(year, month, day, lesson, callback){
   httpReq.send(null)
 }
 
-function deleteEintrag(i, j){
+function deleteEintrag(id){
   let classes = getClasses()
   let klassen = getKey()
 
@@ -151,7 +151,7 @@ function deleteEintrag(i, j){
       let errData = JSON.parse(this.responseText)
       alert(errData['userdesc'])
     }else{
-      //Success
+      $('#deleteBut').modal('close')
     }
   }
   httpReq.onerror = function() {
