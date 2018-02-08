@@ -68,7 +68,6 @@ function generateTable(){
   let Buttonv3 = '</a>'
   let generator = ''
   let id
-  console.log();
   generator += getDayRow()
   //generator += '<div class="row"></div>'
 
@@ -124,9 +123,9 @@ function searchresult(data){
   klassen = {}
   for (var i = 0; i < data.length; i++) {
     if(klassen[data[i].klasse]){
-      classes[data[i].klasse].push({'date':new Date(data[i].date.substring(0,10)), 'lesson':data[i].lesson,'twname':data[i].twname,'twfk':data[i].twfk,'teachername':data[i].teachername})
+      classes[data[i].klasse].push({'id':data[i].ID,'date':new Date(data[i].date.substring(0,10)), 'lesson':data[i].lesson,'twname':data[i].twname,'twfk':data[i].twfk,'teachername':data[i].teachername})
     }else{
-      classes[data[i].klasse] = [{'date':new Date(data[i].date.substring(0,10)), 'lesson':data[i].lesson,'twname':data[i].twname,'twfk':data[i].twfk,'teachername':data[i].teachername}]
+      classes[data[i].klasse] = [{'id':data[i].ID,'date':new Date(data[i].date.substring(0,10)), 'lesson':data[i].lesson,'twname':data[i].twname,'twfk':data[i].twfk,'teachername':data[i].teachername}]
       klassen[data[i].klasse] = true
     }
   }
@@ -150,7 +149,7 @@ function searchresult(data){
       searchcontent += '<td>' + classes[Object.keys(klassen)[i]][j].date.toLocaleDateString() + '</td>'
       searchcontent += '<td>' + classes[Object.keys(klassen)[i]][j].lesson + '</td>'
       searchcontent += '<td>' + classes[Object.keys(klassen)[i]][j].twname + '</td>'  //Seitenspezifisch
-      searchcontent += '<td>' + deleteButton(i,j) + '</td>'
+      searchcontent += '<td>' + deleteButton(classes[Object.keys(klassen)[i]][j].id) + '</td>'
       searchcontent += '</tr>'
     }
     searchcontent += '</tbody>'
@@ -161,8 +160,8 @@ function searchresult(data){
   document.getElementById('sercontent').innerHTML = searchcontent
   $('.collapsible').collapsible()
 }
-function ondeleteconfirm(i,j){
-  document.getElementById('deleteconf').innerHTML='<a href="#!"onclick="deleteEintrag('+i+','+j+')"  class="modal-action modal-close waves-effect waves-green btn-flat ">Ja</a>  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Nein</a>'
+function ondeleteconfirm(id){
+  document.getElementById('deleteconf').innerHTML='<a href="#!"onclick="deleteEintrag('+id+')"  class="modal-action modal-close waves-effect waves-green btn-flat ">Ja</a>  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Nein</a>'
 }
 function getClasses(){
   return classes
