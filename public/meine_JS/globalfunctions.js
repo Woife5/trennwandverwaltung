@@ -160,9 +160,6 @@ function searchresult(data){
   document.getElementById('sercontent').innerHTML = searchcontent
   $('.collapsible').collapsible()
 }
-function ondeleteconfirm(id){
-  document.getElementById('deleteconf').innerHTML='<a href="#!"onclick="deleteEintrag('+id+')"  class="modal-action modal-close waves-effect waves-green btn-flat ">Ja</a>  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Nein</a>'
-}
 function getClasses(){
   return classes
 }
