@@ -16,11 +16,11 @@ function deleteHeader() {
   return '<th>Löschen</th>'
 }
 
-function deleteButton(id){
-  return '<a href="#deleteBut" onclick="deleteEintrag('+id+')" class="waves-effect waves-light"><i class="material-icons red-text">delete</i></a>'
+function deleteButton(id) {
+  return '<a href="#deleteBut" onclick="deleteEintrag(' + id + ')" class="waves-effect waves-light"><i class="material-icons red-text">delete</i></a>'
 }
 
-function activeTab(){
+function activeTab() {
   return '<li class="active"><a href="#">Eintragen</a></li><li><a href="/info">Information</a></li>'
 }
 
@@ -49,17 +49,18 @@ function getVergeben(id) {
       anzahl = resp.numberofcases
       reserv = anzahl - response.length
       let toolTipText = reserv + '/' + anzahl + ' frei'
-      elem=document.getElementById(id)
-      elem.className+= " tooltipped"
-      if (id%10==9) {
-        elem.setAttribute("data-position","top")
+      elem = document.getElementById(id)
+      elem.className += " tooltipped"
+      if (id % 10 == 9) {
+        elem.setAttribute("data-position", "top")
+      } else {
+        elem.setAttribute("data-position", "bottom")
       }
-      else {
-        elem.setAttribute("data-position","bottom")
-      }
-      elem.setAttribute("data-delay","40")
-      elem.setAttribute("data-tooltip",toolTipText)
-      $('.tooltipped').tooltip({delay: 40})
+      elem.setAttribute("data-delay", "40")
+      elem.setAttribute("data-tooltip", toolTipText)
+      $('.tooltipped').tooltip({
+        delay: 40
+      })
     })
   })
 }
@@ -76,13 +77,14 @@ let classAlert = true
 function checkform() {
   let f = document.forms['reserveform'].elements
   let cansubmit = true
+  let lehrerid=document.getElementById("myTeacher").value
 
   for (let i = 0; i < f.length; i++) {
     if (f[i].value.length == 0)
       cansubmit = false
   }
 
-  if (document.getElementById("myTeacher").value.length > 25) {
+  if (lehrerid.length > 25) {
     cansubmit = false
     if (teacherAlert) {
       Materialize.toast('Lehrername kann nicht länger als 25 Zeichen sein.', 5000)
@@ -91,7 +93,7 @@ function checkform() {
   } else {
     teacherAlert = true
   }
-
+  
   if (document.getElementById("myClass").value.length > 10) {
     cansubmit = false
     if (classAlert) {

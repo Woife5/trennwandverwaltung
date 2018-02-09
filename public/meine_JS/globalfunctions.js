@@ -35,6 +35,7 @@ function checkInput(type) {
 let id
 let dayNames = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag']
 let dayNamesShort = ['So','Mo','Di','Mi','Do','Fr','Sa']
+
 function klick(number){
   id = number;
   setValues()
@@ -161,25 +162,21 @@ function searchresult(data){
   document.getElementById('sercontent').innerHTML = searchcontent
   $('.collapsible').collapsible()
 }
-/*<form onsubmit="formsubmit(this); return false" id="reserveform">
-  <div class="input-field col s6"><input id="myDate" name="Datum" type="date"><label class="active" for="myDate">Datum</label></div>
-  <div class="input-field col s6"><input id="myBeginnE" type="number" oninput="checkform()" name="BeginnE" value="1"><label class="active" for="myBeginnE">Einheit</label></div>
-  <div class="input-field col s6"><input id="myAnzahlKoffer" type="number" oninput="checkform()" name="AnzahlKoffer" value="1"><label class="active" for="myAnzahlKoffer">Anzahl Koffer</label></div>
-  <div class="input-field col s6"><input id="myTeacher" type="text" oninput="checkform()" name="LehrerKzl"><label for="myTeacher">Lehrer</label></div>
-  <div class="input-field col s6"><input id="myClass" type="text" oninput="checkform()" name="Klasse"><label for="myClass">Klasse</label></div>
-  <button class="btn waves-effect waves-light" id="submitbutton" type="submit" value="Value">Submit<i class="material-icons right">send</i></button>
-</form>*/
+
 function ondeleteconfirm(i,j){
   var $toastContent = $('<span>Gelöscht</span>').add($('<button onclick="deleteEintrag()" class="btn-flat toast-action">Undo</button>'));
   Materialize.toast($toastContent, 10000);
 
 }//<button class="btn waves-effect waves-light" id="submitbutton" type="submit" value="Value">Submit<i class="material-icons right">send</i></button>
+
 function modalclose(){
   $('#deleteconffooter').modal('close');
 }
+
 function getClasses(){
   return classes
 }
+
 function getKey(){
   return klassen
 }
