@@ -4,6 +4,8 @@ function onload() {
   document.getElementById("myDate").valueAsDate = new Date()
 }
 
+let anzahl
+
 function onSaved() {
   $('#modal').modal('close')
   getVergeben(getId(),60)
@@ -28,13 +30,16 @@ function activeTab(){
 function getVergebenAufruf() {
   let id
   let cnt = 1
-  for (let i = 0; i < 10; i++) {
-    for (let j = 0; j < 6; j++) {
-      id = i + 10 * j
-      getVergeben(id, cnt)
-      cnt++
+  getCases(function(resp) {
+    anzahl = resp.numberofcases
+    for (let i = 0; i < 10; i++) {
+      for (let j = 0; j < 6; j++) {
+        id = i + 10 * j
+        getVergeben(id, cnt)
+        cnt++
+      }
     }
-  }
+  })
 }
 
 function updateProgress(cnt){
@@ -54,20 +59,19 @@ function getVergeben(id, cnt) {
   let month = aktday.getMonth() + 1
   let tag = aktday.getDate()
   let lesson = id % 10 + 1
-  getCases(function(resp) {
-    getReserved(year, month, tag, lesson, function(response) {
-      let anzahl
-      let reserv
-      anzahl = resp.numberofcases
-      reserv = anzahl - response.length
-      let toolTipText = reserv + '/' + anzahl + ' frei'
-      elem=document.getElementById(id)
-      elem.className+= " tooltipped"
-      elem.setAttribute("data-position","bottom")
-      elem.setAttribute("data-delay","40")
-      elem.setAttribute("data-tooltip",toolTipText)
-      updateProgress(cnt)
-    })
+  getReserved(year, month, tag, lesson, function(response) {
+    let reserv
+    reserv = anzahl - response.length
+    let toolTipText = reserv + '/' + anzahl + ' frei'
+    elem=document.getElementById(id)
+    elem.className+= " tooltipped"
+    elem.setAttribute("data-position","bottom")
+    elem.setAttribute("data-delay","40")
+    elem.setAttribute("data-tooltip",toolTipText)
+    if(reserv == 0){
+      elem.classList.add('disabled')
+    }
+    updateProgress(cnt)
   })
 }
 

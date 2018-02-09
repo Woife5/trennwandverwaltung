@@ -50,8 +50,6 @@ function formsubmit(formEl){
   httpReq.open("POST", "/api/save")
   httpReq.setRequestHeader('Content-Type', 'application/json')
   httpReq.onload = function() {
-    console.log('hurra, respons from server received')
-    console.log(this.responseText)
 
     if (this.status!=200) {
       console.log('Error status: '+this.status)
@@ -84,7 +82,7 @@ function teacherSearch(){
   let teacherEl = document.getElementById('search')
 
   let httpReq = new XMLHttpRequest()
-  httpReq.open("GET", '/api/teacher/'+teacherEl.value)
+  httpReq.open("GET", '/api/teacher/'+encodeURIComponent(teacherEl.value))
   httpReq.onload = function() {
     if(this.status != 200){
       let errData = JSON.parse(this.responseText)
@@ -159,8 +157,6 @@ function deleteEintrag(id){
 }
 
 function undoDelete(id){
-  console.log('UNDO: '+id)
-  console.log(undo[id])
 
   if(!undo[id]){
     console.log('NOPE');
@@ -195,7 +191,6 @@ function undoDelete(id){
       //------------------------------------------------------------------------End of Alert
     } else {
       let resData = JSON.parse(this.responseText)
-      console.log(resData)
       let userText
       if(resData['data'].length > 1){
         userText = 'Die Trennwände '+resData['data'] + ' wurden Ihnen zugewiesen.'
