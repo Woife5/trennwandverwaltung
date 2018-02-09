@@ -9,8 +9,10 @@ const con = mysql.createConnection({
 	port: '3306',
   user: 'Wolfg_twv',
   password: '9Bpo28w#',
-  database: 'Wolfgang_twv'
+  database: 'Wolfgang_twv',
+	dateStrings: true
 })
+
 con.connect(function(err){
 	if (err) throw err
 })
@@ -45,8 +47,8 @@ app.get('/api/:year/:month/:day/:lesson', function(req, res){
 })
 
 app.get('/api/teacher/:teacher',function(req, res){
-	let name = ''+req.params.teacher
-	con.query('SELECT entlehnt.ID,teachername, DATE_ADD(date, INTERVAL 1 HOUR) as date, lesson, class as klasse, name as twname, twfk from entlehnt JOIN trennwaende ON entlehnt.twfk=trennwaende.ID where DATE_ADD(date, INTERVAL 1 HOUR) > CURDATE() AND teachername ="'+name+'" order by date ASC, lesson ASC', function(err, result, fields){
+	let name = req.params.teacher
+	con.query('SELECT entlehnt.ID,teachername, date, lesson, class as klasse, name as twname, twfk from entlehnt JOIN trennwaende ON entlehnt.twfk=trennwaende.ID where DATE_ADD(date, INTERVAL 1 HOUR) > CURDATE() AND teachername ="'+name+'" order by date ASC, lesson ASC', function(err, result, fields){
 		if(err){
 			let error = {error:3,errordata:err,userdesc:'Eine SQL Abfrage schlug fehl.'}
 			res.status(400).json(error)
@@ -84,7 +86,7 @@ app.get('/api/cases', function(req, res) {
 
 app.delete('/api/delete/:id',function(req, res){
 	let id = req.params.id
-	con.query('SELECT ID, teachername, class, DATE_ADD(date, INTERVAL 1 HOUR) as date, lesson, twfk from entlehnt where ID='+id, function(err, result, fields){
+	con.query('SELECT ID, teachername, class, date, lesson, twfk from entlehnt where ID='+id, function(err, result, fields){
 		if (err){
 			let error = {error:3,errordata:err,userdesc:'Eine SQL Abfrage schlug fehl.'}
 			res.status(400).json(error)
