@@ -69,7 +69,6 @@ function generateTable(){
   let Buttonv3 = '</a>'
   let generator = ''
   let id
-  console.log();
   generator += getDayRow()
   //generator += '<div class="row"></div>'
 
@@ -125,9 +124,9 @@ function searchresult(data){
   klassen = {}
   for (var i = 0; i < data.length; i++) {
     if(klassen[data[i].klasse]){
-      classes[data[i].klasse].push({'date':new Date(data[i].date.substring(0,10)), 'lesson':data[i].lesson,'twname':data[i].twname,'twfk':data[i].twfk,'teachername':data[i].teachername})
+      classes[data[i].klasse].push({'id':data[i].ID,'date':new Date(data[i].date.substring(0,10)), 'lesson':data[i].lesson,'twname':data[i].twname,'twfk':data[i].twfk,'teachername':data[i].teachername})
     }else{
-      classes[data[i].klasse] = [{'date':new Date(data[i].date.substring(0,10)), 'lesson':data[i].lesson,'twname':data[i].twname,'twfk':data[i].twfk,'teachername':data[i].teachername}]
+      classes[data[i].klasse] = [{'id':data[i].ID,'date':new Date(data[i].date.substring(0,10)), 'lesson':data[i].lesson,'twname':data[i].twname,'twfk':data[i].twfk,'teachername':data[i].teachername}]
       klassen[data[i].klasse] = true
     }
   }
@@ -162,6 +161,7 @@ function searchresult(data){
   document.getElementById('sercontent').innerHTML = searchcontent
   $('.collapsible').collapsible()
 }
+<<<<<<< HEAD
 
 function ondeleteconfirm(i,j){
   var $toastContent = $('<span>Gelöscht</span>').add($('<button onclick="deleteEintrag()" class="btn-flat toast-action">Undo</button>'));
@@ -173,6 +173,8 @@ function modalclose(){
   $('#deleteconffooter').modal('close');
 }
 
+=======
+>>>>>>> f41a107b3be1d264965ca84fa929facc74ed826a
 function getClasses(){
   return classes
 }

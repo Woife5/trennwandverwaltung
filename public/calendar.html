@@ -13,12 +13,14 @@
     }
 
     .navbar-material .nav-wrapper .brand-logo img {
-      height: 62px;
+      height: 54px;
+      margin: 5px;
     }
 
     @media (max-width: 600px) {
       .navbar-material .nav-wrapper .brand-logo img {
-        height: 52px;
+        height: 44px;
+        margin: 5px;
       }
     }
   </style>
@@ -28,6 +30,7 @@
   <div id="navDiv">
   </div>
   <div class="container">
+
     <div id="myDiv">
     </div>
   </div>
@@ -36,6 +39,24 @@
     <a href="#modal" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
     <a href="#deletemodal" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">delete</i></a>
   </div>
+
+  <div id="loadingCard" class="row">
+    <div class="col">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          <span class="card-title">Laden</span>
+          <p>Einige Daten werden noch geladen, und erst in kürze zur Verfügung stehen.</p>
+        </div>
+        <div class="card-action">
+          <div class="progress">
+              <div class="determinate" id="loadingTooltips" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 
   <div id="modal" class="modal">
     <div class="modal-content">
@@ -55,7 +76,7 @@
     <div class="modal-content">
       <nav>
         <div class="nav-wrapper">
-          <form onsubmit="teacherSearch(this); return false">
+          <form onsubmit="teacherSearch(); return false">
             <div id="searchbar" class="input-field">
               <input id="search" type="search" required>
               <label class="label-icon" for="search"><i class="material-icons">search</i></label>

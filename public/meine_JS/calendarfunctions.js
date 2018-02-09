@@ -4,8 +4,10 @@ function onload() {
   document.getElementById("myDate").valueAsDate = new Date()
 }
 
+let anzahl
 function onSaved() {
   $('#modal').modal('close')
+  getVergeben(getId(),60)
 }
 
 function getColor() {
@@ -16,8 +18,13 @@ function deleteHeader() {
   return '<th>Löschen</th>'
 }
 
+<<<<<<< HEAD
 function deleteButton(id) {
   return '<a href="#deleteBut" onclick="deleteEintrag(' + id + ')" class="waves-effect waves-light"><i class="material-icons red-text">delete</i></a>'
+=======
+function deleteButton(id){
+  return '<a onclick="deleteEintrag('+id+')" class="waves-effect waves-light"><i class="material-icons red-text">delete</i></a>'
+>>>>>>> f41a107b3be1d264965ca84fa929facc74ed826a
 }
 
 function activeTab() {
@@ -26,15 +33,29 @@ function activeTab() {
 
 function getVergebenAufruf() {
   let id
-  for (let i = 0; i < 10; i++) {
-    for (let j = 0; j < 6; j++) {
-      id = i + 10 * j
-      getVergeben(id)
+  let cnt = 1
+  getCases(function(resp) {
+    anzahl = resp.numberofcases
+    for (let i = 0; i < 10; i++) {
+      for (let j = 0; j < 6; j++) {
+        id = i + 10 * j
+        getVergeben(id, cnt)
+        cnt++
+      }
     }
+  })
+}
+
+function updateProgress(cnt){
+  let percent = (cnt/60)*100
+  document.getElementById('loadingTooltips').style.width = ''+percent+'%'
+  if(percent == 100){
+    document.getElementById('loadingCard').classList.add('hide')
+    $('.tooltipped').tooltip({delay: 40})
   }
 }
 
-function getVergeben(id) {
+function getVergeben(id, cnt) {
   let elem
   let day = getDays()
   let aktday = day[Math.floor(id / 10)]
@@ -42,26 +63,19 @@ function getVergeben(id) {
   let month = aktday.getMonth() + 1
   let tag = aktday.getDate()
   let lesson = id % 10 + 1
-  getCases(function(resp) {
-    getReserved(year, month, tag, lesson, function(response) {
-      let anzahl
-      let reserv
-      anzahl = resp.numberofcases
-      reserv = anzahl - response.length
-      let toolTipText = reserv + '/' + anzahl + ' frei'
-      elem = document.getElementById(id)
-      elem.className += " tooltipped"
-      if (id % 10 == 9) {
-        elem.setAttribute("data-position", "top")
-      } else {
-        elem.setAttribute("data-position", "bottom")
-      }
-      elem.setAttribute("data-delay", "40")
-      elem.setAttribute("data-tooltip", toolTipText)
-      $('.tooltipped').tooltip({
-        delay: 40
-      })
-    })
+  getReserved(year, month, tag, lesson, function(response) {
+    let reserv
+    reserv = anzahl - response.length
+    let toolTipText = reserv + '/' + anzahl + ' frei'
+    elem=document.getElementById(id)
+    elem.className+= " tooltipped"
+    elem.setAttribute("data-position","bottom")
+    elem.setAttribute("data-delay","40")
+    elem.setAttribute("data-tooltip",toolTipText)
+    if(reserv == 0){
+      elem.classList.add('disabled')
+    }
+    updateProgress(cnt)
   })
 }
 
