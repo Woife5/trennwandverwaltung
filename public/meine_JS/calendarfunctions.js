@@ -18,15 +18,6 @@ function deleteHeader() {
   return '<th>Löschen</th>'
 }
 
-<<<<<<< HEAD
-function deleteButton(id) {
-  return '<a href="#deleteBut" onclick="deleteEintrag(' + id + ')" class="waves-effect waves-light"><i class="material-icons red-text">delete</i></a>'
-=======
-function deleteButton(id){
-  return '<a onclick="deleteEintrag('+id+')" class="waves-effect waves-light"><i class="material-icons red-text">delete</i></a>'
->>>>>>> f41a107b3be1d264965ca84fa929facc74ed826a
-}
-
 function activeTab() {
   return '<li class="active"><a href="#">Eintragen</a></li><li><a href="/info">Information</a></li>'
 }
