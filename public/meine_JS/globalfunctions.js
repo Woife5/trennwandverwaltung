@@ -161,20 +161,6 @@ function searchresult(data){
   document.getElementById('sercontent').innerHTML = searchcontent
   $('.collapsible').collapsible()
 }
-<<<<<<< HEAD
-
-function ondeleteconfirm(i,j){
-  var $toastContent = $('<span>Gelöscht</span>').add($('<button onclick="deleteEintrag()" class="btn-flat toast-action">Undo</button>'));
-  Materialize.toast($toastContent, 10000);
-
-}//<button class="btn waves-effect waves-light" id="submitbutton" type="submit" value="Value">Submit<i class="material-icons right">send</i></button>
-
-function modalclose(){
-  $('#deleteconffooter').modal('close');
-}
-
-=======
->>>>>>> f41a107b3be1d264965ca84fa929facc74ed826a
 function getClasses(){
   return classes
 }
