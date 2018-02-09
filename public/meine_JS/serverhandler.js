@@ -157,7 +157,6 @@ function deleteEintrag(id){
 }
 
 function undoDelete(id){
-
   if(!undo[id]){
     console.log('NOPE');
     return

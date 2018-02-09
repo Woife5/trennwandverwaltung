@@ -5,7 +5,6 @@ function onload() {
 }
 
 let anzahl
-
 function onSaved() {
   $('#modal').modal('close')
   getVergeben(getId(),60)
