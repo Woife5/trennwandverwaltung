@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.3/css/materialize.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.css">
   <title>Trennwand Reservierung</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style media="screen">
@@ -64,7 +64,15 @@
       <form onsubmit="formsubmit(this); return false" id="reserveform">
         <div class="input-field col s6"><input id="myDate" name="Datum" type="date"><label class="active" for="myDate">Datum</label></div>
         <div class="input-field col s6"><input id="myBeginnE" type="number" oninput="checkform()" name="BeginnE" value="1"><label class="active" for="myBeginnE">Einheit</label></div>
-        <div class="input-field col s6"><input id="myAnzahlKoffer" type="number" oninput="checkform()" name="AnzahlKoffer" value="1"><label class="active" for="myAnzahlKoffer">Anzahl Koffer</label></div>
+        <!--<div class="input-field col s6"><input id="myAnzahlKoffer" type="number" oninput="checkform()" name="AnzahlKoffer" value="1"><label class="active" for="myAnzahlKoffer">Anzahl Koffer</label></div> -->
+        <div class="col s6" style="margin-top:15px; margin-bottom:15px">
+          <input class="with-gap" name="caseselect" type="radio" value="1" id="case1" checked/>
+          <label for="case1">Ein Koffer</label>
+          <input class="with-gap" name="caseselect" type="radio" value="2" id="case2" />
+          <label for="case2">Zwei Koffer</label>
+          <input class="with-gap" name="caseselect" type="radio" value="3" id="case3" />
+          <label for="case3">Drei Koffer</label>
+        </div>
         <div class="input-field col s6"><input id="myTeacher" type="text" oninput="checkform()" name="LehrerKzl"><label for="myTeacher">Lehrer</label></div>
         <div class="input-field col s6"><input id="myClass" type="text" oninput="checkform()" name="Klasse"><label for="myClass">Klasse</label></div>
         <button class="btn waves-effect waves-light" id="submitbutton" type="submit" value="Value">Submit<i class="material-icons right">send</i></button>

@@ -77,8 +77,28 @@ function getVergeben(id, cnt) {
 
 
 function setValues() {
-  document.getElementById("myDate").valueAsDate = day[Math.floor(getId() / 10)]
-  document.getElementById("myBeginnE").value = getId() % 10 + 1
+  let day = getDays()
+  let aktday = day[Math.floor(getId() / 10)]
+  let lesson = id % 10 + 1
+  document.getElementById("myDate").valueAsDate = aktday
+  document.getElementById("myBeginnE").value = lesson
+  let radios = document.getElementsByName('caseselect')
+  let year = aktday.getFullYear()
+  let month = aktday.getMonth() + 1
+  let tag = aktday.getDate()
+
+  for (var i = 0; i < radios.length; i++) {
+    radios[i].removeAttribute("disabled")
+    radios[i].checked = false
+  }
+  radios[0].checked = true
+
+  getReserved(year, month, tag, lesson, function(response){
+    let free = anzahl - response.length
+    for (let i = radios.length-1; i>free-1; i--) {
+      radios[i].setAttribute("disabled","disabled")
+    }
+  })
 }
 
 let teacherAlert = true

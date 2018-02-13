@@ -21,11 +21,21 @@ function formsubmit(formEl){
 
   let dateEl = formEl.elements['Datum']
   let beginEl = formEl.elements['BeginnE']
-  let casesEl = formEl.elements['AnzahlKoffer']
   let teacherEl = formEl.elements['LehrerKzl']
   let classEl = formEl.elements['Klasse']
+  let cases
 
-  if(parseInt(casesEl.value) < 1){
+  let radios = document.getElementsByName('caseselect')
+  for (var i = 0; i < radios.length; i++)
+  {
+   if (radios[i].checked)
+   {
+    cases = radios[i].value
+    break
+   }
+  }
+
+  if(cases < 1){
     Materialize.toast('Bitte eine Anzahl an Trennwandkoffern größer 0 eingeben!',errorduration,errorcolor)
     return
   }
@@ -45,7 +55,7 @@ function formsubmit(formEl){
   let json = {}
   json[dateEl.name] = dateEl.value
   json[beginEl.name] = parseInt(beginEl.value)
-  json[casesEl.name] = parseInt(casesEl.value)
+  json['AnzahlKoffer'] = cases
   json[teacherEl.name] = teacherEl.value
   json[classEl.name] = classEl.value.toUpperCase()
 
