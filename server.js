@@ -161,11 +161,11 @@ function toMySql(date, lesson, cases, teacher, schoolclass, callback){
 				//----------------------------------------------------------------------Someone tried to reserve more cases than avalible
 				let err
 				if(avalible == 0){
-					err = {error:42, errortxt:'not that many!',errordesc:'The user requested more cases than avalible.',userdesc:'Es sind maximal '+numberofcases+' Trennwandboxen vorhanden, wovon keine mehr frei ist zu diesem Termin.'}
+					err = {error:42, errortxt:'not that many!',errordesc:'The user requested more cases than avalible.',userdesc:'Es sind maximal '+numberofcases+' Trennwandkoffer vorhanden, wovon keine mehr frei ist zu diesem Termin.'}
 				}else if(avalible == 1){
-					err = {error:42, errortxt:'not that many!',errordesc:'The user requested more cases than avalible.',userdesc:'Es sind maximal '+numberofcases+' Trennwandboxen vorhanden, wovon eine noch frei ist zu diesem Termin.'}
+					err = {error:42, errortxt:'not that many!',errordesc:'The user requested more cases than avalible.',userdesc:'Es sind maximal '+numberofcases+' Trennwandkoffer vorhanden, wovon eine noch frei ist zu diesem Termin.'}
 				}else{
-					err = {error:42, errortxt:'not that many!',errordesc:'The user requested more cases than avalible.',userdesc:'Es sind maximal '+numberofcases+' Trennwandboxen vorhanden, wovon '+avalible+' noch frei sind zu diesem Termin.'}
+					err = {error:42, errortxt:'not that many!',errordesc:'The user requested more cases than avalible.',userdesc:'Es sind maximal '+numberofcases+' Trennwandkoffer vorhanden, wovon '+avalible+' noch frei sind zu diesem Termin.'}
 				}
 				callback(err, null)
 			}else if (avalible >= cases) {
@@ -214,11 +214,11 @@ function toMySql(date, lesson, cases, teacher, schoolclass, callback){
 					})
 			}else if(avalible == 0){
 				//----------------------------------------------------------------------None are free
-				let err = {error:0, errortxt:'no free',errordesc:'No cases free.',userdesc:'Zu diesem Zeitpunkt sind keine Trennwandboxen mehr frei.'}
+				let err = {error:0, errortxt:'no free',errordesc:'No cases free.',userdesc:'Zu diesem Zeitpunkt sind keine Trennwandkoffer mehr frei.'}
 				callback(err, null)
 			}else{
 				//----------------------------------------------------------------------Not that many are free anymore
-				let err = {error:5, errortxt:'nothing to reserve',errordesc:'The user requested more cases than free.',userdesc:'Zu diesem Zeitpunkt sind nurmehr '+avalible+' Trennwandboxen frei.'}
+				let err = {error:5, errortxt:'nothing to reserve',errordesc:'The user requested more cases than free.',userdesc:'Zu diesem Zeitpunkt sind nurmehr '+avalible+' Trennwandkoffer frei.'}
 				callback(err, null)
 			}
 		})

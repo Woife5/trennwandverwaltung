@@ -26,7 +26,7 @@ function formsubmit(formEl){
   let classEl = formEl.elements['Klasse']
 
   if(parseInt(casesEl.value) < 1){
-    Materialize.toast('Bitte eine Anzahl an Trennwandboxen größer 0 eingeben!',errorduration,errorcolor)
+    Materialize.toast('Bitte eine Anzahl an Trennwandkoffern größer 0 eingeben!',errorduration,errorcolor)
     return
   }
   if((parseInt(beginEl.value) < 1) || (parseInt(beginEl.value) > 10)){
