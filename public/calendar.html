@@ -30,9 +30,23 @@
   <div id="navDiv">
   </div>
   <div class="container">
+    <div id="week-navigation" style="margin-top:10px; margin-bottom:8px" class="hide-on-med-and-down show-on-large">
+      <button type="button" onclick="thisWeek()" class="btn-flat waves-effect waves-light ">today</button>
+      <button type="button" onclick="prevWeek()" class="btn-flat waves-effect waves-light "><i class="material-icons">chevron_left</i></button>
+      <button type="button" onclick="nextWeek()" class="btn-flat waves-effect waves-light "><i class="material-icons">chevron_right</i></button>
+      <h4 class="center-align" style="display:inline; center-align" id="weektextlarge" ></h4>
+    </div>
+
+    <div id="week-navigation" style="margin-top:8px; margin-bottom:8px" class="show-on-medium-and-down hide-on-large-only">
+      <button type="button" onclick="prevWeek()" class="btn-flat waves-effect waves-light "><i class="material-icons">chevron_left</i></button>
+      <button type="button" onclick="nextWeek()" class="btn-flat waves-effect waves-light "><i class="material-icons">chevron_right</i></button>
+      <button type="button" onclick="thisWeek()" class="btn-flat waves-effect waves-light ">today</button>
+      <h4 class="center-align" style="display:inline" id="weektextsmall" ></h4>
+    </div>
 
     <div id="myDiv">
     </div>
+
   </div>
   <!-- Container DIV -->
   <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
@@ -49,7 +63,7 @@
         </div>
         <div class="card-action">
           <div class="progress">
-              <div class="determinate" id="loadingTooltips" style="width: 0%"></div>
+            <div class="determinate" id="loadingTooltips" style="width: 0%"></div>
           </div>
         </div>
       </div>
@@ -85,6 +99,7 @@
           </form>
         </div>
       </nav>
+
       <div id="sercontent">
       </div>
     </div>
