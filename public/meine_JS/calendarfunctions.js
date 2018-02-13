@@ -25,10 +25,6 @@ function deleteHeader() {
   return '<th>Löschen</th>'
 }
 
-function deleteButton(id){
-  return '<a onclick="deleteEintrag('+id+')" class="waves-effect waves-light"><i class="material-icons red-text">delete</i></a>'
-}
-
 function activeTab(){
   return '<li class="active"><a href="#">Eintragen</a></li><li><a href="/info">Information</a></li><li><a href="/overview">Übersicht</a></li>'
 }
@@ -113,13 +109,14 @@ let classAlert = true
 function checkform() {
   let f = document.forms['reserveform'].elements
   let cansubmit = true
+  let lehrerid=document.getElementById("myTeacher").value
 
   for (let i = 0; i < f.length; i++) {
     if (f[i].value.length == 0)
       cansubmit = false
   }
 
-  if (document.getElementById("myTeacher").value.length > 25) {
+  if (lehrerid.length > 25) {
     cansubmit = false
     if (teacherAlert) {
       Materialize.toast('Lehrername kann nicht länger als 25 Zeichen sein.', 5000, 'red')
@@ -128,7 +125,7 @@ function checkform() {
   } else {
     teacherAlert = true
   }
-
+  
   if (document.getElementById("myClass").value.length > 10) {
     cansubmit = false
     if (classAlert) {
