@@ -96,7 +96,7 @@ function checkform() {
   if (document.getElementById("myTeacher").value.length > 25) {
     cansubmit = false
     if (teacherAlert) {
-      Materialize.toast('Lehrername kann nicht länger als 25 Zeichen sein.', 5000)
+      Materialize.toast('Lehrername kann nicht länger als 25 Zeichen sein.', 5000, 'red')
       teacherAlert = false
     }
   } else {
@@ -106,7 +106,7 @@ function checkform() {
   if (document.getElementById("myClass").value.length > 10) {
     cansubmit = false
     if (classAlert) {
-      Materialize.toast('Klassenname kann nicht länger als 10 Zeichen sein.', 5000)
+      Materialize.toast('Klassenname kann nicht länger als 10 Zeichen sein.', 5000,'red')
       classAlert = false
     }
   } else {
