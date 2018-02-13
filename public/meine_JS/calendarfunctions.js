@@ -1,4 +1,10 @@
 function onload() {
+  generateTable()
+  $('.modal').modal()
+  $('.collapsible').collapsible()
+  getVergebenAufruf()
+  let searchbar = document.getElementById('searchbar')
+  searchbar.classList.add(getColor())
   let button = document.getElementById("submitbutton")
   button.classList.add("disabled")
   document.getElementById("myDate").valueAsDate = new Date()
@@ -24,7 +30,7 @@ function deleteButton(id){
 }
 
 function activeTab(){
-  return '<li class="active"><a href="#">Eintragen</a></li><li><a href="/info">Information</a></li>'
+  return '<li class="active"><a href="#">Eintragen</a></li><li><a href="/info">Information</a></li><li><a href="/overview">Übersicht</a></li>'
 }
 
 function getVergebenAufruf() {

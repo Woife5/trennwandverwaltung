@@ -156,7 +156,7 @@ function deleteEintrag(id){
       Materialize.toast(errData['userdesc'],errorduration,errorcolor)
     }else{
       undo[id] = JSON.parse(this.responseText)[0]
-      let toastContent = '<span>Eintrag gelöscht</span> <button onClick="undoDelete('+id+')" class="btn-flat toast-action">Undo</button>'
+      let toastContent = '<span>Eintrag gelöscht</span> <button onClick="undoDelete('+id+')" class="btn-flat toast-action yellow-text">Undo</button>'
       Materialize.toast(toastContent, 10000)
       teacherSearch()
     }
@@ -168,7 +168,6 @@ function deleteEintrag(id){
 }
 
 function undoDelete(id){
-
   if(!undo[id]){
     console.log('NOPE');
     return
