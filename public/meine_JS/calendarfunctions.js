@@ -1,10 +1,17 @@
 function onload() {
+  generateTable(0)
+  $('.modal').modal()
+  $('.collapsible').collapsible()
+  getVergebenAufruf()
+  let searchbar = document.getElementById('searchbar')
+  searchbar.classList.add(getColor())
   let button = document.getElementById("submitbutton")
   button.classList.add("disabled")
   document.getElementById("myDate").valueAsDate = new Date()
 }
 
 let anzahl
+
 function onSaved() {
   $('#modal').modal('close')
   getVergeben(getId(),60)
@@ -23,7 +30,7 @@ function deleteButton(id){
 }
 
 function activeTab(){
-  return '<li class="active"><a href="#">Eintragen</a></li><li><a href="/info">Information</a></li>'
+  return '<li class="active"><a href="#">Eintragen</a></li><li><a href="/info">Information</a></li><li><a href="/overview">Übersicht</a></li>'
 }
 
 function getVergebenAufruf() {
@@ -76,8 +83,28 @@ function getVergeben(id, cnt) {
 
 
 function setValues() {
-  document.getElementById("myDate").valueAsDate = day[Math.floor(getId() / 10)]
-  document.getElementById("myBeginnE").value = getId() % 10 + 1
+  let day = getDays()
+  let aktday = day[Math.floor(getId() / 10)]
+  let lesson = id % 10 + 1
+  document.getElementById("myDate").valueAsDate = aktday
+  document.getElementById("myBeginnE").value = lesson
+  let radios = document.getElementsByName('caseselect')
+  let year = aktday.getFullYear()
+  let month = aktday.getMonth() + 1
+  let tag = aktday.getDate()
+
+  for (var i = 0; i < radios.length; i++) {
+    radios[i].removeAttribute("disabled")
+    radios[i].checked = false
+  }
+  radios[0].checked = true
+
+  getReserved(year, month, tag, lesson, function(response){
+    let free = anzahl - response.length
+    for (let i = radios.length-1; i>free-1; i--) {
+      radios[i].setAttribute("disabled","disabled")
+    }
+  })
 }
 
 let teacherAlert = true
@@ -86,16 +113,17 @@ let classAlert = true
 function checkform() {
   let f = document.forms['reserveform'].elements
   let cansubmit = true
+  let lehrerid=document.getElementById("myTeacher").value
 
   for (let i = 0; i < f.length; i++) {
     if (f[i].value.length == 0)
       cansubmit = false
   }
 
-  if (document.getElementById("myTeacher").value.length > 25) {
+  if (lehrerid.length > 25) {
     cansubmit = false
     if (teacherAlert) {
-      Materialize.toast('Lehrername kann nicht länger als 25 Zeichen sein.', 5000)
+      Materialize.toast('Lehrername kann nicht länger als 25 Zeichen sein.', 5000, 'red')
       teacherAlert = false
     }
   } else {
@@ -105,7 +133,7 @@ function checkform() {
   if (document.getElementById("myClass").value.length > 10) {
     cansubmit = false
     if (classAlert) {
-      Materialize.toast('Klassenname kann nicht länger als 10 Zeichen sein.', 5000)
+      Materialize.toast('Klassenname kann nicht länger als 10 Zeichen sein.', 5000,'red')
       classAlert = false
     }
   } else {

@@ -4,15 +4,22 @@
 <head>
   <meta charset="utf-8" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.3/css/materialize.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.css">
   <title>Trennwand Reservierung</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style media="screen">
     .btn {
       width: 100% !important;
     }
+
     .navbar-material .nav-wrapper .brand-logo img {
-      height: 62px;
+      height: 54px;
+      margin: 5px;
+    }
+
+    .navbar-material .nav-wrapper .brand-logo img {
+      height: 54px;
+      margin: 5px;
     }
     
     .navbar-material .nav-wrapper .brand-logo img {
@@ -33,6 +40,20 @@
   <div id="navDiv">
   </div>
   <div class="container">
+    <div id="week-navigation" style="margin-top:10px; margin-bottom:8px" class="hide-on-med-and-down show-on-large">
+      <button type="button" onclick="thisWeek()" class="btn-flat waves-effect waves-light ">today</button>
+      <button type="button" onclick="prevWeek()" class="btn-flat waves-effect waves-light "><i class="material-icons">chevron_left</i></button>
+      <button type="button" onclick="nextWeek()" class="btn-flat waves-effect waves-light "><i class="material-icons">chevron_right</i></button>
+      <h4 class="" style="display:inline; center-align" id="weektextlarge" ></h4>
+    </div>
+
+    <div id="week-navigation" style="margin-top:8px; margin-bottom:8px" class="show-on-medium-and-down hide-on-large-only">
+      <button type="button" onclick="prevWeek()" class="btn-flat waves-effect waves-light "><i class="material-icons">chevron_left</i></button>
+      <button type="button" onclick="nextWeek()" class="btn-flat waves-effect waves-light "><i class="material-icons">chevron_right</i></button>
+      <button type="button" onclick="thisWeek()" class="btn-flat waves-effect waves-light ">today</button>
+      <h4 class="center-align" style="display:inline" id="weektextsmall" ></h4>
+    </div>
+
     <div id="myDiv">
     </div>
   </div>
@@ -55,7 +76,7 @@
        <div class="nav-wrapper">
          <form onsubmit="teacherSearch(this); return false">
            <div id="searchbar" class="input-field">
-             <input id="search" type="search" required>
+             <input id="search" type="search" required autocomplete="off">
              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
              <i class="material-icons">close</i>
            </div>

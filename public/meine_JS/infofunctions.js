@@ -1,5 +1,10 @@
 function onload(){
-  console.log('Onload infofunctions')
+  generateTable(0)
+  $('.modal').modal()
+  $('.collapsible').collapsible()
+  getVergebenAufruf()
+  let searchbar = document.getElementById('searchbar')
+  searchbar.classList.add(getColor())
 }
 
 function getColor() {
@@ -18,7 +23,7 @@ function getVergebenAufruf(){
 }
 
 function activeTab(){
-  return '<li><a href="/calendar">Eintragen</a></li><li class="active"><a href="#">Information</a></li>'
+  return '<li><a href="/calendar">Eintragen</a></li><li class="active"><a href="#">Information</a></li><li><a href="/overview">Übersicht</a></li>'
 }
 
 function setValues() {
