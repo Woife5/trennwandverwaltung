@@ -214,3 +214,24 @@ function undoDelete(id){
   }
   httpReq.send(JSON.stringify(json))
 }
+
+function classesFromDB(callback){
+  let ret = {}
+  let httpReq = new XMLHttpRequest()
+  httpReq.open("GET", "/api/classes")
+  httpReq.onload = function() {
+    let data = JSON.parse(this.responseText)
+    if (this.status!=200) {
+      Materialize.toast('Error',errorduration,errorcolor)
+    } else {
+      for (let i = 0; i < data.length; i++) {
+        ret[data[i].name] = null
+      }
+      callback(ret)
+    }
+  }
+  httpReq.onerror = function() {
+    Materialize.toast('Unknown network error occured',errorduration,errorcolor)
+  }
+  httpReq.send()
+}
