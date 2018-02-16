@@ -243,6 +243,4 @@ function writeAutofill(){
     });
   })
 
-
-
 }
