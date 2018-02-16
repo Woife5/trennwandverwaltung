@@ -14,7 +14,7 @@ let anzahl
 
 function onSaved() {
   $('#modal').modal('close')
-  getVergeben(getId(),60)
+  getVergeben(getId())
 }
 
 function getColor() {
@@ -34,30 +34,15 @@ function activeTab(){
 }
 
 function getVergebenAufruf() {
-  let id
-  let cnt = 1
   getCases(function(resp) {
     anzahl = resp.numberofcases
-    for (let i = 0; i < 10; i++) {
-      for (let j = 0; j < 6; j++) {
-        id = i + 10 * j
-        getVergeben(id, cnt)
-        cnt++
-      }
+    for(let id=0;id<60;id++){
+      getVergeben(id)
     }
   })
 }
 
-function updateProgress(cnt){
-  let percent = (cnt/60)*100
-  document.getElementById('loadingTooltips').style.width = ''+percent+'%'
-  if(percent == 100){
-    document.getElementById('loadingCard').classList.add('hide')
-    $('.tooltipped').tooltip({delay: 40})
-  }
-}
-
-function getVergeben(id, cnt) {
+function getVergeben(id) {
   let elem
   let day = getDays()
   let aktday = day[Math.floor(id / 10)]
@@ -76,8 +61,12 @@ function getVergeben(id, cnt) {
     elem.setAttribute("data-tooltip",toolTipText)
     if(reserv == 0){
       elem.classList.add('disabled')
+    }else{
+      elem.classList.remove('disabled')
     }
-    updateProgress(cnt)
+    if(id == 59){
+      $('.tooltipped').tooltip({delay: 40})
+    }
   })
 }
 

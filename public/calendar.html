@@ -46,31 +46,15 @@
 
     <div id="myDiv">
     </div>
+    <div style="height:120px">
 
+    </div>
   </div>
   <!-- Container DIV -->
   <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
     <a href="#modal" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
     <a href="#deletemodal" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">delete</i></a>
   </div>
-
-  <div id="loadingCard" class="row">
-    <div class="col">
-      <div class="card blue-grey darken-1">
-        <div class="card-content white-text">
-          <span class="card-title">Laden</span>
-          <p>Einige Daten werden noch geladen, und erst in kürze zur Verfügung stehen.</p>
-        </div>
-        <div class="card-action">
-          <div class="progress">
-            <div class="determinate" id="loadingTooltips" style="width: 0%"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
 
   <div id="modal" class="modal">
     <div class="modal-content">
@@ -86,8 +70,8 @@
           <input class="with-gap" name="caseselect" type="radio" value="3" id="case3" />
           <label for="case3">Drei Koffer</label>
         </div>
-        <div class="input-field col s6"><input id="myTeacher" type="text" oninput="checkform()" class="autocompleteLehrer" name="LehrerKzl" autocomplete="off"><label for="autocomplete-input">Lehrer</label></div>
-        <div class="input-field col s6"><input id="myClass" type="text" oninput="checkform()" class="autocompleteKlasse" name="Klasse" autocomplete="off"><label for="autocomplete-input">Klassen</label></div>
+        <br><div class="input-field col s6"><input id="myTeacher" type="text" oninput="checkform()" class="autocompleteLehrer" name="LehrerKzl" autocomplete="off"><label for="autocomplete-input">Lehrer</label></div>
+        <br><div class="input-field col s6"><input id="myClass" type="text" oninput="checkform()" class="autocompleteKlasse" name="Klasse" autocomplete="off"><label for="autocomplete-input">Klassen</label></div>
         <br><button class="btn waves-effect waves-light" id="submitbutton" type="submit" value="Value">Submit<i class="material-icons right">send</i></button>
       </form>
     </div>

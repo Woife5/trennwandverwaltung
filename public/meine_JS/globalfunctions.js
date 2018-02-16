@@ -1,7 +1,6 @@
 let week = 0
 
 $(document).ready(function() {
-
   if(!checkInput('date')){
     let errtext = ''
     errtext += '<!DOCTYPE html><html lang="de"><head><meta charset="utf-8" /><link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.3/css/materialize.css"><title>Trennwand Reservierung</title><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>'
@@ -14,14 +13,15 @@ $(document).ready(function() {
     errtext += '</body>'
     document.write(errtext)
     return
+  }else{
+    writeAutofill()
+    navBar()
+    onload()
   }
-  navBar()
-  onload()
-  writeAutofill()
 })
 
 function checkInput(type) {
-  var input = document.createElement("input")
+  let input = document.createElement("input")
   input.setAttribute("type", type)
   return input.type == type
 }
@@ -224,7 +224,7 @@ function thisWeek() {
 }
 
 function writeAutofill(){
-  classesFromDB(function(resClasses){
+  dataFromDB('classes',function(resClasses){
     $('input.autocompleteKlasse').autocomplete({
      data: resClasses,
      onAutocomplete: function(val) {
@@ -233,7 +233,7 @@ function writeAutofill(){
      minLength: 0,
     });
   })
-  teacherFromDB(function(resLehrer){
+  dataFromDB('teacher',function(resLehrer){
     $('input.autocompleteLehrer').autocomplete({
      data: resLehrer,
      onAutocomplete: function(val) {
