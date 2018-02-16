@@ -3,6 +3,9 @@ function setReloadId(id){
   reload = id
 }
 
+let errorduration = 5000
+let errorcolor = 'red'
+
 let active = true
 function formsubmit(formEl){
   if(!checkform()){
@@ -18,31 +21,41 @@ function formsubmit(formEl){
 
   let dateEl = formEl.elements['Datum']
   let beginEl = formEl.elements['BeginnE']
-  let casesEl = formEl.elements['AnzahlKoffer']
   let teacherEl = formEl.elements['LehrerKzl']
   let classEl = formEl.elements['Klasse']
+  let cases
 
-  if(parseInt(casesEl.value) < 1){
-    alert('Bitte eine Anzahl an Trennwandboxen größer 0 eingeben!')
+  let radios = document.getElementsByName('caseselect')
+  for (var i = 0; i < radios.length; i++)
+  {
+   if (radios[i].checked)
+   {
+    cases = radios[i].value
+    break
+   }
+  }
+
+  if(cases < 1){
+    Materialize.toast('Bitte eine Anzahl an Trennwandkoffern größer 0 eingeben!',errorduration,errorcolor)
     return
   }
   if((parseInt(beginEl.value) < 1) || (parseInt(beginEl.value) > 10)){
-    alert('Bitte eine gültige Schulstunde bei "Einheit" angeben. (1 bis 10)')
+    Materialize.toast('Bitte eine gültige Schulstunde bei "Einheit" angeben. (1 bis 10)',errorduration,errorcolor)
     return
   }
   if(teacherEl.value.length > 25){
-    alert('Lehrername kann nicht länger als 25 Zeichen sein.')
+    Materialize.toast('Lehrername kann nicht länger als 25 Zeichen sein.',errorduration,errorcolor)
     return
   }
   if(classEl.value.length > 10){
-    alert('Klassenname kann nicht länger als 10 Zeichen sein.')
+    Materialize.toast('Klassenname kann nicht länger als 10 Zeichen sein.',errorduration,errorcolor)
     return
   }
 
   let json = {}
   json[dateEl.name] = dateEl.value
   json[beginEl.name] = parseInt(beginEl.value)
-  json[casesEl.name] = parseInt(casesEl.value)
+  json['AnzahlKoffer'] = cases
   json[teacherEl.name] = teacherEl.value
   json[classEl.name] = classEl.value.toUpperCase()
 
@@ -56,9 +69,7 @@ function formsubmit(formEl){
       let errData = JSON.parse(this.responseText)
       console.log(errData)
       let errText = ''+errData['userdesc']
-      //------------------------------------------------------------------------Alert
-      alert(errText) //Alert, damit sichergestellt ist, dass der Benutzer mitbekommt, dass es schief gegangen ist.
-      //------------------------------------------------------------------------End of Alert
+      Materialize.toast(errText,errorduration,errorcolor)
     } else {
       let resData = JSON.parse(this.responseText)
       console.log(resData)
@@ -73,7 +84,7 @@ function formsubmit(formEl){
     }
   }
   httpReq.onerror = function() {
-    alert('Unknown network error occured')
+    Materialize.toast('Unknown network error occured',errorduration,errorcolor)
   }
   httpReq.send(JSON.stringify(json))
 }
@@ -86,7 +97,7 @@ function teacherSearch(){
   httpReq.onload = function() {
     if(this.status != 200){
       let errData = JSON.parse(this.responseText)
-      alert(errData['userdesc'])
+      Materialize.toast(errData['userdesc'],errorduration,err)
     }else{
       let data = JSON.parse(this.responseText)
       if(data != []){
@@ -95,7 +106,7 @@ function teacherSearch(){
     }
   }
   httpReq.onerror = function() {
-    alert('Unknown network error occured')
+    Materialize.toast('Unknown network error occured',errorduration,errorcolor)
   }
   httpReq.send(null)
 }
@@ -106,13 +117,13 @@ function getCases(callback){
   httpReq.onload = function() {
     if(this.status != 200){
       let errData = JSON.parse(this.responseText)
-      alert(errData['userdesc'])
+      Materialize.toast(errData['userdesc'],errorduration,erorcolor)
     }else{
       callback(JSON.parse(this.responseText))
     }
   }
   httpReq.onerror = function() {
-    alert('Unknown network error occured')
+    Materialize.toast('Unknown network error occured',errorduration,errorcolor)
   }
   httpReq.send(null)
 }
@@ -123,13 +134,13 @@ function getReserved(year, month, day, lesson, callback){
   httpReq.onload = function() {
     if(this.status != 200){
       let errData = JSON.parse(this.responseText)
-      alert(errData['userdesc'])
+      Materialize.toast(errData['userdesc'],errorduration,errorcolor)
     }else{
       callback(JSON.parse(this.responseText))
     }
   }
   httpReq.onerror = function() {
-    alert('Unknown network error occured')
+    Materialize.toast('Unknown network error occured',errorduration,errorcolor)
   }
   httpReq.send(null)
 }
@@ -142,16 +153,16 @@ function deleteEintrag(id){
   httpReq.onload = function() {
     if(this.status != 200){
       let errData = JSON.parse(this.responseText)
-      alert(errData['userdesc'])
+      Materialize.toast(errData['userdesc'],errorduration,errorcolor)
     }else{
       undo[id] = JSON.parse(this.responseText)[0]
-      let toastContent = '<span>Eintrag gelöscht</span> <button onClick="undoDelete('+id+')" class="btn-flat toast-action">Undo</button>'
+      let toastContent = '<span>Eintrag gelöscht</span> <button onClick="undoDelete('+id+')" class="btn-flat toast-action yellow-text">Undo</button>'
       Materialize.toast(toastContent, 10000)
       teacherSearch()
     }
   }
   httpReq.onerror = function() {
-    alert('Unknown network error occured')
+    Materialize.toast('Unknown network error occured',errorduration,errorcolor)
   }
   httpReq.send(null)
 }
@@ -185,9 +196,7 @@ function undoDelete(id){
       let errData = JSON.parse(this.responseText)
       console.log(errData)
       let errText = ''+errData['userdesc']
-      //------------------------------------------------------------------------Alert
-      alert(errText) //Alert, damit sichergestellt ist, dass der Benutzer mitbekommt, dass es schief gegangen ist.
-      //------------------------------------------------------------------------End of Alert
+      Materialize.toast(errText,errorduration,errorcolor)
     } else {
       let resData = JSON.parse(this.responseText)
       let userText
@@ -201,7 +210,7 @@ function undoDelete(id){
     }
   }
   httpReq.onerror = function() {
-    alert('Unknown network error occured')
+    Materialize.toast('Unknown network error occured',errorduration,errorcolor)
   }
   httpReq.send(JSON.stringify(json))
 }

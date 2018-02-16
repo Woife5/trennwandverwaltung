@@ -1,9 +1,7 @@
 let week = 0
 
 $(document).ready(function() {
-  //let isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification))
-  //let isIE = /*@cc_on!@*/false || !!document.documentMode
-  if (!checkInput('date')) {
+  if(!checkInput('date')){
     let errtext = ''
     errtext += '<!DOCTYPE html><html lang="de"><head><meta charset="utf-8" /><link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.3/css/materialize.css"><title>Trennwand Reservierung</title><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>'
     errtext += '<body>'
@@ -12,18 +10,11 @@ $(document).ready(function() {
     errtext += '<blockquote style="font-size:20px;">We are sorry but this website does not support your browser.<br>At the time of coding this page only the following browsers support all of the nececary methods, so please use one of them:</blockquote>'
     errtext += '<ul style="font-size:20px;" class="collection"><li class="collection-item">Google Chrome (v25+)</li><li class="collection-item">Mozilla Firefox (v57+)</li><li class="collection-item">Microsoft Edge (v12+)</li><li class="collection-item">Opera (v10.1+)</li></ul>'
     errtext += '<div>'
-    //errtext += '<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>'
     errtext += '</body>'
     document.write(errtext)
     return
   }
   navBar()
-  generateTable(week)
-  $('.modal').modal()
-  $('.collapsible').collapsible()
-  getVergebenAufruf()
-  let searchbar = document.getElementById('searchbar')
-  searchbar.classList.add(getColor())
   onload()
   writeAutofill()
 
@@ -156,7 +147,7 @@ function searchresult(data) {
     //console.log(classes[Object.keys(klassen)[i]])
     for (let j = 0; j < classes[Object.keys(klassen)[i]].length; j++) {
       searchcontent += '<tr>'
-      searchcontent += '<td>' + classes[Object.keys(klassen)[i]][j].date.toLocaleDateString() + '</td>'
+      searchcontent += '<td>' + dayNamesShort[classes[Object.keys(klassen)[i]][j].date.getDay()] + ', ' + classes[Object.keys(klassen)[i]][j].date.toLocaleDateString() + '</td>'
       searchcontent += '<td>' + classes[Object.keys(klassen)[i]][j].lesson + '</td>'
       searchcontent += '<td>' + classes[Object.keys(klassen)[i]][j].twname + '</td>' //Seitenspezifisch
       searchcontent += '<td>' + deleteButton(classes[Object.keys(klassen)[i]][j].id) + '</td>'
