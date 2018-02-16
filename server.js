@@ -40,6 +40,18 @@ app.get('/overview', function(req, res){
 	res.sendFile(path.join(__dirname ,'public','overview.html'))
 })
 
+app.get('/api/classes', function(req, res){
+	con.query('SELECT name from classes', function(err, result, fields){
+		if(err){
+			let error = {error:3,errordata:err,userdesc:'Eine SQL Abfrage schlug fehl.'}
+			res.status(400).json(error)
+			return
+		}
+		res.status(200).json(result)
+		return
+	})
+})
+
 app.get('/api/:year/:month/:day/:lesson', function(req, res){
 	let date = ''+req.params.year+'-'+req.params.month+'-'+req.params.day
 	let lesson = req.params.lesson

@@ -1,5 +1,5 @@
 function onload() {
-  generateTable()
+  generateTable(0)
   $('.modal').modal()
   $('.collapsible').collapsible()
   getVergebenAufruf()
