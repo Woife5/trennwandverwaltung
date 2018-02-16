@@ -41,7 +41,19 @@ app.get('/overview', function(req, res){
 })
 
 app.get('/api/classes', function(req, res){
-	con.query('SELECT name from classes', function(err, result, fields){
+	con.query('SELECT name from classes ORDER BY name ASC', function(err, result, fields){
+		if(err){
+			let error = {error:3,errordata:err,userdesc:'Eine SQL Abfrage schlug fehl.'}
+			res.status(400).json(error)
+			return
+		}
+		res.status(200).json(result)
+		return
+	})
+})
+
+app.get('/api/teacher', function(req, res){
+	con.query('SELECT name from teacher ORDER BY name ASC', function(err, result, fields){
 		if(err){
 			let error = {error:3,errordata:err,userdesc:'Eine SQL Abfrage schlug fehl.'}
 			res.status(400).json(error)

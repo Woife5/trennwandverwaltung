@@ -224,26 +224,25 @@ function thisWeek() {
 }
 
 function writeAutofill(){
-  let Klassendaten = { }
-  let Lehrerdaten = { }
   classesFromDB(function(resClasses){
-    console.log(resClasses);
+    $('input.autocompleteKlasse').autocomplete({
+     data: resClasses,
+     onAutocomplete: function(val) {
+        checkform()
+      },
+     minLength: 0,
+    });
   })
-  lehrerFromDB(function(resLehrer){
-    console.log(resLehrer);
+  teacherFromDB(function(resLehrer){
+    $('input.autocompleteLehrer').autocomplete({
+     data: resLehrer,
+     onAutocomplete: function(val) {
+        checkform()
+      },
+     minLength: 0,
+    });
   })
 
-  $('input.autocompleteKlasse').autocomplete({
-   data: Klassendaten,onAutocomplete: function(val) {
-      checkform()
-    },
-   minLength: 0, // The minimum length of the input for the autocomplete to start. Default: 1.
-  });
-  $('input.autocompleteLehrer').autocomplete({
-   data: Lehrerdaten,onAutocomplete: function(val) {
-      checkform()
-    },
-   minLength: 0, // The minimum length of the input for the autocomplete to start. Default: 1.
 
-  });
+
 }

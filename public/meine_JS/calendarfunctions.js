@@ -25,6 +25,10 @@ function deleteHeader() {
   return '<th>Löschen</th>'
 }
 
+function deleteButton(id){
+  return '<a onclick="deleteEintrag('+id+')" class="waves-effect waves-light"><i class="material-icons red-text">delete</i></a>'
+}
+
 function activeTab(){
   return '<li class="active"><a href="#">Eintragen</a></li><li><a href="/info">Information</a></li><li><a href="/overview">Übersicht</a></li>'
 }
@@ -125,7 +129,7 @@ function checkform() {
   } else {
     teacherAlert = true
   }
-  
+
   if (document.getElementById("myClass").value.length > 10) {
     cansubmit = false
     if (classAlert) {
