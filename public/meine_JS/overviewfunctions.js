@@ -13,7 +13,7 @@ function activeTab(){
 function generateOverview(){
   let lessonNames = ['Erste', 'Zweite', 'Dritte', 'Vierte', 'Fünfte','Sechste','Siebte','Achte','Neunte','Zehnte']
   let generator = ''
-  generator += '<h1 class="'+getColor()+'-text center-align">Übersicht über heute</h1>'
+  generator += '<h1 class="'+getColor()+'-text center-align">Tagesübersicht</h1>'
   generator += '<ul class="collapsible popout" data-collapsible="accordion">'
   for (let i = 0; i < 10; i++) {
     generator += '<li>'

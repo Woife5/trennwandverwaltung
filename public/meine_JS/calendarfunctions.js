@@ -7,10 +7,35 @@ function onload() {
   searchbar.classList.add(getColor())
   let button = document.getElementById("submitbutton")
   button.classList.add("disabled")
-  document.getElementById("myDate").valueAsDate = new Date()
-}
+  //document.getElementById("myDate").valueAsDate = new Date()
 
+  $('.datepicker').pickadate({
+    monthsFull: ['Jänner', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+    monthsShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+    weekdaysFull: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+    weekdaysShort: ['Son', 'Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam'],
+    selectMonths: true,
+    selectYears: 2,
+    today: 'Heute',
+    clear: 'Löschen',
+    close: 'OK',
+    min: new Date(),
+    onClose: function(){
+      checkform()
+    },
+    closeOnSelect: false
+  });
+
+  picker=$('.datepicker').pickadate('picker')
+  picker.set('select', new Date())
+
+}
+let picker
 let anzahl
+
+function getDateFromPicker(){
+  return picker.get('select', 'yyyy-mm-dd')
+}
 
 function onSaved() {
   $('#modal').modal('close')
@@ -75,7 +100,8 @@ function setValues() {
   let day = getDays()
   let aktday = day[Math.floor(getId() / 10)]
   let lesson = id % 10 + 1
-  document.getElementById("myDate").valueAsDate = aktday
+  //document.getElementById("myDate").valueAsDate = aktday
+  picker.set('select', aktday)
   document.getElementById("myBeginnE").value = lesson
   let radios = document.getElementsByName('caseselect')
   let year = aktday.getFullYear()
@@ -98,18 +124,16 @@ function setValues() {
 
 let teacherAlert = true
 let classAlert = true
+let submitbutton = document.getElementById("submitbutton")
 
 function checkform() {
-  let f = document.forms['reserveform'].elements
   let cansubmit = true
-  let lehrerid=document.getElementById("myTeacher").value
+  let dateval = picker.get()
+  let lessonval = document.getElementById("myBeginnE").value
+  let teacherval = document.getElementById("myTeacher").value
+  let classval = document.getElementById("myClass").value
 
-  for (let i = 0; i < f.length; i++) {
-    if (f[i].value.length == 0)
-      cansubmit = false
-  }
-
-  if (lehrerid.length > 25) {
+  if (teacherval.length > 25) {
     cansubmit = false
     if (teacherAlert) {
       Materialize.toast('Lehrername kann nicht länger als 25 Zeichen sein.', 5000, 'red')
@@ -118,8 +142,11 @@ function checkform() {
   } else {
     teacherAlert = true
   }
+  if(teacherval.length == 0){
+    cansubmit = false
+  }
 
-  if (document.getElementById("myClass").value.length > 10) {
+  if (classval.length > 10) {
     cansubmit = false
     if (classAlert) {
       Materialize.toast('Klassenname kann nicht länger als 10 Zeichen sein.', 5000,'red')
@@ -128,13 +155,22 @@ function checkform() {
   } else {
     classAlert = true
   }
+  if(classval.length == 0){
+    cansubmit = false
+  }
 
+  if(lessonval.length == 0){
+    cansubmit=false
+  }
 
-  let button = document.getElementById("submitbutton")
+  if(!dateval){
+    cansubmit=false
+  }
+
   if (cansubmit) {
-    button.classList.remove("disabled")
+    submitbutton.classList.remove("disabled")
   } else {
-    button.classList.add("disabled")
+    submitbutton.classList.add("disabled")
   }
   return cansubmit
 }

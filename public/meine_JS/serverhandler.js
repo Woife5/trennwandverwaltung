@@ -19,7 +19,6 @@ function formsubmit(formEl){
     active = true
   }, 2000)
 
-  let dateEl = formEl.elements['Datum']
   let beginEl = formEl.elements['BeginnE']
   let teacherEl = formEl.elements['LehrerKzl']
   let classEl = formEl.elements['Klasse']
@@ -53,11 +52,13 @@ function formsubmit(formEl){
   }
 
   let json = {}
-  json[dateEl.name] = dateEl.value
+  json['Datum'] = new Date(getDateFromPicker())
   json[beginEl.name] = parseInt(beginEl.value)
   json['AnzahlKoffer'] = cases
   json[teacherEl.name] = teacherEl.value
   json[classEl.name] = classEl.value.toUpperCase()
+
+  console.log(json);
 
   let httpReq = new XMLHttpRequest()
   httpReq.open("POST", "/api/save")
