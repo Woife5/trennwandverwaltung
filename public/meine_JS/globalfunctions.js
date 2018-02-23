@@ -21,6 +21,8 @@ $(document).ready(function() {
   writeAutofill()
   navBar()
   onload()
+  document.getElementById('prevWeek').classList.add('disabled')
+  document.getElementById('prevWeekLarge').classList.add('disabled')
 })
 
 function checkInput(type) {
@@ -210,20 +212,32 @@ function datumsberechnung(showweek) {
 
 function nextWeek() {
   week += 1
+  if(week > 0){
+    document.getElementById('prevWeek').classList.remove('disabled')
+    document.getElementById('prevWeekLarge').classList.remove('disabled')
+  }
   generateTable(week)
   getVergebenAufruf()
 }
 
 function prevWeek() {
   week -= 1
+  if(week == 0){
+    document.getElementById('prevWeek').classList.add('disabled')
+    document.getElementById('prevWeekLarge').classList.add('disabled')
+  }
   generateTable(week)
   getVergebenAufruf()
 }
 
 function thisWeek() {
-  week = 0
-  generateTable(week)
-  getVergebenAufruf()
+  if(week != 0){
+    week = 0
+    document.getElementById('prevWeek').classList.add('disabled')
+    document.getElementById('prevWeekLarge').classList.add('disabled')
+    generateTable(week)
+    getVergebenAufruf()
+  }
 }
 
 function writeAutofill(){

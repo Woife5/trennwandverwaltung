@@ -31,16 +31,16 @@
   </div>
   <div class="container">
     <div id="week-navigation" style="margin-top:10px; margin-bottom:8px" class="hide-on-med-and-down show-on-large">
-      <button type="button" onclick="thisWeek()" class="btn-flat waves-effect waves-light ">today</button>
-      <button type="button" onclick="prevWeek()" class="btn-flat waves-effect waves-light "><i class="material-icons">chevron_left</i></button>
-      <button type="button" onclick="nextWeek()" class="btn-flat waves-effect waves-light "><i class="material-icons">chevron_right</i></button>
+      <button type="button" id="thisWeekLarge" onclick="thisWeek()" class="btn-flat waves-effect waves-light ">today</button>
+      <button type="button" id="prevWeekLarge" onclick="prevWeek()" class="btn-flat waves-effect waves-light "><i class="material-icons">chevron_left</i></button>
+      <button type="button" id="nextWeekLarge" onclick="nextWeek()" class="btn-flat waves-effect waves-light "><i class="material-icons">chevron_right</i></button>
       <h4 class="center-align" style="display:inline; center-align" id="weektextlarge" ></h4>
     </div>
 
     <div id="week-navigation" style="margin-top:8px; margin-bottom:8px" class="show-on-medium-and-down hide-on-large-only">
-      <button type="button" onclick="prevWeek()" class="btn-flat waves-effect waves-light "><i class="material-icons">chevron_left</i></button>
-      <button type="button" onclick="nextWeek()" class="btn-flat waves-effect waves-light "><i class="material-icons">chevron_right</i></button>
-      <button type="button" onclick="thisWeek()" class="btn-flat waves-effect waves-light ">today</button>
+      <button type="button" id="thisWeek" onclick="thisWeek()" class="btn-flat waves-effect waves-light ">today</button>
+      <button type="button" id="prevWeek" onclick="prevWeek()" class="btn-flat waves-effect waves-light "><i class="material-icons">chevron_left</i></button>
+      <button type="button" id="nextWeek" onclick="nextWeek()" class="btn-flat waves-effect waves-light "><i class="material-icons">chevron_right</i></button>
       <h4 class="center-align" style="display:inline" id="weektextsmall" ></h4>
     </div>
 
