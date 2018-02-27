@@ -50,10 +50,6 @@ function deleteHeader() {
   return '<th>Löschen</th>'
 }
 
-function deleteButton(id){
-  return '<a onclick="deleteEintrag('+id+')" class="waves-effect waves-light"><i class="material-icons red-text">delete</i></a>'
-}
-
 function activeTab(){
   return '<li class="active"><a href="#">Eintragen</a></li><li><a href="/info">Information</a></li><li><a href="/overview">Übersicht</a></li>'
 }
@@ -67,6 +63,7 @@ function getVergebenAufruf() {
   })
 }
 
+let stundenzeiten =[' 07:50-08:40',' 08:45-09:35',' 09:40-10:30',' 10:45-11:35',' 11:40-12:30',' 12:35-13:25',' 13:25-14:15',' 14:20-15:10',' 15:15-16:05',' 16:05-16:55']
 function getVergeben(id) {
   let elem
   let day = getDays()
@@ -78,7 +75,7 @@ function getVergeben(id) {
   getReserved(year, month, tag, lesson, function(response) {
     let reserv
     reserv = anzahl - response.length
-    let toolTipText = reserv + '/' + anzahl + ' frei'
+    let toolTipText = reserv + '/' + anzahl + ' frei' + stundenzeiten[lesson-1]
     elem=document.getElementById(id)
     elem.className+= " tooltipped"
     elem.setAttribute("data-position","bottom")
