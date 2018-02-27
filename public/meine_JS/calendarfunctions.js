@@ -2,6 +2,8 @@ function onload() {
   generateTable(0)
   $('.modal').modal()
   $('.collapsible').collapsible()
+  document.getElementById('prevWeek').classList.add('disabled')
+  document.getElementById('prevWeekLarge').classList.add('disabled')
   getVergebenAufruf()
   let searchbar = document.getElementById('searchbar')
   searchbar.classList.add(getColor())
@@ -22,6 +24,7 @@ function onload() {
     min: new Date(),
     onClose: function(){
       checkform()
+      checkInputDate()
     },
     closeOnSelect: false
   });
@@ -39,7 +42,7 @@ function getDateFromPicker(){
 
 function onSaved() {
   $('#modal').modal('close')
-  getVergeben(getId())
+  getVergebenAufruf()
 }
 
 function getColor() {
@@ -48,6 +51,10 @@ function getColor() {
 
 function deleteHeader() {
   return '<th>Löschen</th>'
+}
+
+function deleteButton(id){
+  return '<a onclick="deleteEintrag('+id+')" class="waves-effect waves-light"><i class="material-icons red-text">delete</i></a>'
 }
 
 function activeTab(){
@@ -170,4 +177,26 @@ function checkform() {
     submitbutton.classList.add("disabled")
   }
   return cansubmit
+}
+
+function checkInputDate(){
+  let radios = document.getElementsByName('caseselect')
+  let input = new Date(getDateFromPicker())
+  let year = input.getFullYear()
+  let month = input.getMonth() + 1
+  let day = input.getDate()
+  let lesson = document.getElementById('myBeginnE').value
+
+  for (var i = 0; i < radios.length; i++) {
+    radios[i].removeAttribute("disabled")
+    radios[i].checked = false
+  }
+  radios[0].checked = true
+
+  getReserved(year, month, day, lesson, function(data){
+    let free = anzahl - data.length
+    for (let i = radios.length-1; i>free-1; i--) {
+      radios[i].setAttribute("disabled","disabled")
+    }
+  })
 }

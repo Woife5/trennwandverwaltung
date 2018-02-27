@@ -4,8 +4,6 @@ $(document).ready(function() {
   writeAutofill()
   navBar()
   onload()
-  document.getElementById('prevWeek').classList.add('disabled')
-  document.getElementById('prevWeekLarge').classList.add('disabled')
 })
 
 function checkInput(type) {

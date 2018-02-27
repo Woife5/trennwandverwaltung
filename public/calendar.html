@@ -61,7 +61,7 @@
       <h4 class="center-align">Trennwandkoffer reservieren</h4>
       <form onsubmit="formsubmit(this); return false" id="reserveform">
         <div class="input-field row s6"><input id="myDate" name="Datum" oninput="checkform()" type="text" class="datepicker"><label class="active" for="myDate">Datum</label></div>
-        <div class="input-field row s6"><input id="myBeginnE" type="number" oninput="checkform()" name="BeginnE" value="1" autocomplete="off"><label class="active" for="myBeginnE">Einheit</label></div>
+        <div class="input-field row s6"><input id="myBeginnE" type="number" oninput="checkform();checkInputDate()" name="BeginnE" value="1" autocomplete="off" min="1" max="10"><label class="active" for="myBeginnE">Einheit</label></div>
         <div class="row s6" style="margin-top:15px; margin-bottom:15px">
           <div class="col s4">
             <input class="with-gap" name="caseselect" type="radio" value="1" id="case1" checked/>
