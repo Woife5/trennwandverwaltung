@@ -19,7 +19,6 @@ function formsubmit(formEl){
     active = true
   }, 2000)
 
-  let dateEl = formEl.elements['Datum']
   let beginEl = formEl.elements['BeginnE']
   let teacherEl = formEl.elements['LehrerKzl']
   let classEl = formEl.elements['Klasse']
@@ -53,11 +52,13 @@ function formsubmit(formEl){
   }
 
   let json = {}
-  json[dateEl.name] = dateEl.value
+  json['Datum'] = new Date(getDateFromPicker())
   json[beginEl.name] = parseInt(beginEl.value)
   json['AnzahlKoffer'] = cases
   json[teacherEl.name] = teacherEl.value
   json[classEl.name] = classEl.value.toUpperCase()
+
+  console.log(json);
 
   let httpReq = new XMLHttpRequest()
   httpReq.open("POST", "/api/save")
@@ -159,6 +160,7 @@ function deleteEintrag(id){
       let toastContent = '<span>Eintrag gelöscht</span> <button onClick="undoDelete('+id+')" class="btn-flat toast-action yellow-text">Undo</button>'
       Materialize.toast(toastContent, 10000)
       teacherSearch()
+      getVergebenAufruf()
     }
   }
   httpReq.onerror = function() {
@@ -207,6 +209,7 @@ function undoDelete(id){
       }
       Materialize.toast(userText,10000)
       teacherSearch()
+      getVergebenAufruf()
     }
   }
   httpReq.onerror = function() {
@@ -215,31 +218,10 @@ function undoDelete(id){
   httpReq.send(JSON.stringify(json))
 }
 
-function classesFromDB(callback){
+function dataFromDB(data,callback){
   let ret = {}
   let httpReq = new XMLHttpRequest()
-  httpReq.open("GET", "/api/classes")
-  httpReq.onload = function() {
-    let data = JSON.parse(this.responseText)
-    if (this.status!=200) {
-      Materialize.toast('Error',errorduration,errorcolor)
-    } else {
-      for (let i = 0; i < data.length; i++) {
-        ret[data[i].name] = null
-      }
-      callback(ret)
-    }
-  }
-  httpReq.onerror = function() {
-    Materialize.toast('Unknown network error occured',errorduration,errorcolor)
-  }
-  httpReq.send()
-}
-
-function teacherFromDB(callback){
-  let ret = {}
-  let httpReq = new XMLHttpRequest()
-  httpReq.open("GET", "/api/teacher")
+  httpReq.open("GET", "/api/"+data)
   httpReq.onload = function() {
     let data = JSON.parse(this.responseText)
     if (this.status!=200) {

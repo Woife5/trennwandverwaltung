@@ -2,6 +2,8 @@ function onload(){
   generateTable(0)
   $('.modal').modal()
   $('.collapsible').collapsible()
+  document.getElementById('prevWeek').classList.add('disabled')
+  document.getElementById('prevWeekLarge').classList.add('disabled')
   getVergebenAufruf()
   let searchbar = document.getElementById('searchbar')
   searchbar.classList.add(getColor())
