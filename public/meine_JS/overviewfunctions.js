@@ -14,7 +14,7 @@ function generateOverview(){
   let lessonNames = ['Erste', 'Zweite', 'Dritte', 'Vierte', 'Fünfte','Sechste','Siebte','Achte','Neunte','Zehnte']
   let stundenzeiten =[' 07:50-08:40',' 08:45-09:35',' 09:40-10:30',' 10:45-11:35',' 11:40-12:30',' 12:35-13:25',' 13:25-14:15',' 14:20-15:10',' 15:15-16:05',' 16:05-16:55']
   let generator = ''
-  generator += '<h1 class="'+getColor()+'-text center-align">Übersicht über heute</h1>'
+  generator += '<h1 class="'+getColor()+'-text center-align">Tagesübersicht</h1>'
   generator += '<ul class="collapsible popout" data-collapsible="accordion">'
   for (let i = 0; i < 10; i++) {
     generator += '<li>'

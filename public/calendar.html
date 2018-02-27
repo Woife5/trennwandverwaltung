@@ -31,22 +31,24 @@
   </div>
   <div class="container">
     <div id="week-navigation" style="margin-top:10px; margin-bottom:8px" class="hide-on-med-and-down show-on-large">
-      <button type="button" onclick="thisWeek()" class="btn-flat waves-effect waves-light ">today</button>
-      <button type="button" onclick="prevWeek()" class="btn-flat waves-effect waves-light "><i class="material-icons">chevron_left</i></button>
-      <button type="button" onclick="nextWeek()" class="btn-flat waves-effect waves-light "><i class="material-icons">chevron_right</i></button>
-      <h4 class="center-align" style="display:inline; center-align" id="weektextlarge" ></h4>
+      <button type="button" id="thisWeekLarge" onclick="thisWeek()" class="btn-flat waves-effect waves-light ">today</button>
+      <button type="button" id="prevWeekLarge" onclick="prevWeek()" class="btn-floating btn-flat waves-effect waves-light "><i class="material-icons grey-text">chevron_left</i></button>
+      <button type="button" id="nextWeekLarge" onclick="nextWeek()" class="btn-floating btn-flat waves-effect waves-light "><i class="material-icons grey-text">chevron_right</i></button>
+      <h4 class="center-align" style="display:inline" id="weektextlarge" ></h4>
     </div>
 
     <div id="week-navigation" style="margin-top:8px; margin-bottom:8px" class="show-on-medium-and-down hide-on-large-only">
-      <button type="button" onclick="prevWeek()" class="btn-flat waves-effect waves-light "><i class="material-icons">chevron_left</i></button>
-      <button type="button" onclick="nextWeek()" class="btn-flat waves-effect waves-light "><i class="material-icons">chevron_right</i></button>
-      <button type="button" onclick="thisWeek()" class="btn-flat waves-effect waves-light ">today</button>
+      <button type="button" id="thisWeek" onclick="thisWeek()" class="btn-flat waves-effect waves-light ">today</button>
+      <button type="button" id="prevWeek" onclick="prevWeek()" class="btn-floating btn-flat waves-effect waves-light "><i class="material-icons grey-text">chevron_left</i></button>
+      <button type="button" id="nextWeek" onclick="nextWeek()" class="btn-floating btn-flat waves-effect waves-light "><i class="material-icons grey-text">chevron_right</i></button>
       <h4 class="center-align" style="display:inline" id="weektextsmall" ></h4>
     </div>
 
     <div id="myDiv">
     </div>
+    <div style="height:120px">
 
+    </div>
   </div>
   <!-- Container DIV -->
   <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
@@ -54,41 +56,29 @@
     <a href="#deletemodal" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">delete</i></a>
   </div>
 
-  <div id="loadingCard" class="row">
-    <div class="col">
-      <div class="card blue-grey darken-1">
-        <div class="card-content white-text">
-          <span class="card-title">Laden</span>
-          <p>Einige Daten werden noch geladen, und erst in kürze zur Verfügung stehen.</p>
-        </div>
-        <div class="card-action">
-          <div class="progress">
-            <div class="determinate" id="loadingTooltips" style="width: 0%"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
   <div id="modal" class="modal">
     <div class="modal-content">
-      <h4>Trennwandkoffer reservieren</h4>
+      <h4 class="center-align">Trennwandkoffer reservieren</h4>
       <form onsubmit="formsubmit(this); return false" id="reserveform">
-        <div class="input-field col s6"><input id="myDate" name="Datum" type="date"><label class="active" for="myDate">Datum</label></div>
-        <div class="input-field col s6"><input id="myBeginnE" type="number" oninput="checkform()" name="BeginnE" value="1" autocomplete="off"><label class="active" for="myBeginnE">Einheit</label></div>
-        <div class="col s6" style="margin-top:15px; margin-bottom:15px">
-          <input class="with-gap" name="caseselect" type="radio" value="1" id="case1" checked/>
-          <label for="case1">Ein Koffer</label>
-          <input class="with-gap" name="caseselect" type="radio" value="2" id="case2" />
-          <label for="case2">Zwei Koffer</label>
-          <input class="with-gap" name="caseselect" type="radio" value="3" id="case3" />
-          <label for="case3">Drei Koffer</label>
+        <div class="input-field row s6"><input id="myDate" name="Datum" oninput="checkform()" type="text" class="datepicker"><label class="active" for="myDate">Datum</label></div>
+        <div class="input-field row s6"><input id="myBeginnE" type="number" oninput="checkform()" name="BeginnE" value="1" autocomplete="off"><label class="active" for="myBeginnE">Einheit</label></div>
+        <div class="row s6" style="margin-top:15px; margin-bottom:15px">
+          <div class="col s4">
+            <input class="with-gap" name="caseselect" type="radio" value="1" id="case1" checked/>
+            <label for="case1">Ein Koffer</label>
+          </div>
+          <div class="col s4">
+            <input class="with-gap" name="caseselect" type="radio" value="2" id="case2" />
+            <label for="case2">Zwei Koffer</label>
+          </div>
+          <div class="col s4">
+            <input class="with-gap" name="caseselect" type="radio" value="3" id="case3" />
+            <label for="case3">Drei Koffer</label>
+          </div>
         </div>
-        <div class="input-field col s6"><input id="myTeacher" type="text" oninput="checkform()" class="autocompleteLehrer" name="LehrerKzl" autocomplete="off"><label for="autocomplete-input">Lehrer</label></div>
-        <div class="input-field col s6"><input id="myClass" type="text" oninput="checkform()" class="autocompleteKlasse" name="Klasse" autocomplete="off"><label for="autocomplete-input">Klassen</label></div>
-        <br><button class="btn waves-effect waves-light" id="submitbutton" type="submit" value="Value">Submit<i class="material-icons right">send</i></button>
+        <div class="input-field row s6"><input id="myTeacher" type="text" oninput="checkform()" class="autocompleteLehrer" name="LehrerKzl" autocomplete="off"><label for="autocomplete-input">Lehrer</label></div>
+        <div class="input-field row s6"><input id="myClass" type="text" oninput="checkform()" class="autocompleteKlasse" name="Klasse" autocomplete="off"><label for="autocomplete-input">Klassen</label></div>
+        <button class="btn waves-effect waves-light" id="submitbutton" type="submit" value="Value">Submit<i class="material-icons right">send</i></button>
       </form>
     </div>
   </div>
