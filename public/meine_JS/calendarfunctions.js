@@ -104,7 +104,6 @@ function setValues() {
   let day = getDays()
   let aktday = day[Math.floor(getId() / 10)]
   let lesson = id % 10 + 1
-  //document.getElementById("myDate").valueAsDate = aktday
   picker.set('select', aktday)
   document.getElementById("myBeginnE").value = lesson
   let radios = document.getElementsByName('caseselect')

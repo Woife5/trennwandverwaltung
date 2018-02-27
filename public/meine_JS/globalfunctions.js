@@ -4,13 +4,8 @@ $(document).ready(function() {
   writeAutofill()
   navBar()
   onload()
+  writeAutofill()
 })
-
-function checkInput(type) {
-  let input = document.createElement("input")
-  input.setAttribute("type", type)
-  return input.type == type
-}
 
 let id
 let dayNames = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag']
