@@ -1,23 +1,6 @@
 let week = 0
 
 $(document).ready(function() {
-  /*if(!checkInput('date')){
-    let errtext = ''
-    errtext += '<!DOCTYPE html><html lang="de"><head><meta charset="utf-8" /><link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.3/css/materialize.css"><title>Trennwand Reservierung</title><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>'
-    errtext += '<body>'
-    errtext += '<div class="container">'
-    errtext += '<h1>This is an Error.</h1>'
-    errtext += '<blockquote style="font-size:20px;">We are sorry but this website does not support your browser.<br>At the time of coding this page only the following browsers support all of the nececary methods, so please use one of them:</blockquote>'
-    errtext += '<ul style="font-size:20px;" class="collection"><li class="collection-item">Google Chrome (v25+)</li><li class="collection-item">Mozilla Firefox (v57+)</li><li class="collection-item">Microsoft Edge (v12+)</li><li class="collection-item">Opera (v10.1+)</li></ul>'
-    errtext += '<div>'
-    errtext += '</body>'
-    document.write(errtext)
-    return
-  }else{
-    writeAutofill()
-    navBar()
-    onload()
-  }*/
   writeAutofill()
   navBar()
   onload()
@@ -196,11 +179,11 @@ function datumsberechnung(showweek) {
     } else {
       weektext += day[0].getDate() + " " + monthNames[day[0].getMonth()] + " - " + day[day.length - 1].getDate() + " " + monthNames[day[day.length - 1].getMonth()]
     }
-    weektextsmall=weektext
+    weektextsmall='<br>'+weektext
     weektext += ", " + day[0].getFullYear()
   }
   else{
-    weektextsmall+= day[0].getDate() + " " + monthNames[day[0].getMonth()] + " - " + day[day.length - 1].getDate() + " " + monthNames[day[day.length - 1].getMonth()]
+    weektextsmall+= '<br>'+day[0].getDate() + " " + monthNames[day[0].getMonth()] + " - " + day[day.length - 1].getDate() + " " + monthNames[day[day.length - 1].getMonth()]
     weektext += day[0].getDate() + " " + monthNames[day[0].getMonth()] + ", "
     weektext += day[0].getFullYear() + " - " + day[day.length - 1].getDate() + " " +monthNames[day[day.length - 1].getMonth()]  + ", "
     weektext += day[day.length-1].getFullYear()
